@@ -1,0 +1,729 @@
+[
+    {
+        "icons": [
+            "hinder",
+            "recover"
+        ],
+        "name": "Major Regeneration",
+        "type": "action",
+        "text": "Hinder yourself using Vitality. Use your Min die. Recover health equal to your Max+Mid dice.",
+        "requiredPower": [
+            "Vitality"
+        ]
+    },
+    {
+        "icons": [
+            "overcome",
+            "boost"
+        ],
+        "name": "Paragon Feat",
+        "type": "action",
+        "text": "Overcome using [power] in a situation that requires you to be more than humanly capable, like an extreme feat of strength or speed. Use your Max+Min dice. Boost all nearby allies with your Mid die.",
+        "requiredPower": [
+            "categoryAthletic"
+        ]
+    },
+    {
+        "icons": [
+            "hinder",
+            "recover"
+        ],
+        "name": "Push Your Limits",
+        "type": "inherent",
+        "text": "You have no limit on amount of Reactions you can take. Each time you use a Reaction after the first one each turn, take 1 irreducible damage or take a minor twist.",
+        "requiredPower": [
+            "categoryAthletic"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Reactive Strike",
+        "type": "action",
+        "text": "When you are Attacked and dealt damage, you may Attack the source of that damage by rolling your single [power] die, plus the amount of damage you take.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Charged Up Blast",
+        "type": "action",
+        "text": "Attack using [power] and at least one bonus. Use your Max+Mid+Min dice. Destroy all of your bonuses, adding each of them to this Attack first, even if they are exclusive.",
+        "requiredPower": [
+            "categoryAthletic"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Eruption",
+        "type": "action",
+        "text": "Attack up to three targets one of which must be you using [power]. Assign your Min, Mid, and Max dice as you choose among those targets.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [
+            "recover",
+            "boost"
+        ],
+        "name": "Improved Immunity",
+        "type": "inherent",
+        "text": "If you would take damage from [Element/Energy], ignore that damage and Recover that amount instead. Use the value of the damage to Boost yourself.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Powerful Strike",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Mid dice.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Purification",
+        "type": "action",
+        "text": "Remove all bonuses and penalties from the scene. You cannot use this ability again this scene.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Summoned Allies",
+        "type": "action",
+        "text": "Use [power] to create a number of minions equal to your Mid die. Choose the one same basic action that they each perform. They all act at the start of your turn.",
+        "requiredPower": [
+            "categoryElemental/Energy"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Charged Up Blast",
+        "type": "action",
+        "text": "Attack using [Signature Weapon] and at least one bonus. Use your Max+Mid+Min dice. Destroy all of your bonuses, adding each of them to this Attack first, even if they are exclusive.",
+        "requiredPower": [
+            "Signature Weaponry"
+        ]
+    },
+    {
+        "icons": [
+            "attack",
+            "boost"
+        ],
+        "name": "Quick Exit",
+        "type": "action",
+        "text": "Attack using [Signature Vehicle]. Use your Max die. Hinder each nearby opponent with your Mid die. After using this ability, you and up to 2 allies may end up anywhere in the scene, even outside of the action.",
+        "requiredPower": [
+            "Signature Vehicle"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Sacrificial Ram",
+        "type": "action",
+        "text": "Attack up to three nearby targets using [Signature Vehicle]. Use your Max+Mid dice against each of them. You cannot use your Signature Vehicle power for the rest of this scene and until it is recovered/repaired.",
+        "requiredPower": [
+            "Signature Vehicle"
+        ]
+    },
+    {
+        "icons": [
+            "boost",
+            "attack"
+        ],
+        "name": "Ultimate Weaponry",
+        "type": "action",
+        "text": "Boost yourself using [power]. Use your Max die. That bonus is persistent and exclusive. Attack using your Mid die plus that bonus.",
+        "requiredPower": [
+            "Signature Vehicle",
+            "Signature Weaponry"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Calculated Dodge",
+        "type": "reaction",
+        "text": "You may take 1 irreducible damage to reroll the dice pool of a target that is Attacking or Hindering you.",
+        "requiredPower": [
+            "categoryIntellectual"
+        ]
+    },
+    {
+        "icons": [
+            "boost"
+        ],
+        "name": "Give Time",
+        "type": "action",
+        "text": "Boost another hero using [power]. If that hero has already acted for the turn, use your Max die, and that hero loses Health equal to your Min die. That hero acts next in the turn order",
+        "requiredPower": [
+            "categoryIntellectual"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Reliable Aptitude",
+        "type": "inherent",
+        "text": "When taking any action using [power], you may reroll your Min die before determining effects.",
+        "requiredPower": [
+            "categoryIntellectual"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Unerring Strike",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Min dice. Ignore all penalties on this attack, ignore any Defend actions, and it cannot be affected by Reactions.",
+        "requiredPower": [
+            "categoryIntellectual"
+        ]
+    },
+    {
+        "icons": [
+            "hinder",
+            "attack"
+        ],
+        "name": "Field of Hazards",
+        "type": "action",
+        "text": "Hinder any number of targets in the scene using [power]. Use your Max+Min dice. If you roll doubles, also Attack each target using your Mid die.",
+        "requiredPower": [
+            "categoryMaterials"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Impenetrable Defense",
+        "type": "action",
+        "text": "Defend using [power] against all Attacks against you until your next turn using your Max+Mid dice.",
+        "requiredPower": [
+            "categoryMaterials"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Like the Wind",
+        "type": "reaction",
+        "text": "When you are Attacked and dealt damage, you may ignore that damage completely. If you do, treat the value of the damage as a Hinder action against you instead.",
+        "requiredPower": [
+            "categoryMaterials"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Powerful Strike",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Mid dice.",
+        "requiredPower": [
+            "categoryMaterials"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Summoned Allies",
+        "type": "action",
+        "text": "Use [power] to create a number of minions equal to your Mid die. Choose the one same basic action that they each perform. They all act at the start of your turn.",
+        "requiredPower": [
+            "categoryMaterials"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Calculated Dodge",
+        "type": "reaction",
+        "text": "You may take 1 irreducible damage to reroll the dice pool of a target that is Attacking or Hindering you.",
+        "requiredPower": [
+            "categoryMobility"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Heroic Interruption",
+        "type": "reaction",
+        "text": "When an Attack deals damage to a nearby hero in the Red zone, you may take d6 irreducible damage to redirect that Attack to a target of your choice, other than the source of the Attack.",
+        "requiredPower": [
+            "categoryMobility"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Intercession",
+        "type": "reaction",
+        "text": "When multiple nearby heroes are Attacked, you may take all the damage instead. If you do, roll your [power] die + Red zone die and Defend against the Attack by the total.",
+        "requiredPower": [
+            "categoryMobility"
+        ]
+    },
+    {
+        "icons": [
+            "attack",
+            "hinder"
+        ],
+        "name": "Take Down",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max die. Then, Hinder that target using your Mid+Min dice.",
+        "requiredPower": [
+            "categoryMobility"
+        ]
+    },
+    {
+        "icons": [
+            "boost"
+        ],
+        "name": "Untouchable Movement",
+        "type": "action",
+        "text": "Boost yourself using [power]. Use your Max+Min dice. Then, you may end up anywhere else in the scene, avoiding any dangers between your starting and ending locations.",
+        "requiredPower": [
+            "categoryMobility"
+        ]
+    },
+    {
+        "icons": [
+            "hinder",
+            "attack"
+        ],
+        "name": "Dangerous Hinder",
+        "type": "action",
+        "text": "Hinder using [power]. Use your Max+Mid dice. If you roll doubles, also Attack the target using your Mid+Min dice and take damage equal to your Min die.",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Dire Control",
+        "type": "action",
+        "text": "Select a minion. That minion is now entirely under your control and acts at the start of your turn. If you are incapacitated, you lose control of this minion. You may also choose to release control of this minion at any time. At the end of the scene, this minion is defeated.",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Final Wrath",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Mid+Min dice. Take a major twist.",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [
+            "boost"
+        ],
+        "name": "Give Time",
+        "type": "action",
+        "text": "Boost another hero using [power]. If that hero has already acted for the turn, use your Max die, and that hero loses health equal to your Min die. That hero acts next in the turn order",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Impenetrable Defense",
+        "type": "action",
+        "text": "Defend using [power] with your Max+Mid dice against all Attacks against you until your next turn.",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Impossible Knowledge",
+        "type": "inherent",
+        "text": "At the start of your turn, change any penalty into a bonus. ",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Summoned Allies",
+        "type": "action",
+        "text": "Use [power] to create a number of minions equal to your Mid die. Choose the one same basic action that they each perform. They all act at the start of your turn.",
+        "requiredPower": [
+            "categoryPsychic"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Change Self",
+        "type": "inherent",
+        "text": "At the start of your turn, swap two of your power dice. They stay swapped until changed again or the scene ends.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "defense",
+            "boost"
+        ],
+        "name": "Empowerment",
+        "type": "reaction",
+        "text": "Whenever you are dealt damage, roll your single [power] die to Defend against the Attack and Boost yourself",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Impenetrable Defense",
+        "type": "action",
+        "text": "Defend using [power] with your Max+Mid dice against all Attacks against you until your next turn.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "hinder",
+            "recover"
+        ],
+        "name": "Major Regeneration",
+        "type": "action",
+        "text": "Hinder yourself using [power]. Use your Min die. Recover Health equal to your Max+Mid dice.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Defensive Deflection",
+        "type": "reaction",
+        "text": "When you would be dealt damage, you may roll your single [power] die as a Defend against that damage and as an Attack against a nearby target other than the source of that damage.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "boost",
+            "hinder",
+            "defense",
+            "attack",
+            "overcome"
+        ],
+        "name": "Mutable Form",
+        "type": "action",
+        "text": "Choose three basic actions. Use [power] in your pool and take one action with your Max die, a different action with your Mid die, and a third action with your Min die.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Powerful Strike",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Mid dice.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Resurrection",
+        "type": "inherent",
+        "text": "Once per issue, if you would go to 0 Health, roll [power] + [any Physical or Mental quality] + Red zone die. Your Health becomes that number",
+        "requiredPower": [
+            "categorySelfControl"
+        ],
+        "requiredQuality": [
+            "categoryPhysical",
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Summoned Allies",
+        "type": "action",
+        "text": "Use [power] to create a number of minions equal to your Mid die. Choose the one same basic action that they each perform. They all act at the start of your turn.",
+        "requiredPower": [
+            "categorySelfControl"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Combustion",
+        "type": "action",
+        "text": "Attack multiple nearby targets using [power]. Use your Max+Mid dice. Take irreducible damage equal to your Min die.",
+        "requiredPower": [
+            "categoryTechnological"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Final Wrath",
+        "type": "action",
+        "text": "Attack using [power]. Use your Max+Mid+Min dice. Take a major twist.",
+        "requiredPower": [
+            "categoryTechnological"
+        ]
+    },
+    {
+        "icons": [
+            "hinder"
+        ],
+        "name": "Full Defensive",
+        "type": "action",
+        "text": "Hinder yourself by rolling your single [power] die. You are immune to damage until the start of your next turn. You cannot use this ability again this scene.",
+        "requiredPower": [
+            "categoryTechnological"
+        ]
+    },
+    {
+        "icons": [
+            "boost",
+            "attack"
+        ],
+        "name": "Ultimate Weaponry",
+        "type": "action",
+        "text": "Boost yourself using [power]. Use your Max die. That bonus is persistent and exclusive. Then, Attack using your Mid die plus that bonus.",
+        "requiredPower": [
+            "categoryTechnological"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Unload",
+        "type": "action",
+        "text": "Attack multiple targets using [power], using your Max+Min dice. If you roll doubles, take a minor twist or damage equal to your Mid die.",
+        "requiredPower": [
+            "categoryTechnological"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Critical Eye",
+        "type": "action",
+        "text": "Select a target. Boost using [quality]. Use your Max+Mid+Min dice. That bonus must be used against that target before the end of your next turn, or it is wasted.",
+        "requiredQuality": [
+            "categoryInformation"
+        ]
+    },
+    {
+        "icons": [
+            "hinder"
+        ],
+        "name": "Discern Weakness",
+        "type": "action",
+        "text": "Remove a bonus on a target. Hinder that target using [quality]. Use your Max die, and that penalty is persistent and exclusive.",
+        "requiredQuality": [
+            "categoryInformation"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Reliable Aptitude",
+        "type": "action",
+        "text": "When taking any action using [quality], you may reroll your Min die before determining effects.",
+        "requiredQuality": [
+            "categoryInformation"
+        ]
+    },
+    {
+        "icons": [
+            "overcome"
+        ],
+        "name": "Specialized Info",
+        "type": "action",
+        "text": "Overcome using [quality]. Use your Max+Min dice.",
+        "requiredQuality": [
+            "categoryInformation"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Aware Response",
+        "type": "reaction",
+        "text": "After an opponent Attacks or Hinders you or a nearby ally, Attack the opponent by rolling your single [quality] die.",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [
+            "overcome",
+            "hinder"
+        ],
+        "name": "Canny Awareness",
+        "type": "action",
+        "text": "Overcome using [quality]. Use your Max+Min dice. Hinder all nearby opponents with your Mid die.",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [
+            "boost",
+            "defense",
+            "hinder"
+        ],
+        "name": "Considered Planning",
+        "type": "action",
+        "text": "Boost using [quality] and use your Max die. Defend against all Attacks against you using your Mid die until your next turn. Note your Min die: as a Reaction, until your next turn, you may Hinder an attacker using that die.",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Final Wrath",
+        "type": "action",
+        "text": "Attack using [quality]. Use your Max+Mid+Min dice. Take a major twist.",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Harmony",
+        "type": "inherent",
+        "text": "As long as you have at least one bonus created from [quality], treat [power] die as one size higher (max d12).",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Purification",
+        "type": "action",
+        "text": "Remove all bonuses and penalties from the scene. You cannot use this ability again this scene.",
+        "requiredQuality": [
+            "categoryMental"
+        ]
+    },
+    {
+        "icons": [
+            "hinder"
+        ],
+        "name": "Book It",
+        "type": "action",
+        "text": "Hinder any number of close targets using [quality]. Use your Max die. End your turn elsewhere in the scene.",
+        "requiredQuality": [
+            "categoryPhysical"
+        ]
+    },
+    {
+        "icons": [
+            "attack",
+            "hinder"
+        ],
+        "name": "Endurance Fighting",
+        "type": "inherent",
+        "text": "Whenever you Attack a target with an action, also Hinder that target with your Min die.",
+        "requiredQuality": [
+            "categoryPhysical"
+        ]
+    },
+    {
+        "icons": [
+            "attack"
+        ],
+        "name": "Finishing Blow",
+        "type": "action",
+        "text": "Attack using [quality]. Use your Max die. Remove any number of penalties from the target. Add your Min die to the Attack each time you remove a penalty.",
+        "requiredQuality": [
+            "categoryPhysical"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Reactive Defense",
+        "type": "reaction",
+        "text": "When an opponent Attacks, you may become the target of that Attack and Defend by rolling your single [quality] die.",
+        "requiredQuality": [
+            "categoryPhysical"
+        ]
+    },
+    {
+        "icons": [
+            "defense"
+        ],
+        "name": "Heroic Sacrifice",
+        "type": "reaction",
+        "text": "When an opponent Attacks, you may become the target of the Attack and Defend by rolling your single Red zone die.",
+        "requiredQuality": [
+            "categorySocial"
+        ]
+    },
+    {
+        "icons": [],
+        "name": "Inspiring Totem",
+        "type": "inherent",
+        "text": "When you use an ability action, you may also perform any one basic action using your Mid die on the same roll.",
+        "requiredQuality": [
+            "categorySocial"
+        ]
+    },
+    {
+        "icons": [
+            "boost"
+        ],
+        "name": "Lead by Example",
+        "type": "action",
+        "text": "Make a basic action using [quality.] Use your Max die. All other heroes who take the same basic action on their turn against the same target receive a Boost from your Mid+Min dice.",
+        "requiredQuality": [
+            "categorySocial"
+        ]
+    },
+    {
+        "icons": [
+            "hinder",
+            "boost"
+        ],
+        "name": "Ultimatum",
+        "type": "action",
+        "text": "Hinder using [quality]. Use your Max+Min dice. Boost yourself or an ally with your Mid die.",
+        "requiredQuality": [
+            "categorySocial"
+        ]
+    }
+]

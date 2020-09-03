@@ -1,0 +1,105 @@
+{
+    "qualities": {
+        "categoryInformation": [
+            "Deep Space Knowledge",
+            "Criminal Underworld Info",
+            "History",
+            "Magical Lore",
+            "Medicine",
+            "Otherworldly Mythos",
+            "Science",
+            "Technology"
+        ],
+        "categoryMental": [
+            "Alertness",
+            "Conviction",
+            "Creativity",
+            "Investigation",
+            "Self-Discipline"
+        ],
+        "categoryPhysical": [
+            "Acrobatics",
+            "Close Combat",
+            "Finesse",
+            "Fitness",
+            "Ranged Combat",
+            "Stealth"
+        ],
+        "categorySocial": [
+            "Banter",
+            "Imposing",
+            "Insight",
+            "Leadership",
+            "Persuasion"
+        ]
+    },
+    "powers": {
+        "categoryAthletic": [
+            "Agility",
+            "Speed",
+            "Strength",
+            "Vitality"
+        ],
+        "categoryElemental/Energy": [
+            "Cold",
+            "Cosmic",
+            "Electricity",
+            "Fire",
+            "Infernal",
+            "Nuclear",
+            "Radiant",
+            "Sonic",
+            "Weather"
+        ],
+        "categoryIntellectual": [
+            "Awareness",
+            "Deduction",
+            "Intuition",
+            "Lightning Calculator",
+            "Presence"
+        ],
+        "categoryMaterials": [
+            "Metal",
+            "Plants",
+            "Stone",
+            "Toxic",
+            "Transmutation"
+        ],
+        "categoryMobility": [
+            "Flight",
+            "Leaping",
+            "Momentum",
+            "Swimming",
+            "Swinging",
+            "Teleportation",
+            "Wall-Crawling"
+        ],
+        "categoryPsychic": [
+            "Animal Control",
+            "Illusions",
+            "Postcognition",
+            "Precognition",
+            "Remote Viewing",
+            "Suggestion",
+            "Telekinesis",
+            "Telepathy"
+        ],
+        "categorySelfControl": [
+            "Absorption",
+            "Density Control",
+            "Duplication",
+            "Elasticity",
+            "Intangibility",
+            "Invisibility",
+            "Part Detachment",
+            "Shapeshifting",
+            "Size-Changing"
+        ],
+        "categoryTechnological": [
+            "Gadgets",
+            "Inventions",
+            "Power Suit",
+            "Robotics"
+        ]
+    }
+}

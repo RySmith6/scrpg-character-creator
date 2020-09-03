@@ -1,0 +1,184 @@
+[
+    {
+        "name": "Lone Wolf",
+        "rollResult": 1,
+        "outAbility": "Boost an ally by rolling your single [quality] die.",
+        "greenStatusDie": "d8",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Natural Leader",
+        "rollResult": 2,
+        "outAbility": "Boost an ally by rolling your single [quality] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Impulsive",
+        "rollResult": 3,
+        "outAbility": "The hero who goes directly after you may take 1 damage to reroll their dice pool.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d6",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8",
+        "upgradeOneStep": true
+    },
+    {
+        "name": "Mischievous",
+        "rollResult": 4,
+        "outAbility": "Hinder an opponent by rolling your single [power] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8",
+        "step7AnyPowerQuality": true
+    },
+    {
+        "name": "Sarcastic",
+        "rollResult": 5,
+        "outAbility": "Hinder an opponent by rolling your single [quality] die.",
+        "greenStatusDie": "d8",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Distant",
+        "rollResult": 6,
+        "outAbility": "Boost an ally by rolling your single Red status die.",
+        "greenStatusDie": "d10",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d6",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Stalwart",
+        "rollResult": 7,
+        "outAbility": "Defend an ally by rolling your single [power] die.",
+        "greenStatusDie": "d8",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Fast Talking",
+        "rollResult": 8,
+        "outAbility": " Hinder a minion or lieutenant by rolling your single [quality] die, and increase that penalty by -1. ",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Inquisitive",
+        "rollResult": 9,
+        "outAbility": "Choose an ally. Until your next turn, that ally may reroll one of their dice by using a Reaction.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Alluring",
+        "rollResult": 10,
+        "outAbility": "Boost an ally by rolling your single [power] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Stoic",
+        "rollResult": 11,
+        "outAbility": "Defend an ally by rolling your single [quality] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Nurturing",
+        "rollResult": 12,
+        "outAbility": "Boost an ally by rolling your single [quality] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d6",
+        "redStatusDie": "d12",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Analytical",
+        "rollResult": 13,
+        "outAbility": "Remove a bonus or penalty of your choice.",
+        "greenStatusDie": "d10",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d6",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Decisive",
+        "rollResult": 14,
+        "outAbility": "Boost an ally by rolling your single [power] die.",
+        "greenStatusDie": "d8",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Jovial",
+        "rollResult": 15,
+        "outAbility": "Hinder an opponent by rolling your single [quality] die.",
+        "greenStatusDie": "d8",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d8",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Cheerful",
+        "rollResult": 16,
+        "outAbility": "Boost an ally by rolling your single [power] die.",
+        "greenStatusDie": "d10",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d6",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Naive",
+        "rollResult": 17,
+        "outAbility": "Hinder an opponent by rolling your single [power] die.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d6",
+        "redStatusDie": "d12",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Apathetic",
+        "rollResult": 18,
+        "outAbility": "Remove a bonus or penalty of your choice.",
+        "greenStatusDie": "d6",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d10",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Jaded",
+        "rollResult": 19,
+        "outAbility": "Remove a bonus or penalty of your choice.",
+        "greenStatusDie": "d10",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d6",
+        "backstoryQuality": "d8"
+    },
+    {
+        "name": "Arrogant",
+        "rollResult": 20,
+        "outAbility": "Hinder an opponent by rolling your single [power] die.",
+        "greenStatusDie": "d10",
+        "yellowStatusDie": "d8",
+        "redStatusDie": "d6",
+        "backstoryQuality": "d8"
+    }
+]

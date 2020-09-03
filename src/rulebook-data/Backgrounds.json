@@ -1,0 +1,391 @@
+[
+    {
+        "name": "Upper Class",
+        "rollResult": 1,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Fitness",
+            "Persuasion",
+            "categoryMental"
+        ],
+        "principleCategory": "Responsibility",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Blank Slate",
+        "rollResult": 2,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "categoryPhysical",
+            "categoryMental"
+        ],
+        "principleCategory": "Identity",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Struggling",
+        "rollResult": 3,
+        "diceToAssign": [
+            "d8",
+            "d6",
+            "d6"
+        ],
+        "qualities": [
+            "Banter",
+            "Criminal Underworld Info",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Responsibility",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d6"
+        ]
+    },
+    {
+        "name": "Adventurer",
+        "rollResult": 4,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "History",
+            "Leadership",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d8"
+        ]
+    },
+    {
+        "name": "Unremarkable",
+        "rollResult": 5,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Close Combat",
+            "categorySocial",
+            "categoryMental"
+        ],
+        "principleCategory": "Identity",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Law Enforcement",
+        "rollResult": 6,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Close Combat",
+            "Criminal Underworld Info",
+            "Ranged Combat",
+            "categoryMental",
+            "categorySocial"
+        ],
+        "principleCategory": "Responsibility",
+        "diceForPowerSource": [
+            "d6",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Academic",
+        "rollResult": 7,
+        "diceToAssign": [
+            "d8",
+            "d12"
+        ],
+        "qualities": [
+            "Leadership",
+            "Self-Discipline",
+            "categoryInformation"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Tragic",
+        "rollResult": 8,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Banter",
+            "Close Combat",
+            "Imposing",
+            "categoryMental"
+        ],
+        "principleCategory": "Ideals",
+        "diceForPowerSource": [
+            "d6",
+            "d10",
+            "d10"
+        ]
+    },
+    {
+        "name": "Performer",
+        "rollResult": 9,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Acrobatics",
+            "Creativity",
+            "Finesse",
+            "categorySocial"
+        ],
+        "principleCategory": "Responsibility",
+        "diceForPowerSource": [
+            "d6",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Military",
+        "rollResult": 10,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Leadership",
+            "Self-Discipline",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Ideals",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Retired",
+        "rollResult": 11,
+        "diceToAssign": [
+            "d10",
+            "d10"
+        ],
+        "qualities": [
+            "categoryInformation",
+            "categorySocial"
+        ],
+        "principleCategory": "Identity",
+        "diceForPowerSource": [
+            "d6",
+            "d6",
+            "d12"
+        ]
+    },
+    {
+        "name": "Criminal",
+        "rollResult": 12,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Criminal Underworld Info",
+            "Imposing",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d8"
+        ]
+    },
+    {
+        "name": "Medical",
+        "rollResult": 13,
+        "diceToAssign": [
+            "d6",
+            "d8",
+            "d10"
+        ],
+        "requiredQualities": [
+            "Medicine"
+        ],
+        "qualities": [
+            "Finesse",
+            "Science",
+            "Technology",
+            "categoryMental"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Anachronistic",
+        "rollResult": 14,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "History",
+            "Magical Lore",
+            "Technology",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Esoteric",
+        "diceForPowerSource": [
+            "d6",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Exile",
+        "rollResult": 15,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Conviction",
+            "Insight",
+            "categoryInformation"
+        ],
+        "principleCategory": "Ideals",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d8"
+        ]
+    },
+    {
+        "name": "Former Villain",
+        "rollResult": 16,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Conviction",
+            "categoryInformation",
+            "categorySocial"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Interstellar",
+        "rollResult": 17,
+        "diceToAssign": [
+            "d6",
+            "d12"
+        ],
+        "qualities": [
+            "categoryMental",
+            "categoryInformation"
+        ],
+        "principleCategory": "Esoteric",
+        "diceForPowerSource": [
+            "d6",
+            "d8",
+            "d10"
+        ]
+    },
+    {
+        "name": "Dynasty",
+        "rollResult": 18,
+        "diceToAssign": [
+            "d10",
+            "d10"
+        ],
+        "qualities": [
+            "Close Combat",
+            "Fitness",
+            "History",
+            "categorySocial"
+        ],
+        "principleCategory": "Ideals",
+        "diceForPowerSource": [
+            "d8",
+            "d8",
+            "d6"
+        ]
+    },
+    {
+        "name": "Otherworldly",
+        "rollResult": 19,
+        "diceToAssign": [
+            "d8",
+            "d10"
+        ],
+        "qualities": [
+            "Magical Lore",
+            "Otherworldly Mythos",
+            "categoryMental"
+        ],
+        "principleCategory": "Esoteric",
+        "diceForPowerSource": [
+            "d6",
+            "d6",
+            "d10"
+        ]
+    },
+    {
+        "name": "Created",
+        "rollResult": 20,
+        "diceToAssign": [
+            "d6",
+            "d12"
+        ],
+        "qualities": [
+            "Alertness",
+            "Science",
+            "Technology",
+            "categoryPhysical"
+        ],
+        "principleCategory": "Expertise",
+        "diceForPowerSource": [
+            "d6",
+            "d10",
+            "d10"
+        ]
+    }
+]
