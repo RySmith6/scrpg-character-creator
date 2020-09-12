@@ -6,6 +6,9 @@ import exploded from '../rulebook-data/exploded-categories.json';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import { Ability } from './Ability';
 import { Row } from 'react-bootstrap';
+import { stat } from 'fs';
+import { ExplodedCategories } from './ExplodedCategories';
+import { SourceStep } from './SourceStep';
 
 export class ArchetypesList extends Component<ReturnSelection>{
     selectedArchetype: Archetype;
@@ -20,10 +23,10 @@ export class ArchetypesList extends Component<ReturnSelection>{
         return (
             <Col>
                 <Accordion>
-                    {Archetypes.map(ps => (
+                    {Archetypes.filter(a => this.props.strict ? this.props.rolledOptions.includes(a.rollResult) : true).map(ps => (
                         <Card key={ps.rollResult} border={this.props.rolledOptions && this.props.rolledOptions.includes(ps.rollResult) ? 'primary' : 'light'}>
                             <Accordion.Toggle as={Card.Header} eventKey={ps.rollResult.toString()} >
-                                <span className="pull-left">{ps.name}</span> <Button variant="success" onClick={() => this.props.selectedCallback(ps)} className="pull-right">Select this Background</Button>
+                                <span className="pull-left">{ps.name}</span> <Button variant="success" onClick={() => this.props.selectedCallback(ps)} className="pull-right">Select this Archetype</Button>
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey={ps.rollResult.toString()}>
                                 <Archetype rollResult={ps.rollResult} diceFromPreviousStep={this.props.diceFromPreviousStep}></Archetype>
@@ -60,28 +63,22 @@ export class Archetype extends Component<SelectableByRoll> {
     constructor(props: SelectableByRoll) {
         super(props)
         let roll = props.rollResult;
-        let ps = Archetypes[roll - 1];
+        let ar = Archetypes[roll - 1];
         let explodedPowers = [];
         let explodedQualities = [];
-        if (ps.requiredPower)
-            ps.requiredPower.forEach(q => {
-                if (typeof (q) === "string")
-                    !q.startsWith('category') ? explodedPowers.push(q) : explodedPowers.push(...exploded.powers[q])
-            });
-        ps.powers.forEach(q => {
-            if (typeof (q) === "string")
-                !q.startsWith('category') ? explodedPowers.push(q) : explodedPowers.push(...exploded.powers[q])
-        });
-        ps.powers = explodedPowers;
-        if (ps.qualities) {
-            ps.qualities.forEach(q => {
-                if (typeof (q) === "string")
-                    !q.startsWith('category') ? explodedQualities.push(q) : explodedQualities.push(...exploded.qualities[q])
-            });
-            ps.qualities = explodedQualities;
-        }
-        Object.assign(this, ps);
+        if (ar.requiredPower)
+            ExplodedCategories.PushAndExplode(explodedPowers, ar.requiredPower);
+        ExplodedCategories.PushAndExplode(explodedPowers, ar.powers);
+        ar.powers = explodedPowers;
+
+        ExplodedCategories.PushAndExplode(explodedQualities, ar.qualities);
+
+        Object.assign(this, ar);
         this.diceToAssign = (props.diceFromPreviousStep ? props.diceFromPreviousStep.slice() : []);
+
+
+        (this.greenAbilityOptions || []).forEach(a => { a.source = SourceStep.Archetype });
+        (this.yellowAbilityOptions || []).forEach(a => { a.source = SourceStep.Archetype });
         let keys = [];
         Archetypes.forEach(a => { Object.keys(a).forEach(k => { if (!keys.includes(k)) keys.push(k) }) });
         let keyValues = {};
@@ -114,3 +111,5 @@ export class Archetype extends Component<SelectableByRoll> {
         )
     }
 }
+
+

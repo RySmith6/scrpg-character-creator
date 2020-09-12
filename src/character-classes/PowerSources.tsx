@@ -6,24 +6,25 @@ import exploded from '../rulebook-data/exploded-categories.json';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import { Ability } from './Ability';
 import { Row } from 'react-bootstrap';
+import { ExplodedCategories } from './ExplodedCategories';
+import { SourceStep } from './SourceStep';
+import { Tooltip } from 'react-bootstrap';
+import { OverlayTrigger } from 'react-bootstrap';
+import { StatDie } from './StatDieSelector';
 
 export class PowerSourcesList extends Component<ReturnSelection>{
     selectedPowerSource: PowerSource;
     constructor(props: ReturnSelection) {
         super(props);
-        this.onSelect = this.onSelect.bind(this);
-    }
-    onSelect() {
-        (this.props as any).onSubmitMessage(this.selectedPowerSource);
     }
     render() {
         return (
             <Col>
                 <Accordion>
-                    {PowerSources.map(ps => (
+                    {PowerSources.filter(ps => this.props.strict && this.props.rolledOptions ? this.props.rolledOptions.includes(ps.rollResult) : true).map(ps => (
                         <Card key={ps.rollResult} border={this.props.rolledOptions && this.props.rolledOptions.includes(ps.rollResult) ? 'primary' : 'light'}>
                             <Accordion.Toggle as={Card.Header} eventKey={ps.rollResult.toString()} >
-                                <span className="pull-left">{ps.name}</span> <Button variant="success" onClick={() => this.props.selectedCallback(ps)} className="pull-right">Select this Background</Button>
+                                <span className="pull-left">{ps.name}</span> <Button variant="success" onClick={() => this.props.selectedCallback(ps)} className="pull-right">Select this Power Source</Button>
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey={ps.rollResult.toString()}>
                                 <PowerSource rollResult={ps.rollResult} diceFromPreviousStep={this.props.diceFromPreviousStep}></PowerSource>
@@ -57,24 +58,20 @@ export class PowerSource extends Component<SelectableByRoll> {
         let explodedPowers = [];
         let explodedQualities = [];
         if (ps.requiredPowers)
-            ps.requiredPowers.forEach(q => {
-                if (typeof (q) === "string")
-                    !q.startsWith('category') ? explodedPowers.push(q) : explodedPowers.push(...exploded.powers[q])
-            });
-        ps.powers.forEach(q => {
-            if (typeof (q) === "string")
-                !q.startsWith('category') ? explodedPowers.push(q) : explodedPowers.push(...exploded.powers[q])
-        });
+            ExplodedCategories.PushAndExplode(explodedPowers, ps.requiredPowers);
+        ExplodedCategories.PushAndExplode(explodedPowers, ps.powers);
         ps.powers = explodedPowers;
         if (ps.additionalQualities) {
-            ps.additionalQualities.forEach(q => {
-                if (typeof (q) === "string")
-                    !q.startsWith('category') ? explodedQualities.push(q) : explodedQualities.push(...exploded.qualities[q])
-            });
+            ExplodedCategories.PushAndExplode(explodedQualities, ps.additionalQualities);
             ps.additionalQualities = explodedQualities;
         }
         Object.assign(this, ps);
         this.diceToAssign = (props.diceFromPreviousStep ? props.diceFromPreviousStep.slice() : []);
+
+        (this.greenAbilityOptions || []).forEach(a => { a.source = SourceStep.PowerSource });
+        (this.yellowAbilityOptions || []).forEach(a => { a.source = SourceStep.PowerSource });
+
+
         let keys = [];
         PowerSources.forEach(a => { Object.keys(a).forEach(k => { if (!keys.includes(k)) keys.push(k) }) });
         let keyValues = {};
@@ -87,24 +84,78 @@ export class PowerSource extends Component<SelectableByRoll> {
 
     render() {
         return (
-            <Row>
-                <Col>
-                    <span>Assign {this.diceToAssign.length > 0 ? this.diceToAssign.map((d, index: number) => diceImageSrc(d)) : 'Dice from Background'} to any of the following Powers:</span>
-                    <ListGroup>
-                        {this.powers.map(p => (
-                            <ListGroup.Item>{p}</ListGroup.Item>
-                        ))}
-                    </ListGroup>
-                </Col>
-                {this.additionalQualitiesDice &&
-                    <Col>
-                        <span>Assign {this.additionalQualitiesDice.map((d, index: number) => diceImageSrc(d))} to any of the following Qualities:</span>
-                        <ul>
+            <Card.Body>
+                <Card.Text>Assign {this.diceToAssign.length > 0 ? this.diceToAssign.map((d, index: number) => diceImageSrc(d, 25)) : 'Dice from Background'} to any of the following<OverlayTrigger
+                    key={`overlay-ps-${this.props.rollResult}-powers`}
+                    overlay={
+                        <Tooltip id={`tooltip-ps-${this.props.rollResult}-powers`}>
+                            <ul>
+                                {this.powers.map(q => (
+                                    <li>{q}</li>
+                                ))}
+                            </ul>
+                        </Tooltip>
+                    }
+                >
+                    <Button variant="link">Powers:</Button>
+                </OverlayTrigger>
 
-                        </ul>
-                    </Col>
+                </Card.Text>
+                {this.additionalQualitiesDice &&
+                    <Card.Text>
+                        Assign {this.additionalQualitiesDice.map((d, index: number) => diceImageSrc(d, 25))} to any of the following <OverlayTrigger
+                            key={`overlay-ps-${this.props.rollResult}-qualities`}
+                            overlay={
+                                <Tooltip id={`tooltip-ps-${this.props.rollResult}-qualities`}>
+                                    <ul>
+                                        {this.additionalQualities.map(q => (
+                                            <li>{q}</li>
+                                        ))}
+                                    </ul>
+                                </Tooltip>
+                            }
+                        >
+                            <Button variant="link">Qualities:</Button>
+                        </OverlayTrigger>
+                    </Card.Text>
                 }
-            </Row>
+                <Card.Text>Roll {this.diceForArchetype.map(d => diceImageSrc(d, 25))} for power source selection.</Card.Text>
+            </Card.Body>
         )
     }
+}
+
+export class DiceAssignmentPanel extends Component<DiceAssignmentProps>{
+    state: {
+        diceToAssign: DiceOptions[];
+        requiredStat: string[];
+        atLeastOneFromStats: string[];
+        remainingStats: string[];
+    }
+    finalStatDice: StatDie[];
+    constructor(props) {
+        super(props);
+        this.finalStatDice = this.props.diceToAssign.map(d => new StatDie(d, this.props.source));
+    }
+
+    render() {
+        return (
+            <div>
+                {this.finalStatDice.map(s => (
+                    <div />
+
+                ))}
+            </div>
+        )
+    }
+
+}
+
+export interface DiceAssignmentProps {
+    diceToAssign: DiceOptions[];
+    requiredStat?: string[];
+    atLeastOneFromStats?: string[];
+    remainingStats?: string[];
+    source: SourceStep;
+    confirmCallback: (confirmedDice: StatDie[]) => void;
 }

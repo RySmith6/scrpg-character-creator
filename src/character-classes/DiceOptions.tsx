@@ -12,7 +12,7 @@ export enum DiceOptions {
     d10 = 'd10',
     d12 = 'd12'
 }
-export default function diceImageSrc(diceOption: string) {
+export default function diceImageSrc(diceOption: string, size: number = 42) {
     let src = '';
     switch (DiceOptions[diceOption]) {
         case DiceOptions.d12:
@@ -32,7 +32,7 @@ export default function diceImageSrc(diceOption: string) {
             break;
     }
     return (
-        <img src={src} width="42" height="42" />
+        <img src={src} width={size} height={size} />
     )
 }
 export function diceRoll(diceOption: string): number {

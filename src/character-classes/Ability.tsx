@@ -1,23 +1,42 @@
-import React, { Component } from 'react';
-import { Icons } from './Icons';
+import React, { Component, Props } from 'react';
+import iconImageSrc, { Icons } from './Icons';
 import { AbilityType } from './AbilityType';
-import { SourceStep, CharacterSources } from './Character';
-import { ListGroup } from 'react-bootstrap';
-import { OverlayTrigger } from 'react-bootstrap';
+import { CharacterSources } from './Character';
+import { SourceStep } from "./SourceStep";
+import { ListGroup, Card } from 'react-bootstrap';
+import { OverlayTrigger, Row, Col } from 'react-bootstrap';
 import { Tooltip } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
 
-export class Ability extends Component {
-    source: SourceStep;
-    icon: Icons[] = [
+export class Ability extends Component<AbilityProp> {
+    icon: (Icons | string)[] = [
         Icons.overcome
     ];
     name: string = "Principle of Destiny";
     type: AbilityType = AbilityType.action;
     text: string = "Overcome a situation directly connected to your destiny and use your Max die. You and each of your allies gain a hero point.";
+    gyroZone: GYROZone = GYROZone.green;
+    source: SourceStep = SourceStep.Archetype;
+    constructor(prop: AbilityProp) {
+        super(prop);
+        Object.assign(this, prop.children);
+    }
+
     render() {
         return (
-            <div></div>
+            <Card bg={backgroundColor(this.gyroZone)}>
+                <Row noGutters>
+                    <Col xs={2}>
+                        {this.icon.map(i => {
+                            return (
+                                iconImageSrc(i.toString())
+                            )
+                        })}
+                    </Col>
+                    <Col xs={3}><p><strong>{this.name}</strong></p> </Col>
+                    <Col xs={1}><p>{this.type.toString()}</p></Col>
+                    <Col><p>{this.text}</p></Col>
+                </Row>
+            </Card>
         )
     }
 }
@@ -37,7 +56,7 @@ export class AbilityList extends Component<AbilitiesProps> {
         return (
             <ListGroup>
                 {this.props.abilities.map(a =>
-                    <ListGroup.Item>
+                    <ListGroup.Item variant={backgroundColor(this.props.gyroZone)}>
                         <OverlayTrigger
                             key={a.name}
                             placement='right'
@@ -47,13 +66,26 @@ export class AbilityList extends Component<AbilitiesProps> {
                                 </Tooltip>
                             }
                         >
-                            <a>{a.name}</a>
+                            <a>{a.name} from {a.source}: {this.props.characterSources.getNameOfSource(a.source)}</a>
                         </OverlayTrigger>
                     </ListGroup.Item>
                 )}
             </ListGroup>
         )
     }
+
+
+}
+
+export default function backgroundColor(gyroZone: GYROZone): string {
+    if (gyroZone === GYROZone.green)
+        return 'success';
+    else if (gyroZone === GYROZone.yellow)
+        return 'warning';
+    else if (gyroZone === GYROZone.red)
+        return 'danger';
+    else
+        return 'secondary'
 }
 
 export interface AbilitiesProps {
@@ -62,9 +94,26 @@ export interface AbilitiesProps {
     preview: boolean,
     characterSources: CharacterSources
 }
+export interface AbilityProp {
+    gyroZone: GYROZone,
+    sourceStep: SourceStep,
+    children?
+}
 export enum GYROZone {
     green = 'Green',
     yellow = 'Yellow',
     red = 'Red',
     out = 'Out'
+}
+
+export class AbilityStruct {
+    icon: Icons[] = [
+        Icons.overcome
+    ];
+    name: string = "Principle of Destiny";
+    type: AbilityType = AbilityType.action;
+    text: string = "Overcome a situation directly connected to your destiny and use your Max die. You and each of your allies gain a hero point.";
+    constructor(data) {
+        Object.assign(this, data);
+    }
 }
