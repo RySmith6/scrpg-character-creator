@@ -4,6 +4,7 @@ import d8 from '../rulebook-data/d8.png'
 import d10 from '../rulebook-data/d10.png'
 import d12 from '../rulebook-data/d12.png'
 import React from 'react';
+import { Avatar } from '@material-ui/core'
 
 export enum DiceOptions {
     d4 = 'd4',
@@ -55,4 +56,29 @@ export function diceRoll(diceOption: string): number {
             break;
     }
     return Math.floor(Math.random() * (maxValue + 1));
+}
+
+
+export function diceAvatar(diceOption: string, size: number = 42) {
+    let src = '';
+    switch (DiceOptions[diceOption]) {
+        case DiceOptions.d12:
+            src = d12;
+            break;
+        case DiceOptions.d10:
+            src = d10;
+            break;
+        case DiceOptions.d8:
+            src = d8;
+            break;
+        case DiceOptions.d6:
+            src = d6;
+            break;
+        default:
+            src = d4;
+            break;
+    }
+    return (
+        <Avatar variant="square" src={src} />
+    )
 }

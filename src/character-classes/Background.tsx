@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import Backgrounds from '../rulebook-data/Backgrounds.json'
-import { Col, Accordion, Card, Button, Row } from 'react-bootstrap';
-import exploded from '../rulebook-data/exploded-categories.json';
 import { ReturnSelection, SelectableByRoll } from './Character';
-import { ExplodedCategories } from './ExplodedCategories';
 import { PrinciplesList, Principle } from './Principle';
-import { OverlayTrigger } from 'react-bootstrap';
-import { Tooltip } from 'react-bootstrap';
+import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Card, CardContent } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import StatDisplay from '../components/stat-display';
+import Typography from '@material-ui/core/Typography';
+import AssignStatDice from '../components/assign-stat-dice';
+import { StatDie } from './StatDie';
+import SourceStepper from '../components/source-stepper'
 
-export class Background extends Component<SelectableByRoll> {
+export class Background {
     name: string = 'DEFAULT BACKGROUND';
     rollResult: number = 0;
     diceToAssign: DiceOptions[] = [DiceOptions.d8, DiceOptions.d10];
@@ -18,48 +21,42 @@ export class Background extends Component<SelectableByRoll> {
     diceForPowerSource: DiceOptions[] = [DiceOptions.d8, DiceOptions.d8, DiceOptions.d10];
     selectedPrinciple: Principle;
     state: { showQualities: boolean }
-    constructor(props: SelectableByRoll) {
-        super(props)
-        let roll = props.rollResult;
-        let bg = Backgrounds[roll - 1];
-        let explodedQualities = [];
-        ExplodedCategories.PushAndExplode(explodedQualities, bg.qualities);
-        bg.qualities = explodedQualities;
-        Object.assign(this, bg);
-        let keys = [];
-        Backgrounds.forEach(a => { Object.keys(a).forEach(k => { if (!keys.includes(k)) keys.push(k) }) });
-        let keyValues = {};
-        Backgrounds.forEach(a => { keys.forEach(k => { if (typeof a[k] === 'string') keyValues[k] ? keyValues[k].push(a[k]) : keyValues[k] = [] }) });
-        console.log('Background Keys' + keys.join(', '));
+    classes;
+    finalizedStatDice: StatDie[] = [];
+    steps: any[];
+    updateFunction;
+    strict: boolean = false;
+    constructor(data) {
+        Object.assign(this, data);
+        this.confirmDice = this.confirmDice.bind(this);
+        this.confirmPrinciple = this.confirmPrinciple.bind(this);
+    }
+    setUpdateFunction(update) {
+        this.updateFunction = update;
+    }
+    setStrict(strict) {
+        this.strict = strict;
     }
 
+    confirmPrinciple(principle: Principle) {
+        this.selectedPrinciple = principle;
+        if (this.updateFunction) {
+            this.updateFunction(this);
+        }
+    }
+    confirmDice(dice: StatDie[]) {
+        this.finalizedStatDice = dice;
+        if (this.updateFunction) {
+            this.updateFunction(this);
+        }
+    }
 
-
-    render() {
-        return (
-            <div>
-                <Card.Text>Assign {this.diceToAssign.map((d, index: number) => diceImageSrc(d, 25))} to any of the following<OverlayTrigger
-                    key={`overlay-${this.props.rollResult}-qualities`}
-                    overlay={
-                        <Tooltip id={`tooltip-${this.props.rollResult}-qualities`}>
-                            <ul>
-                                {this.qualities.map(q => (
-                                    <li>{q}</li>
-                                ))}
-                            </ul>
-                        </Tooltip>
-                    }
-                >
-                    <Button variant="link">Qualities:</Button>
-                </OverlayTrigger>
-
-                </Card.Text>
-                <Card.Text>Choose a {this.principleCategory} principle</Card.Text>
-                <Card.Text>Roll {this.diceForPowerSource.map(d => diceImageSrc(d, 25))} for power source selection.</Card.Text>
-            </div>
-        )
+    getSteps() {
+        let steps = [{ label: 'Assign Dice', content: <AssignStatDice dice={this.diceToAssign} stats={this.qualities} confirmDice={this.confirmDice} statType='Quality'></AssignStatDice> }, { label: 'Select Principle', content: <PrinciplesList guidedCategory={this.principleCategory} selectedCallback={this.confirmPrinciple} strict={this.strict}></PrinciplesList> }]
+        return steps;
     }
 }
+
 
 export class BackgroundsList extends Component<ReturnSelection> {
     state: {
@@ -71,39 +68,58 @@ export class BackgroundsList extends Component<ReturnSelection> {
         this.confirmBackground = this.confirmBackground.bind(this);
         this.selectBackground = this.selectBackground.bind(this);
         this.selectedPrinciple = this.selectedPrinciple.bind(this);
+        this.confirmDice = this.confirmDice.bind(this);
     }
     selectBackground(background: any) {
         this.setState({ selectedBackground: background });
+        this.confirmBackground();
     }
-    confirmBackground(background: Background) {
-        this.props.selectedCallback(background);
+    confirmBackground() {
+        this.props.selectedCallback(this.state.selectedBackground);
     }
     selectedPrinciple(principle: Principle) {
         let background = Object.assign({}, this.state.selectedBackground);
         background.selectedPrinciple = principle;
-        this.confirmBackground(background);
+        this.setState({ selectedBackground: background });
     }
+    confirmDice(dice: StatDie[]) {
+        let background = Object.assign({}, this.state.selectedBackground);
+        background.finalizedStatDice = dice;
+        this.setState({ selectedBackground: background });
+    }
+
+    // selectBackground(event, background){
+    //     event.stopPropagation
+    // }
 
     render() {
         return (
-            <Row noGutters>
-                <Col xs={6}>
-                    <Accordion>
-                        {Backgrounds.filter(b => this.props.strict ? this.props.rolledOptions.includes(b.rollResult) : true).map(bg => (
-                            <Card key={bg.rollResult} border={this.props.rolledOptions.includes(bg.rollResult) ? 'primary' : 'light'}>
-                                <Accordion.Toggle as={Card.Header} eventKey={bg.rollResult.toString()} >
-                                    <span className="mr-auto">{bg.name}</span> <Button size="sm" variant="success" onClick={() => this.selectBackground(bg)} >Select this Background</Button>
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey={bg.rollResult.toString()}>
-                                    <Background rollResult={bg.rollResult}></Background>
-                                </Accordion.Collapse>
-                            </Card>
-                        ))}
-                    </Accordion>
-                </Col>
-                {this.state.selectedBackground ? <Col xs={6}>
-                    <PrinciplesList guidedCategory={this.state.selectedBackground.principleCategory} selectedCallback={this.selectedPrinciple} strict={this.props.strict}></PrinciplesList></Col> : ''}
-            </Row>
+            <Grid container spacing={3}>
+                <Grid item xs={12}>
+
+                    {Backgrounds.filter(b => this.props.strict ? this.props.rolledOptions.includes(b.rollResult) : true).map(bg => (
+                        <Accordion>
+                            <AccordionSummary color={this.props.rolledOptions.includes(bg.rollResult) ? "text.primary" : 'text.light'}
+                                expandIcon={<ExpandMoreIcon />}
+                                id={`bg${bg.rollResult}-header`}
+                            ><span className="mr-auto"><strong>{bg.rollResult}:</strong> {bg.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                                e.stopPropagation();
+                                this.props.selectedCallback(new Background(bg))
+                            }} >Select this Background</Button></AccordionSummary>
+                            <AccordionDetails><BackgroundElement rollResult={bg.rollResult} updateState={this.props.selectedCallback}></BackgroundElement>
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
+                </Grid>
+                {this.state.selectedBackground ?
+                    <Grid
+                        item xs={6}
+                    >
+                        <SourceStepper steps={['Assign Dice', 'Select Principle']} stepContent={[<AssignStatDice dice={this.state.selectedBackground.diceToAssign} stats={this.state.selectedBackground.qualities} confirmDice={this.confirmDice} statType='Quality'></AssignStatDice>, <PrinciplesList guidedCategory={this.state.selectedBackground.principleCategory} selectedCallback={this.selectedPrinciple} strict={this.props.strict}></PrinciplesList>]} completeStepActions={this.confirmBackground}></SourceStepper>
+
+
+                    </Grid> : ''}
+            </Grid>
         );
     }
 }
@@ -111,3 +127,47 @@ export class BackgroundsList extends Component<ReturnSelection> {
 export class BackgroundsSelection extends Component {
 
 }
+
+export class BackgroundElement extends Component<SelectableByRoll>
+{
+    state: { background: Background };
+    constructor(props: SelectableByRoll) {
+        super(props)
+        let roll = props.rollResult;
+        let bg = Backgrounds[roll - 1];
+        this.state = { background: new Background(bg) };
+    }
+
+    updateChange() {
+        this.props.updateState(this);
+    }
+
+    render() {
+        return (
+            <div>
+                <Typography>Assign {this.state.background.diceToAssign.map((d, index: number) => diceImageSrc(d, 25))} to any of the following
+                    Qualities: <StatDisplay stats={this.state.background.qualities}></StatDisplay>
+                </Typography>
+                <Typography>Choose a {this.state.background.principleCategory} principle</Typography>
+                <Typography>Roll {this.state.background.diceForPowerSource.map(d => diceImageSrc(d, 25))} for power source selection.</Typography>
+            </div>
+        )
+    }
+}
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    },
+});

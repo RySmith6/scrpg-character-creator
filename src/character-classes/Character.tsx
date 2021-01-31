@@ -4,14 +4,21 @@ import { Personality, PersonalityList } from './Personality';
 import { Principle } from './Principle';
 import { Ability, AbilityList, GYROZone } from './Ability';
 import diceImageSrc, { DiceOptions, diceRoll } from './DiceOptions';
-import { Row, Col, Card, Form, Button, Container, Collapse } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { Outlet, Routes, Route, Link } from "react-router-dom";
 import { BackgroundsList } from './Background';
 import { PowerSourcesList, PowerSource } from "./PowerSources"
 import { ListGroup } from 'react-bootstrap';
 import { ArchetypesList, Archetype } from './Archetype';
-import { StatDieSelector, StatDie, StatDice } from './StatDieSelector';
+import { StatDie } from './StatDie';
 import { SourceStep } from './SourceStep';
+import { Grid, Accordion, List, ListItem, Divider, Button, Typography } from '@material-ui/core';
+import CreationStepper from '../components/creation-stepper'
+import DisplayStatDice from '../components/display-stat-dice';
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { CharacterSources } from './CharacterSources';
 
 export class Character extends Component {
     state: {
@@ -114,9 +121,11 @@ export class Character extends Component {
     }
     selectBackground(background: Background) {
         let newState = Object.assign({}, this.state);
+        background.setStrict(this.state.strict);
+        background.setUpdateFunction(this.selectBackground);
         newState.sources.background = background;
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Background) || []);
-        newState.qualityDice.push(...background.diceToAssign.map(d => new StatDie(d, SourceStep.Background)));
+        newState.qualityDice.push(...(background.finalizedStatDice || []));
         newState.powerSourceRollResult = this.rollForNextStep(background.diceForPowerSource);
         newState.greenAbilities = newState.greenAbilities.filter(a => a.source !== SourceStep.Background);
         if (background.selectedPrinciple) {
@@ -124,21 +133,24 @@ export class Character extends Component {
             principleAbility.source = SourceStep.Background;
             newState.greenAbilities.push(principleAbility);
         }
+
         //newState.
         this.setState(newState);
     }
     selectPowerSource(powerSource: PowerSource) {
         let newState = Object.assign({}, this.state);
+        powerSource.setStrict(this.state.strict);
+        powerSource.setUpdateFunction(this.selectPowerSource);
         newState.sources.powerSource = powerSource;
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.PowerSource) || []);
-        newState.powerDice.push(...newState.sources.background.diceForPowerSource.map(d => new StatDie(d, SourceStep.PowerSource)));
+        newState.powerDice.push(...newState.sources.powerSource.finalPowerDice);
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.PowerSource) || []);
-        if (powerSource.additionalQualitiesDice)
-            newState.qualityDice.push(...powerSource.additionalQualitiesDice.map(d => new StatDie(d, SourceStep.PowerSource)));
+        if (powerSource.finalQualityDice)
+            newState.qualityDice.push(...powerSource.finalQualityDice);
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
-        newState.greenAbilities.push(...(newState.sources.powerSource.greenAbilityOptions || []));
+        newState.greenAbilities.push(...(newState.sources.powerSource.finalYellowAbilities || []));
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
-        newState.yellowAbilities.push(...(newState.sources.powerSource.yellowAbilityOptions || []));
+        newState.yellowAbilities.push(...(newState.sources.powerSource.finalYellowAbilities || []));
         this.setState(newState);
     }
     selectArchetype(archetype: Archetype) {
@@ -174,157 +186,195 @@ export class Character extends Component {
     componentDidMount() {
         this.generateRandomCharacter();
     }
+
+    getStepLabels() {
+        let stepArray = ['Background'];
+        if (this.state.sources.background) {
+            stepArray.push(...this.state.sources.background.getSteps().map(s => s.label));
+        }
+        stepArray.push('Power Source');
+        if (this.state.sources.powerSource) {
+            stepArray.push(...this.state.sources.powerSource.getSteps(this.state.qualityDice).map(s => s.label));
+        }
+        stepArray.push('Archetype');
+        if (this.state.sources.archetype) {
+            stepArray.push(...this.state.sources.archetype.getSteps(this.state.powerDice, this.state.qualityDice).map(s => s.label));
+        }
+        stepArray.push('Personality');
+        if (this.state.sources.personality) {
+            stepArray.push(...this.state.sources.personality.getSteps().map(s => s.label));
+        }
+        stepArray.push(...['Red Abilities', 'Retcon', 'Health', 'Finishing Touches']);
+        return stepArray;
+    }
+
+    getStepContents() {
+        let stepArray = [<BackgroundsList
+            rolledOptions={this.state.backgroundRollResult}
+            selectedCallback={this.selectBackground}
+            strict={this.state.strict}
+            powerDice={this.state.powerDice}
+            qualityDice={this.state.qualityDice} />];
+        if (this.state.sources.background) {
+            stepArray.push(...this.state.sources.background.getSteps().map(s => s.content));
+        }
+        stepArray.push(<PowerSourcesList
+            rolledOptions={this.state.powerSourceRollResult}
+            selectedCallback={this.selectPowerSource}
+            diceFromPreviousStep={this.state.sources.background ? this.state.sources.background.diceForPowerSource : []}
+            strict={this.state.strict}
+            powerDice={this.state.powerDice}
+            qualityDice={this.state.qualityDice} />);
+        if (this.state.sources.powerSource) {
+            stepArray.push(...this.state.sources.powerSource.getSteps(this.state.qualityDice).map(s => s.content));
+        }
+        stepArray.push(<ArchetypesList
+            rolledOptions={this.state.powerSourceRollResult}
+            selectedCallback={this.selectArchetype}
+            diceFromPreviousStep={this.state.sources.powerSource ? this.state.sources.powerSource.diceForArchetype : []}
+            strict={this.state.strict}
+            powerDice={this.state.powerDice}
+            qualityDice={this.state.qualityDice} />);
+        if (this.state.sources.archetype) {
+            stepArray.push(...this.state.sources.archetype.getSteps(this.state.powerDice, this.state.qualityDice).map(s => s.content));
+        }
+        stepArray.push(<PersonalityList
+            rolledOptions={this.state.powerSourceRollResult}
+            selectedCallback={this.selectPersonality}
+            diceFromPreviousStep={this.state.sources.archetype ? this.state.sources.archetype.diceForPersonality : []}
+            strict={this.state.strict}
+            powerDice={this.state.powerDice}
+            qualityDice={this.state.qualityDice} />);
+        if (this.state.sources.personality) {
+            stepArray.push(...this.state.sources.personality.getSteps().map(s => s.content));
+        }
+        stepArray.push(...[<Typography>Red Abilities</Typography>, <Typography>'Retcon'</Typography>, <Typography>'Health'</Typography>, <Typography>'Finishing Touches'</Typography>]);
+        return stepArray;
+    }
+
     render() {
         return (
-            <Container fluid>
-                <Row noGutters>
-                    <Col xs={12}>
-                        <Card>
-
-                            <Card.Header>Character Name:{this.state.name} <Button variant={'link'} onClick={this.toggleSheetCollapse}>Toggle Character Sheet</Button></Card.Header>
-                            <Collapse in={this.state.open}>
-                                <Card.Body>
-                                    <Button onClick={this.reRollBackground}> Re-roll backgrounds</Button>
-                                    <Row>
-                                        <Col><p><Link to={'/backgrounds'}> Background</Link>:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</p>
-                                        </Col><Col>
+            <Grid container
+                spacing={3}
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+            >
+                <Grid container item xs={12} md={6}>
+                    <Container fluid>
+                        <Accordion>
+                            <AccordionSummary>Character Name:{this.state.name} <Button color="primary" onClick={this.toggleSheetCollapse}>Toggle Character Sheet</Button></AccordionSummary>
+                            <AccordionDetails>
+                                <Grid container
+                                    direction="column"
+                                    justify="center"
+                                    alignItems="center"
+                                    spacing={2}>
+                                    <Grid item xs={4}>
+                                        <Button variant="contained" onClick={this.reRollBackground}> Re-roll backgrounds</Button>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={2} justify="center">
+                                        <Grid item><p><Link to={'/backgrounds'}> Background</Link>:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</p>
+                                        </Grid><Grid item>
                                             <p><Link to={'/powersources'}> Power Source</Link>:{this.state.sources.powerSource ? this.state.sources.powerSource.name : 'No Power Source Selected'}</p>
-                                        </Col><Col>
+                                        </Grid><Grid item>
                                             <p><Link to={'/archetypes'}> Archetype</Link>:{this.state.sources.archetype ? this.state.sources.archetype.name : 'No Archetype Selected'}</p>
-                                        </Col><Col>
+                                        </Grid><Grid item>
                                             <p><Link to={'/personalities'}> Personality</Link>:{this.state.sources.personality ? this.state.sources.personality.name : 'No Personality Selected'}</p>
-                                        </Col>
-                                    </Row>
-                                    <Row noGutters>
-                                        <Col xs={5}>
-                                            <StatDice
-                                                stats={this.state.qualityDice}
-                                                characterSources={this.state.sources}
-                                                powerOrQuality="Qualities" />
-                                        </Col>
-                                        <Col xs={5}>
-                                            <StatDice
-                                                stats={this.state.powerDice}
-                                                characterSources={this.state.sources}
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={2}>
+                                        <Grid item xs={5}>
+                                            <DisplayStatDice
+                                                statDice={this.state.qualityDice}
+                                                statType="Qualities" />
+                                        </Grid>
+                                        <Grid item xs={5}>
+                                            <DisplayStatDice
+                                                statDice={this.state.powerDice}
                                                 powerOrQuality="Powers" />
-                                        </Col>
-                                        <Col xs={2}>
-                                            <Card>
-                                                <Card.Header>
+                                        </Grid>
+                                        <Grid item xs={2}>
+                                            <Accordion>
+                                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                                     Status Dice
-                                    </Card.Header>
-                                                {/* <Card.Body> */}
-                                                <ListGroup variant="flush">
-                                                    <ListGroup.Item variant='success'>{diceImageSrc(this.state.greenStatusDie, 30)}</ListGroup.Item>
-                                                    <ListGroup.Item variant='warning'>{diceImageSrc(this.state.yellowStatusDie, 30)}</ListGroup.Item>
-                                                    <ListGroup.Item variant='danger'>{diceImageSrc(this.state.redStatusDie, 30)}</ListGroup.Item>
-                                                </ListGroup>
-                                                {/* </Card.Body> */}
-                                            </Card>
-                                        </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col>
+                                    </AccordionSummary>
+                                                <AccordionDetails>
+                                                    <List style={{ width: '100%' }}>
+                                                        <ListItem className='gyrozone-green'>{diceImageSrc(this.state.greenStatusDie, 30)}</ListItem>
+                                                        <Divider />
+                                                        <ListItem className='gyrozone-yellow'>{diceImageSrc(this.state.yellowStatusDie, 30)}</ListItem>
+                                                        <Divider />
+                                                        <ListItem className='gyrozone-red'>{diceImageSrc(this.state.redStatusDie, 30)}</ListItem>
+                                                    </List>
+                                                </AccordionDetails>
+                                            </Accordion>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid container item xs={12} spacing={2}>
+                                        <Grid item>
                                             <AbilityList gyroZone={GYROZone.green} preview={true} abilities={this.state.greenAbilities} characterSources={this.state.sources}></AbilityList>
-                                        </Col>
-                                        <Col>
+                                        </Grid>
+                                        <Grid item>
                                             <AbilityList gyroZone={GYROZone.yellow} preview={true} abilities={this.state.yellowAbilities} characterSources={this.state.sources}></AbilityList>
-                                        </Col>
-                                    </Row>
-                                </Card.Body>
-                            </Collapse>
-                        </Card>
-                    </Col>
-                </Row>
-
-                <Outlet />
-                <Routes>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </AccordionDetails>
+                        </Accordion>
+                    </Container>
+                </Grid>
+                <Grid container item xs={12} md={6}>
+                    <CreationStepper
+                        steps={this.getStepLabels()
+                            // ['Background', 'Power Source', 'Archetype', 'Personality', 'Red Abilities', 'Retcon', 'Health', 'Finishing Touches']
+                        }
+                        getStepContent={this.getStepContents()
+                            // [
+                            // <BackgroundsList
+                            //     rolledOptions={this.state.backgroundRollResult}
+                            //     selectedCallback={this.selectBackground}
+                            //     strict={this.state.strict}
+                            //     powerDice={this.state.powerDice}
+                            //     qualityDice={this.state.qualityDice} />,
+                            // <PowerSourcesList
+                            //     rolledOptions={this.state.powerSourceRollResult}
+                            //     selectedCallback={this.selectPowerSource}
+                            //     diceFromPreviousStep={this.state.sources.background ? this.state.sources.background.diceForPowerSource : []}
+                            //     strict={this.state.strict}
+                            //     powerDice={this.state.powerDice}
+                            //     qualityDice={this.state.qualityDice} />,
+                            // <ArchetypesList
+                            //     rolledOptions={this.state.powerSourceRollResult}
+                            //     selectedCallback={this.selectArchetype}
+                            //     diceFromPreviousStep={this.state.sources.powerSource ? this.state.sources.powerSource.diceForArchetype : []}
+                            //     strict={this.state.strict}
+                            //     powerDice={this.state.powerDice}
+                            //     qualityDice={this.state.qualityDice} />,
+                            // <PersonalityList
+                            //     rolledOptions={this.state.powerSourceRollResult}
+                            //     selectedCallback={this.selectPersonality}
+                            //     diceFromPreviousStep={this.state.sources.archetype ? this.state.sources.archetype.diceForPersonality : []}
+                            //     strict={this.state.strict}
+                            //     powerDice={this.state.powerDice}
+                            //     qualityDice={this.state.qualityDice} />,
+                            // 'Red Abilities',
+                            // 'Retcon',
+                            // 'Health',
+                            // 'Finishing Touches']
+                        } ></CreationStepper>
+                    {/* <Outlet /> */}
+                </Grid>
+                {/* <Routes>
                     <Route path="/backgrounds" element={<BackgroundsList rolledOptions={this.state.backgroundRollResult} selectedCallback={this.selectBackground} strict={this.state.strict} />} />
                     <Route path="/powersources" element={<PowerSourcesList rolledOptions={this.state.powerSourceRollResult} selectedCallback={this.selectPowerSource} diceFromPreviousStep={this.state.sources.background ? this.state.sources.background.diceForPowerSource : []} strict={this.state.strict} />} />
                     <Route path="/archetypes" element={<ArchetypesList rolledOptions={this.state.powerSourceRollResult} selectedCallback={this.selectArchetype} diceFromPreviousStep={this.state.sources.powerSource ? this.state.sources.powerSource.diceForArchetype : []} strict={this.state.strict} />} />
                     <Route path="/personalities" element={<PersonalityList rolledOptions={this.state.powerSourceRollResult} selectedCallback={this.selectPersonality} diceFromPreviousStep={this.state.sources.archetype ? this.state.sources.archetype.diceForPersonality : []} strict={this.state.strict} />} />
-                </Routes>
-            </Container>
+                </Routes> */}
+            </Grid>
         )
     }
 
-}
-export class CharacterSources {
-    background?: Background;
-    powerSource?: PowerSource;
-    archetype?: Archetype;
-    personality?: Personality;
-    sourceStatMap: SourceStatMap;
-    generateStatMap() {
-        if (!this.sourceStatMap)
-            this.sourceStatMap = new SourceStatMap();
-        this.sourceStatMap.Background.Qualities = (this.background ? this.background.qualities : []);
-        this.sourceStatMap.PowerSource.Powers = (this.powerSource ? this.powerSource.powers : []);
-        this.sourceStatMap.PowerSource.Qualities = (this.powerSource ? this.powerSource.additionalQualities : []);
-        this.sourceStatMap.Archetype.Powers = (this.archetype ? this.archetype.powers : []);
-        this.sourceStatMap.Archetype.Qualities = (this.archetype ? this.archetype.qualities : []);
-        this.sourceStatMap.Archetype.RequiredPowers = (this.archetype ? this.archetype.requiredPower : []);
-
-        return this.sourceStatMap;
-    }
-    generateRandomSources() {
-        let selectableByRoll: SelectableByRoll = { rollResult: Math.floor((Math.random() * 20) + 1) };
-        this.background = new Background(selectableByRoll);
-        selectableByRoll.rollResult = Math.floor((Math.random() * 20) + 1);
-        selectableByRoll.diceFromPreviousStep = this.background.diceForPowerSource;
-        this.powerSource = new PowerSource(selectableByRoll)
-        selectableByRoll.rollResult = Math.floor((Math.random() * 18) + 1);
-        selectableByRoll.diceFromPreviousStep = this.powerSource.diceForArchetype;
-        this.archetype = new Archetype(selectableByRoll);
-    }
-    getNameOfSource(step: SourceStep) {
-        if (step === SourceStep.Background && this.background)
-            return this.background.name;
-        else if (step === SourceStep.PowerSource && this.powerSource)
-            return this.powerSource.name;
-        else if (step === SourceStep.Archetype && this.archetype)
-            return this.archetype.name;
-        else if (step === SourceStep.Personality && this.personality)
-            return this.personality.name;
-        else
-            return 'UNDEFINED SOURCE'
-    }
-}
-
-export class SourceStatMap {
-    Background: {
-        Qualities: string[],
-        Powers: string[],
-        RequiredQualities: string[],
-        RequiredPowers: string[];
-    } = {
-            Qualities: [],
-            Powers: [],
-            RequiredQualities: [],
-            RequiredPowers: []
-        };
-    PowerSource: {
-        Qualities: string[],
-        Powers: string[],
-        RequiredQualities: string[],
-        RequiredPowers: string[];
-    } = {
-            Qualities: [],
-            Powers: [],
-            RequiredQualities: [],
-            RequiredPowers: []
-        };
-    Archetype: {
-        Qualities: string[],
-        Powers: string[],
-        RequiredQualities: string[],
-        RequiredPowers: string[];
-    } = {
-            Qualities: [],
-            Powers: [],
-            RequiredQualities: [],
-            RequiredPowers: []
-        };
 }
 
 
@@ -333,10 +383,14 @@ export interface ReturnSelection {
     rolledOptions?: number[];
     diceFromPreviousStep?: DiceOptions[];
     strict?: boolean;
+    qualityDice: StatDie[];
+    powerDice: StatDie[];
 }
 
 export interface SelectableByRoll {
     rollResult: number;
     diceFromPreviousStep?: DiceOptions[];
-    children?
+    children?;
+    updateState: (any) => void;
+    strict?: boolean;
 }

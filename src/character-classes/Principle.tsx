@@ -1,12 +1,13 @@
 
 import { Ability, GYROZone } from './Ability';
 import { SourceStep } from "./SourceStep";
-import { Card, Col, Accordion } from 'react-bootstrap';
+import { Card, } from 'react-bootstrap';
 import React, { Component } from 'react'
 import Principles from '../rulebook-data/Principles.json'
-import { Button } from 'react-bootstrap';
+import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-export class Principle extends Component {
+export class Principle extends Component<PrincipleProps> {
     source: SourceStep;
     name: string = "Destiny";
     category: string = "Esoteric";
@@ -22,43 +23,52 @@ export class Principle extends Component {
 
     render() {
         return (
-            <Card.Body>
-                <Card.Text><strong>During Roleplaying:</strong> {this.duringRoleplaying}</Card.Text>
-                <Card.Text><strong>Minor Twist:</strong> {this.minorTwist}</Card.Text>
-                <Card.Text><strong>Major Twist:</strong> {this.majorTwist}</Card.Text>
-                <Ability gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{this.greenAbility}</Ability>
-            </Card.Body>
+            <div>
+                <Grid container>
+                    <Grid container item xs={8}>
+                        <Typography><strong>During Roleplaying:</strong> {this.duringRoleplaying}</Typography>
+                        <Typography><strong>Minor Twist:</strong> {this.minorTwist}</Typography>
+                        <Typography><strong>Major Twist:</strong> {this.majorTwist}</Typography>
+                    </Grid>
+                    <Grid item xs={4}><Button variant="outlined" color="primary" onClick={() => this.props.selectedCallback(this)}>Select this Principle</Button></Grid>
+                    <Ability gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{this.greenAbility}</Ability>
+                </Grid>
+            </div>
         )
     }
 }
 
-export class PrinciplesList extends Component<SelectablePrinciple> {
-    selectedPrinciple: Principle;
-    // constructor(props: SelectablePrinciple) {
-    //     super(props);
-    // }
-    render() {
-        return (
-            <Col>
-                <Accordion>
-                    {Principles.filter(p => (this.props.strict ? this.props.guidedCategory.includes(p.category) : true)).map(p => (
-                        <Card key={p.name} border={this.props.guidedCategory.includes(p.category) ? 'primary' : 'light'}>
-                            <Accordion.Toggle as={Card.Header} eventKey={p.name} >
-                                <span className="pull-left">{p.name}</span> <Button size="sm" variant="success" onClick={() => this.props.selectedCallback(p)} className="pull-right">Select this Principle</Button>
-                            </Accordion.Toggle>
-                            <Accordion.Collapse eventKey={p.name}>
-                                <Principle>{p}</Principle>
-                            </Accordion.Collapse>
-                        </Card>
-                    ))}
-                </Accordion>
-            </Col>
-        );
+export function PrinciplesList(props) {
+    const confirmCallback = (principle) => {
+        props.selectedCallback(principle);
     }
+    return (
+        <Grid item xs={12}>
+            {Principles.filter(p => (props.strict ? props.guidedCategory.includes(p.category) : true)).map(p => (
+                <Accordion>
+                    <AccordionSummary color={props.guidedCategory.includes(p.category) ? "text.primary" : 'text.light'}
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
+                    >
+                        <span className="mr-auto">{p.name}</span>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Principle selectedCallback={confirmCallback}>{p}</Principle>
+                    </AccordionDetails>
+                </Accordion>
+            ))}
+        </Grid>
+    );
 }
 
 export interface SelectablePrinciple {
     selectedCallback: (principle: any) => void,
     guidedCategory?: string,
     strict?: boolean
+}
+
+export interface PrincipleProps {
+    selectedCallback: (principle: any) => void;
+    children?
 }

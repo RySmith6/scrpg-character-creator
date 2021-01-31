@@ -1,5 +1,5 @@
-import { StatDie } from "./StatDieSelector";
-import { CharacterSources } from "./Character";
+import { StatDie } from "./StatDie";
+import { CharacterSources } from "./CharacterSources";
 import { SourceStep } from "./SourceStep";
 import { DiceOptions } from "./DiceOptions";
 

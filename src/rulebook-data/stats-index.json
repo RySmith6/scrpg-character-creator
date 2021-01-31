@@ -1,0 +1,233 @@
+{
+    "Agility": {
+        "statType": "Power"
+    },
+    "Speed": {
+        "statType": "Power"
+    },
+    "Strength": {
+        "statType": "Power"
+    },
+    "Vitality": {
+        "statType": "Power"
+    },
+    "Cold": {
+        "statType": "Power"
+    },
+    "Cosmic": {
+        "statType": "Power"
+    },
+    "Electricity": {
+        "statType": "Power"
+    },
+    "Fire": {
+        "statType": "Power"
+    },
+    "Infernal": {
+        "statType": "Power"
+    },
+    "Nuclear": {
+        "statType": "Power"
+    },
+    "Radiant": {
+        "statType": "Power"
+    },
+    "Sonic": {
+        "statType": "Power"
+    },
+    "Weather": {
+        "statType": "Power"
+    },
+    "Signature Vehicle": {
+        "statType": "Power"
+    },
+    "Signature Weaponry": {
+        "statType": "Power"
+    },
+    "Awareness": {
+        "statType": "Power"
+    },
+    "Deduction": {
+        "statType": "Power"
+    },
+    "Intuition": {
+        "statType": "Power"
+    },
+    "Lightning Calculator": {
+        "statType": "Power"
+    },
+    "Presence": {
+        "statType": "Power"
+    },
+    "Metal": {
+        "statType": "Power"
+    },
+    "Plants": {
+        "statType": "Power"
+    },
+    "Stone": {
+        "statType": "Power"
+    },
+    "Toxic": {
+        "statType": "Power"
+    },
+    "Transmutation": {
+        "statType": "Power"
+    },
+    "Absorption": {
+        "statType": "Power"
+    },
+    "Density Control": {
+        "statType": "Power"
+    },
+    "Duplication": {
+        "statType": "Power"
+    },
+    "Elasticity": {
+        "statType": "Power"
+    },
+    "Intangibility": {
+        "statType": "Power"
+    },
+    "Invisibility": {
+        "statType": "Power"
+    },
+    "Part Detachment": {
+        "statType": "Power"
+    },
+    "Shapeshifting": {
+        "statType": "Power"
+    },
+    "Size-Changing": {
+        "statType": "Power"
+    },
+    "Animal Control": {
+        "statType": "Power"
+    },
+    "Illusions": {
+        "statType": "Power"
+    },
+    "Precognition": {
+        "statType": "Power"
+    },
+    "Postcognition": {
+        "statType": "Power"
+    },
+    "Remote Viewing": {
+        "statType": "Power"
+    },
+    "Suggestion": {
+        "statType": "Power"
+    },
+    "Telekinesis": {
+        "statType": "Power"
+    },
+    "Telepathy": {
+        "statType": "Power"
+    },
+    "Flight": {
+        "statType": "Power"
+    },
+    "Leaping": {
+        "statType": "Power"
+    },
+    "Momentum": {
+        "statType": "Power"
+    },
+    "Swimming": {
+        "statType": "Power"
+    },
+    "Swinging": {
+        "statType": "Power"
+    },
+    "Teleportation": {
+        "statType": "Power"
+    },
+    "Wall-Crawling": {
+        "statType": "Power"
+    },
+    "Gadgets": {
+        "statType": "Power"
+    },
+    "Inventions": {
+        "statType": "Power"
+    },
+    "Power Suit": {
+        "statType": "Power"
+    },
+    "Robotics": {
+        "statType": "Power"
+    },
+    "Criminal Underworld Info": {
+        "statType": "Quality"
+    },
+    "Deep Space Knowledge": {
+        "statType": "Quality"
+    },
+    "History": {
+        "statType": "Quality"
+    },
+    "Magical Lore": {
+        "statType": "Quality"
+    },
+    "Medicine": {
+        "statType": "Quality"
+    },
+    "Otherworldly Mythos": {
+        "statType": "Quality"
+    },
+    "Science": {
+        "statType": "Quality"
+    },
+    "Technology": {
+        "statType": "Quality"
+    },
+    "Alertness": {
+        "statType": "Quality"
+    },
+    "Conviction": {
+        "statType": "Quality"
+    },
+    "Creativity": {
+        "statType": "Quality"
+    },
+    "Investigation": {
+        "statType": "Quality"
+    },
+    "Self-Discipline": {
+        "statType": "Quality"
+    },
+    "Acrobatics": {
+        "statType": "Quality"
+    },
+    "Close Combat": {
+        "statType": "Quality"
+    },
+    "Finesse": {
+        "statType": "Quality"
+    },
+    "Fitness": {
+        "statType": "Quality"
+    },
+    "Ranged Combat": {
+        "statType": "Quality"
+    },
+    "Stealth": {
+        "statType": "Quality"
+    },
+    "Banter": {
+        "statType": "Quality"
+    },
+    "Insight": {
+        "statType": "Quality"
+    },
+    "Imposing": {
+        "statType": "Quality"
+    },
+    "Leadership": {
+        "statType": "Quality"
+    },
+    "Persuasion": {
+        "statType": "Quality"
+    }
+}

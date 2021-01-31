@@ -2,9 +2,10 @@
     {
         "name": "Speedster",
         "rollResult": 1,
-        "requiredQuality": [
+        "required": [
             "Speed"
         ],
+        "min": 1,
         "powers": [
             "Agility",
             "Intangibility",
@@ -12,7 +13,7 @@
             "Vitality",
             "categoryMobility"
         ],
-        "qualities": [
+        "remaining": [
             "categoryMental",
             "categoryPhysical"
         ],
@@ -93,16 +94,17 @@
     {
         "name": "Shadow",
         "rollResult": 2,
-        "requiredQuality": [
+        "required": [
             "Stealth"
         ],
+        "min": 0,
         "powers": [
             "Intangibility",
             "Invisibility",
             "Signature Weaponry",
             "categoryAthletic"
         ],
-        "qualities": [
+        "remaining": [
             "categoryPhysical"
         ],
         "diceForPersonality": [
@@ -165,9 +167,10 @@
     {
         "name": "Physical Powerhouse",
         "rollResult": 3,
-        "requiredQuality": [
+        "required": [
             "Strength"
         ],
+        "exact": 1,
         "powers": [
             "Density Control",
             "Leaping",
@@ -175,7 +178,7 @@
             "Size-Changing",
             "categoryAthletic"
         ],
-        "qualities": [
+        "remaining": [
             "categoryPhysical",
             "categorySocial"
         ],
@@ -272,9 +275,10 @@
     {
         "name": "Marksman",
         "rollResult": 4,
-        "requiredPower": [
+        "required": [
             "Signature Weaponry"
         ],
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "Swinging",
@@ -282,7 +286,7 @@
             "categoryIntellectual",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryMental",
             "categoryPhysical"
@@ -379,16 +383,17 @@
     {
         "name": "Blaster",
         "rollResult": 5,
-        "requiredPower": [
+        "required": [
             "categoryElemental/Energy"
         ],
+        "exact": 1,
         "powers": [
             "Signature Weaponry",
             "categoryElemental/Energy",
             "categoryMobility",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryMental",
             "categoryPhysical"
         ],
@@ -466,16 +471,17 @@
     {
         "name": "Close Quarters Combatant",
         "rollResult": 6,
-        "requiredQuality": [
+        "required": [
             "Close Combat"
         ],
+        "min": 1,
         "powers": [
             "Signature Weaponry",
             "categoryAthletic",
             "categoryMobility",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryPhysical",
             "categorySocial"
         ],
@@ -590,6 +596,7 @@
     {
         "name": "Armored",
         "rollResult": 7,
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "Signature Weaponry",
@@ -599,7 +606,7 @@
             "categoryMobility",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categorySocial",
             "categoryPhysical"
         ],
@@ -668,7 +675,8 @@
     {
         "name": "Flyer",
         "rollResult": 8,
-        "requiredPower": [
+        "min": 1,
+        "required": [
             "Flight",
             "Signature Vehicle"
         ],
@@ -679,7 +687,7 @@
             "categoryMobility",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryPhysical"
         ],
@@ -797,9 +805,10 @@
     {
         "name": "Elemental Manipulator",
         "rollResult": 9,
-        "requiredPower": [
+        "required": [
             "categoryElemental/Energy"
         ],
+        "exact": 1,
         "powers": [
             "Absorption",
             "Flight",
@@ -810,7 +819,7 @@
             "Transmutation",
             "categoryElemental/Energy"
         ],
-        "qualities": [
+        "remaining": [
             "Magical Lore",
             "Science",
             "categoryMental",
@@ -859,7 +868,7 @@
             }
         ],
         "yellowAbilityCount": 1,
-        "yellowAbilityRestriction": "requiredPower",
+        "yellowAbilityRestriction": "required",
         "yellowAbilityOptions": [
             {
                 "icons": [
@@ -897,6 +906,7 @@
     {
         "name": "Robot/Cyborg",
         "rollResult": 10,
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "Signature Weaponry",
@@ -906,7 +916,7 @@
             "categorySelfControl",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryMental"
         ],
@@ -1013,6 +1023,7 @@
     {
         "name": "Sorcerer",
         "rollResult": 11,
+        "min": 1,
         "powers": [
             "categoryElemental/Energy",
             "categoryMaterials",
@@ -1020,7 +1031,7 @@
             "categoryPsychic",
             "categorySelfControl"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryMental"
         ],
@@ -1098,15 +1109,11 @@
     {
         "name": "Psychic",
         "rollResult": 12,
-        "requiredPower": [
-            "categoryIntellectual",
-            "categoryMaterials",
-            "categorySelfControl"
-        ],
+        "min": 2,
         "powers": [
             "categoryPsychic"
         ],
-        "qualities": [
+        "remaining": [
             "categoryMental"
         ],
         "diceForPersonality": [
@@ -1224,10 +1231,11 @@
     {
         "name": "Transporter",
         "rollResult": 13,
-        "requiredPower": [
+        "required": [
             "Signature Vehicle",
             "categoryMobility"
         ],
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "categoryAthletic",
@@ -1235,7 +1243,7 @@
             "categoryPsychic",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryPhysical",
             "categorySocial"
         ],
@@ -1341,6 +1349,7 @@
     {
         "name": "Minion-Maker",
         "rollResult": 14,
+        "min": 1,
         "powers": [
             "Duplication",
             "Inventions",
@@ -1349,7 +1358,7 @@
             "categoryElemental/Energy",
             "categoryMaterials"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryMental"
         ],
@@ -1426,6 +1435,7 @@
     {
         "name": "Wild Card",
         "rollResult": 15,
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "Signature Weaponry",
@@ -1434,7 +1444,7 @@
             "categoryMobility",
             "categorySelfControl"
         ],
-        "qualities": [
+        "remaining": [
             "categoryPhysical",
             "categorySocial"
         ],
@@ -1526,16 +1536,17 @@
     {
         "name": "Form-Changer",
         "rollResult": 16,
-        "requiredPower": [
+        "required": [
             "categorySelfControl"
         ],
+        "min": 1,
         "powers": [
             "categoryAthletic",
             "categoryMobility",
             "categorySelfControl",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryPhysical"
         ],
@@ -1583,9 +1594,10 @@
     {
         "name": "Gadgeteer",
         "rollResult": 17,
-        "requiredQuality": [
+        "required": [
             "categoryIntellectual"
         ],
+        "min": 1,
         "powers": [
             "Signature Vehicle",
             "Signature Weaponry",
@@ -1594,7 +1606,7 @@
             "categoryPsychic",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
             "categoryInformation",
             "categoryMental"
         ],
@@ -1665,6 +1677,7 @@
     {
         "name": "Reality Shaper",
         "rollResult": 18,
+        "min": 1,
         "powers": [
             "Density Control",
             "Intangibility",
@@ -1676,7 +1689,164 @@
             "categoryPsychic",
             "categoryTechnological"
         ],
-        "qualities": [
+        "remaining": [
+            "categoryInformation",
+            "categoryMental"
+        ],
+        "diceForPersonality": [
+            "d10",
+            "d10"
+        ],
+        "greenAbilityCount": 2,
+        "greenAbilityRestriction": "differentPowers",
+        "greenAbilityOptions": [
+            {
+                "icons": [
+                    "hinder"
+                ],
+                "name": "Negative Likelihood",
+                "type": "action",
+                "text": "Hinder using [power]. That penalty is persistent and exlusive."
+            },
+            {
+                "icons": [],
+                "name": "Not Quite Right",
+                "type": "reaction",
+                "text": "After a dice pool is rolled, adjust one die up or down one value on the die."
+            },
+            {
+                "icons": [
+                    "boost",
+                    "attack"
+                ],
+                "name": "Probability Insight ",
+                "type": "action",
+                "text": "Boost using [power]. Use your Max die. If you roll doubles, you may also Attack using your Mid die."
+            },
+            {
+                "icons": [
+                    "attack"
+                ],
+                "name": "Warp Space",
+                "type": "action",
+                "text": "Attack using [power]. You may move the target of that Attack anywhere else nearby. If the target goes next, you decide who takes the next turn after that."
+            }
+        ],
+        "yellowAbilityCount": 1,
+        "yellowAbilityOptions": [
+            {
+                "icons": [],
+                "name": "Alternate Outcome",
+                "type": "reaction",
+                "text": "When a nearby enemy rolls their dice pool for the turn, you may lose 1 Health to reroll their entire pool."
+            },
+            {
+                "icons": [],
+                "name": "Helpful Analysis",
+                "type": "reaction",
+                "text": "One nearby ally may reroll their dice pool. You lose Health equal to the Min die of the new roll."
+            },
+            {
+                "icons": [],
+                "name": "Never Happened",
+                "type": "reaction",
+                "text": "When a nearby enemy would create a bonus or penalty, you may remove it immediately."
+            },
+            {
+                "icons": [],
+                "name": "Retroactive Rewrite",
+                "type": "reaction",
+                "text": "You may apply a bonus to a roll after rolling instead of before."
+            }
+        ],
+        "principleCategory": "Expertise"
+    },
+    {
+        "name": "Divided",
+        "rollResult": 19,
+        "selectOtherArchetype": true,
+        "skipOtherArchetypeStep": "principle",
+        "selectTransitionOptions": [],
+        "greenAbilityCount": 2,
+        "greenAbilityRestriction": "differentPowers",
+        "greenAbilityOptions": [
+            {
+                "icons": [
+                    "hinder"
+                ],
+                "name": "Negative Likelihood",
+                "type": "action",
+                "text": "Hinder using [power]. That penalty is persistent and exlusive."
+            },
+            {
+                "icons": [],
+                "name": "Not Quite Right",
+                "type": "reaction",
+                "text": "After a dice pool is rolled, adjust one die up or down one value on the die."
+            },
+            {
+                "icons": [
+                    "boost",
+                    "attack"
+                ],
+                "name": "Probability Insight ",
+                "type": "action",
+                "text": "Boost using [power]. Use your Max die. If you roll doubles, you may also Attack using your Mid die."
+            },
+            {
+                "icons": [
+                    "attack"
+                ],
+                "name": "Warp Space",
+                "type": "action",
+                "text": "Attack using [power]. You may move the target of that Attack anywhere else nearby. If the target goes next, you decide who takes the next turn after that."
+            }
+        ],
+        "yellowAbilityCount": 1,
+        "yellowAbilityOptions": [
+            {
+                "icons": [],
+                "name": "Alternate Outcome",
+                "type": "reaction",
+                "text": "When a nearby enemy rolls their dice pool for the turn, you may lose 1 Health to reroll their entire pool."
+            },
+            {
+                "icons": [],
+                "name": "Helpful Analysis",
+                "type": "reaction",
+                "text": "One nearby ally may reroll their dice pool. You lose Health equal to the Min die of the new roll."
+            },
+            {
+                "icons": [],
+                "name": "Never Happened",
+                "type": "reaction",
+                "text": "When a nearby enemy would create a bonus or penalty, you may remove it immediately."
+            },
+            {
+                "icons": [],
+                "name": "Retroactive Rewrite",
+                "type": "reaction",
+                "text": "You may apply a bonus to a roll after rolling instead of before."
+            }
+        ],
+        "principleCategory": "Expertise"
+    },
+    {
+        "name": "Reality Shaper",
+        "rollResult": 18,
+        "min": 1,
+        "powers": [
+            "Density Control",
+            "Intangibility",
+            "Invisibility",
+            "Speed",
+            "Teleportation",
+            "Transmutation",
+            "categoryIntellectual",
+            "categoryPsychic",
+            "categoryTechnological"
+        ],
+        "remaining": [
             "categoryInformation",
             "categoryMental"
         ],

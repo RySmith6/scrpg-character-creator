@@ -15,4 +15,16 @@ export class ExplodedCategories {
                 !s.startsWith('category') ? statArray.push(s) : ExplodedCategories.PushUniqueStatsFromCategory(statArray, s);
         });
     }
+    static GetAllStatsInCategory(category: string) {
+        return exploded.powers[category] || exploded.qualities[category] || [];
+    }
+    static GetReadableCategoryName(category: string) {
+        let statType = exploded.powers[category] ? ' Powers' : ' Qualities';
+        return category.substring(8) + statType
+    }
+    static ReturnStatsWithExplodedCategories(stats: string[]) {
+        let fullstatsArray = [];
+        ExplodedCategories.PushAndExplode(fullstatsArray, stats);
+        return fullstatsArray;
+    }
 }

@@ -720,7 +720,20 @@
             }
         ],
         "additionalPowers": [
-            "notInList"
+            "Agility",
+            "Speed",
+            "Cosmic",
+            "Nuclear",
+            "Sonic",
+            "signatureVehicle",
+            "SignatureWeaponry",
+            "Deduction",
+            "Intuition",
+            "Lightning Calculator",
+            "Metal",
+            "Stone",
+            "Toxic",
+            "categoryTechnological"
         ],
         "additionalPowersDice": [
             "d10"

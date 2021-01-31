@@ -19,6 +19,12 @@ export class Personality extends Component<SelectableByRoll> {
         let per = Personalities[props.rollResult - 1];
         Object.assign(this, per);
     }
+
+
+    getSteps(): { label: string, content: any }[] {
+        let stepLabels = [];
+        return stepLabels;
+    }
     render() {
         return (
             <Row>
@@ -52,7 +58,7 @@ export class PersonalityList extends Component<ReturnSelection> {
                                 <span className="pull-left">{per.name}</span> <Button variant="success" onClick={() => this.props.selectedCallback(per)} className="pull-right">Select this Personality</Button>
                             </Accordion.Toggle>
                             <Accordion.Collapse eventKey={per.rollResult.toString()}>
-                                <Personality rollResult={per.rollResult}></Personality>
+                                <Personality rollResult={per.rollResult} updateState={this.props.selectedCallback}></Personality>
                             </Accordion.Collapse>
                         </Card>
                     ))}

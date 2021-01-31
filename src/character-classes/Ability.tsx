@@ -1,11 +1,17 @@
 import React, { Component, Props } from 'react';
 import iconImageSrc, { Icons } from './Icons';
 import { AbilityType } from './AbilityType';
-import { CharacterSources } from './Character';
+import { CharacterSources } from "./CharacterSources";
 import { SourceStep } from "./SourceStep";
-import { ListGroup, Card } from 'react-bootstrap';
-import { OverlayTrigger, Row, Col } from 'react-bootstrap';
-import { Tooltip } from 'react-bootstrap';
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Typography from '@material-ui/core/Typography';
 
 export class Ability extends Component<AbilityProp> {
     icon: (Icons | string)[] = [
@@ -23,19 +29,24 @@ export class Ability extends Component<AbilityProp> {
 
     render() {
         return (
-            <Card bg={backgroundColor(this.gyroZone)}>
-                <Row noGutters>
-                    <Col xs={2}>
+            <Card style={{ width: '100%' }}>
+                <Grid
+                    container
+                    spacing={1}
+                    className={backgroundColor(this.props.gyroZone)}
+                    justify="space-between"
+                    alignItems="center">
+                    <Grid item xs={1}>
                         {this.icon.map(i => {
                             return (
                                 iconImageSrc(i.toString())
                             )
                         })}
-                    </Col>
-                    <Col xs={3}><p><strong>{this.name}</strong></p> </Col>
-                    <Col xs={1}><p>{this.type.toString()}</p></Col>
-                    <Col><p>{this.text}</p></Col>
-                </Row>
+                    </Grid>
+                    <Grid item xs={2}><Typography><strong>{this.name}</strong></Typography> </Grid>
+                    <Grid item xs={2}><Typography align={'center'}>{this.type.toString()}</Typography></Grid>
+                    <Grid item xs={7}><Typography>{this.text}</Typography></Grid>
+                </Grid>
             </Card>
         )
     }
@@ -54,23 +65,18 @@ export class AbilityList extends Component<AbilitiesProps> {
     }
     render() {
         return (
-            <ListGroup>
-                {this.props.abilities.map(a =>
-                    <ListGroup.Item variant={backgroundColor(this.props.gyroZone)}>
-                        <OverlayTrigger
-                            key={a.name}
-                            placement='right'
-                            overlay={
-                                <Tooltip id={`text-${a.name}`}>
-                                    {a.text}
-                                </Tooltip>
-                            }
-                        >
-                            <a>{a.name} from {a.source}: {this.props.characterSources.getNameOfSource(a.source)}</a>
-                        </OverlayTrigger>
-                    </ListGroup.Item>
-                )}
-            </ListGroup>
+            <Accordion className={backgroundColor(this.props.gyroZone)}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>{`${this.props.gyroZone} Zone Abilities`}</AccordionSummary>
+                <AccordionDetails>
+                    <List>
+                        {this.props.abilities.map(a =>
+                            <ListItem >
+                                <Ability gyroZone={this.props.gyroZone}>{a}</Ability>
+                            </ListItem>
+                        )}
+                    </List>
+                </AccordionDetails>
+            </Accordion>
         )
     }
 
@@ -79,11 +85,11 @@ export class AbilityList extends Component<AbilitiesProps> {
 
 export default function backgroundColor(gyroZone: GYROZone): string {
     if (gyroZone === GYROZone.green)
-        return 'success';
+        return 'gyrozone-green';
     else if (gyroZone === GYROZone.yellow)
-        return 'warning';
+        return 'gyrozone-yellow';
     else if (gyroZone === GYROZone.red)
-        return 'danger';
+        return 'gyrozone-red';
     else
         return 'secondary'
 }
@@ -96,7 +102,7 @@ export interface AbilitiesProps {
 }
 export interface AbilityProp {
     gyroZone: GYROZone,
-    sourceStep: SourceStep,
+    sourceStep?: SourceStep,
     children?
 }
 export enum GYROZone {
