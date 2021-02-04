@@ -9,7 +9,7 @@ import { StepContent } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
+        width: '90%',
         padding: 0
     },
     button: {

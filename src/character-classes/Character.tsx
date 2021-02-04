@@ -12,7 +12,7 @@ import { ListGroup } from 'react-bootstrap';
 import { ArchetypesList, Archetype } from './Archetype';
 import { StatDie } from './StatDie';
 import { SourceStep } from './SourceStep';
-import { Grid, Accordion, List, ListItem, Divider, Button, Typography } from '@material-ui/core';
+import { Grid, Accordion, List, ListItem, Divider, Button, Typography, Box } from '@material-ui/core';
 import CreationStepper from '../components/creation-stepper'
 import DisplayStatDice from '../components/display-stat-dice';
 import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -325,44 +325,46 @@ export class Character extends Component {
                     </Container>
                 </Grid>
                 <Grid container item xs={12} md={6}>
-                    <CreationStepper
-                        steps={this.getStepLabels()
-                            // ['Background', 'Power Source', 'Archetype', 'Personality', 'Red Abilities', 'Retcon', 'Health', 'Finishing Touches']
-                        }
-                        getStepContent={this.getStepContents()
-                            // [
-                            // <BackgroundsList
-                            //     rolledOptions={this.state.backgroundRollResult}
-                            //     selectedCallback={this.selectBackground}
-                            //     strict={this.state.strict}
-                            //     powerDice={this.state.powerDice}
-                            //     qualityDice={this.state.qualityDice} />,
-                            // <PowerSourcesList
-                            //     rolledOptions={this.state.powerSourceRollResult}
-                            //     selectedCallback={this.selectPowerSource}
-                            //     diceFromPreviousStep={this.state.sources.background ? this.state.sources.background.diceForPowerSource : []}
-                            //     strict={this.state.strict}
-                            //     powerDice={this.state.powerDice}
-                            //     qualityDice={this.state.qualityDice} />,
-                            // <ArchetypesList
-                            //     rolledOptions={this.state.powerSourceRollResult}
-                            //     selectedCallback={this.selectArchetype}
-                            //     diceFromPreviousStep={this.state.sources.powerSource ? this.state.sources.powerSource.diceForArchetype : []}
-                            //     strict={this.state.strict}
-                            //     powerDice={this.state.powerDice}
-                            //     qualityDice={this.state.qualityDice} />,
-                            // <PersonalityList
-                            //     rolledOptions={this.state.powerSourceRollResult}
-                            //     selectedCallback={this.selectPersonality}
-                            //     diceFromPreviousStep={this.state.sources.archetype ? this.state.sources.archetype.diceForPersonality : []}
-                            //     strict={this.state.strict}
-                            //     powerDice={this.state.powerDice}
-                            //     qualityDice={this.state.qualityDice} />,
-                            // 'Red Abilities',
-                            // 'Retcon',
-                            // 'Health',
-                            // 'Finishing Touches']
-                        } ></CreationStepper>
+                    <Box width='100%' style={{ maxHeight: '85vh', overflow: 'auto' }}>
+                        <CreationStepper
+                            steps={this.getStepLabels()
+                                // ['Background', 'Power Source', 'Archetype', 'Personality', 'Red Abilities', 'Retcon', 'Health', 'Finishing Touches']
+                            }
+                            getStepContent={this.getStepContents()
+                                // [
+                                // <BackgroundsList
+                                //     rolledOptions={this.state.backgroundRollResult}
+                                //     selectedCallback={this.selectBackground}
+                                //     strict={this.state.strict}
+                                //     powerDice={this.state.powerDice}
+                                //     qualityDice={this.state.qualityDice} />,
+                                // <PowerSourcesList
+                                //     rolledOptions={this.state.powerSourceRollResult}
+                                //     selectedCallback={this.selectPowerSource}
+                                //     diceFromPreviousStep={this.state.sources.background ? this.state.sources.background.diceForPowerSource : []}
+                                //     strict={this.state.strict}
+                                //     powerDice={this.state.powerDice}
+                                //     qualityDice={this.state.qualityDice} />,
+                                // <ArchetypesList
+                                //     rolledOptions={this.state.powerSourceRollResult}
+                                //     selectedCallback={this.selectArchetype}
+                                //     diceFromPreviousStep={this.state.sources.powerSource ? this.state.sources.powerSource.diceForArchetype : []}
+                                //     strict={this.state.strict}
+                                //     powerDice={this.state.powerDice}
+                                //     qualityDice={this.state.qualityDice} />,
+                                // <PersonalityList
+                                //     rolledOptions={this.state.powerSourceRollResult}
+                                //     selectedCallback={this.selectPersonality}
+                                //     diceFromPreviousStep={this.state.sources.archetype ? this.state.sources.archetype.diceForPersonality : []}
+                                //     strict={this.state.strict}
+                                //     powerDice={this.state.powerDice}
+                                //     qualityDice={this.state.qualityDice} />,
+                                // 'Red Abilities',
+                                // 'Retcon',
+                                // 'Health',
+                                // 'Finishing Touches']
+                            } ></CreationStepper>
+                    </Box>
                     {/* <Outlet /> */}
                 </Grid>
                 {/* <Routes>

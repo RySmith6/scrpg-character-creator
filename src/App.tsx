@@ -26,7 +26,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <AppBar position="static">
+        <AppBar position="sticky">
           <Toolbar>
             <IconButton
               edge="start"
