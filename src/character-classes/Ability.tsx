@@ -22,6 +22,7 @@ export class Ability extends Component<AbilityProp> {
     text: string = "Overcome a situation directly connected to your destiny and use your Max die. You and each of your allies gain a hero point.";
     gyroZone: GYROZone = GYROZone.green;
     source: SourceStep = SourceStep.Archetype;
+    finalText?: string;
     constructor(prop: AbilityProp) {
         super(prop);
         Object.assign(this, prop.children);
@@ -45,7 +46,7 @@ export class Ability extends Component<AbilityProp> {
                     </Grid>
                     <Grid item xs={2}><Typography><strong>{this.name}</strong></Typography> </Grid>
                     <Grid item xs={2}><Typography align={'center'}>{this.type.toString()}</Typography></Grid>
-                    <Grid item xs={7}><Typography>{this.text}</Typography></Grid>
+                    <Grid item xs={7}><Typography>{this.props.children.finalText || this.text}</Typography></Grid>
                 </Grid>
             </Card>
         )

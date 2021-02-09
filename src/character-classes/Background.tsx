@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import AssignStatDice from '../components/assign-stat-dice';
 import { StatDie } from './StatDie';
 import SourceStepper from '../components/source-stepper'
+import { SourceStep } from './SourceStep';
 
 export class Background {
     name: string = 'DEFAULT BACKGROUND';
@@ -52,7 +53,7 @@ export class Background {
     }
 
     getSteps() {
-        let steps = [{ label: 'Assign Dice', content: <AssignStatDice dice={this.diceToAssign} stats={this.qualities} confirmDice={this.confirmDice} statType='Quality'></AssignStatDice> }, { label: 'Select Principle', content: <PrinciplesList guidedCategory={this.principleCategory} selectedCallback={this.confirmPrinciple} strict={this.strict}></PrinciplesList> }]
+        let steps = [{ label: 'Assign Dice', content: <AssignStatDice dice={this.diceToAssign} stats={this.qualities} confirmDice={this.confirmDice} statType='Quality' source={SourceStep.Background}></AssignStatDice> }, { label: 'Select Principle', content: <PrinciplesList guidedCategory={this.principleCategory} selectedCallback={this.confirmPrinciple} strict={this.strict}></PrinciplesList> }]
         return steps;
     }
 }
@@ -111,14 +112,14 @@ export class BackgroundsList extends Component<ReturnSelection> {
                         </Accordion>
                     ))}
                 </Grid>
-                {this.state.selectedBackground ?
+                {/* {this.state.selectedBackground ?
                     <Grid
                         item xs={6}
                     >
-                        <SourceStepper steps={['Assign Dice', 'Select Principle']} stepContent={[<AssignStatDice dice={this.state.selectedBackground.diceToAssign} stats={this.state.selectedBackground.qualities} confirmDice={this.confirmDice} statType='Quality'></AssignStatDice>, <PrinciplesList guidedCategory={this.state.selectedBackground.principleCategory} selectedCallback={this.selectedPrinciple} strict={this.props.strict}></PrinciplesList>]} completeStepActions={this.confirmBackground}></SourceStepper>
+                        <SourceStepper steps={['Assign Dice', 'Select Principle']} stepContent={[<AssignStatDice dice={this.state.selectedBackground.diceToAssign} stats={this.state.selectedBackground.qualities} confirmDice={this.confirmDice} statType='Quality' source={SourceStep.Background}></AssignStatDice>, <PrinciplesList guidedCategory={this.state.selectedBackground.principleCategory} selectedCallback={this.selectedPrinciple} strict={this.props.strict}></PrinciplesList>]} completeStepActions={this.confirmBackground}></SourceStepper>
 
 
-                    </Grid> : ''}
+                    </Grid> : ''} */}
             </Grid>
         );
     }

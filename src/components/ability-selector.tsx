@@ -36,12 +36,12 @@ export default function AbilitySelector(props) {
             newChecked.splice(currentIndex, 1);
         }
         setChecked(newChecked);
-        confirmAbilities();
+        confirmAbilities(newChecked);
     };
 
-    const confirmAbilities = () => {
-        if (typeof (props.ConfirmAbilities) === 'function')
-            props.confirmAbilities(checked)
+    const confirmAbilities = (varchecked) => {
+        if (typeof (props.confirmAbilities) === 'function')
+            props.confirmAbilities(varchecked)
     }
 
 
@@ -52,6 +52,7 @@ export default function AbilitySelector(props) {
         ability['finalText'] = ability['text'].replace(bracketString, value);
         //newChecked.splice(index, 1,ability);
         setChecked(newChecked);
+        confirmAbilities(newChecked);
     };
 
     return (

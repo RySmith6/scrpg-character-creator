@@ -21,6 +21,8 @@ export class CharacterSources {
         let ar = Archetypes[Math.floor((Math.random() * 18) + 1)];
         ar['diceToAssign'] = this.powerSource.diceForArchetype;
         this.archetype = new Archetype(ar);
+        let per = Personalities[Math.floor((Math.random() * 20) + 1)];
+        this.personality = new Personality(per);
     }
     getNameOfSource(step: SourceStep) {
         if (step === SourceStep.Background && this.background)

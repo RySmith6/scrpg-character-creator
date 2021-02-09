@@ -16,7 +16,7 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
     constructor(props: AssignDiceProps) {
         super(props);
         let explodedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats);
-        this.statDice = this.props.dice.map((d, index) => new StatDie(d, SourceStep.Background, explodedStats[index]));
+        this.statDice = this.props.dice.map((d, index) => new StatDie(d, this.props.source, explodedStats[index]));
         this.state = { unselectedDice: this.props.dice, unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s)) };
         //this.statDice = this.props.dice.map(d => new StatDie(d, SourceStep.Background));
 
@@ -27,7 +27,7 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
 
     componentDidUpdate(prevProps) {
         if (this.props.dice !== prevProps.dice || this.props.stats !== prevProps.stats) {
-            this.statDice = this.props.dice.map(d => new StatDie(d, SourceStep.Background));
+            this.statDice = this.props.dice.map(d => new StatDie(d, this.props.source));
             this.setState({ unselectedDice: this.props.dice, unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats) });
         }
 
@@ -49,7 +49,7 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
         return (
             <Grid item>
                 <Card>
-                    <CardHeader title={`Assign dice for Source`}></CardHeader>
+                    <CardHeader title={`Assign dice for ${this.props.source}`}></CardHeader>
                     <CardContent>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
@@ -73,4 +73,5 @@ export interface AssignDiceProps {
     stats: string[];
     confirmDice: (statDice: StatDie[]) => void;
     statType?: string;
+    source: SourceStep;
 }

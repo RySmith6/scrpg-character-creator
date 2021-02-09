@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { ReturnSelection, SelectableByRoll } from './Character';
 import Archetypes from '../rulebook-data/Archetypes.json'
-import { Col, Card, Button, ListGroup } from 'react-bootstrap';
 import exploded from '../rulebook-data/exploded-categories.json';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import { Ability } from './Ability';
@@ -15,6 +14,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import SourceStepper from '../components/source-stepper';
 import { StatDie } from './StatDie';
 import AssignStatDice from '../components/assign-stat-dice';
@@ -22,6 +22,7 @@ import StatDisplay from '../components/stat-display';
 import AbilitySelector from '../components/ability-selector';
 import { Principle, PrinciplesList } from './Principle';
 import StatIndex from '../rulebook-data/stats-index.json';
+import AssignRequiredDice from '../components/assign-required-dice';
 
 export class ArchetypesList extends Component<ReturnSelection>{
     state: {
@@ -32,42 +33,6 @@ export class ArchetypesList extends Component<ReturnSelection>{
         this.confirmArchetype = this.confirmArchetype.bind(this);
         this.selectArchetype = this.selectArchetype.bind(this);
         this.state = {};
-    }
-
-    confirmYellowAbilities(abilities) {
-        let archetype = Object.assign({}, this.state.selectedArchetype);
-        archetype.finalYellowAbilities = abilities;
-        this.setState({ selectedArchetype: archetype });
-    }
-
-    confirmGreenAbilities(abilities) {
-        let archetype = Object.assign({}, this.state.selectedArchetype);
-        archetype.finalGreenAbilities = abilities;
-        this.setState({ selectedArchetype: archetype });
-    }
-
-    confirmPowerDice(dice) {
-        let archetype = Object.assign({}, this.state.selectedArchetype);
-        archetype.finalPowerDice = dice;
-        this.setState({ selectedArchetype: archetype });
-    }
-
-    confirmQualityDice(dice) {
-        let archetype = Object.assign({}, this.state.selectedArchetype);
-        archetype.finalQualityDice = dice;
-        this.setState({ selectedArchetype: archetype });
-    }
-
-    getArchetypeSteps(archetype) {
-        let baseSteps = [];
-        if (archetype.requiredPower) {
-            baseSteps.push(...[{ content: <AssignStatDice dice={this.state.selectedArchetype.diceToAssign} stats={archetype.powers} confirmDice={this.confirmPowerDice} /> }])
-        }
-
-    }
-
-    getArchetypeStepContents(archetype) {
-
     }
 
     confirmArchetype() {
@@ -86,21 +51,16 @@ export class ArchetypesList extends Component<ReturnSelection>{
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
-                                key={a.rollResult} >
-                                <span className="pull-left">{a.name}</span> <Button variant="outlined" color="primary" onClick={() => this.props.selectedCallback(new Archetype(a))} className="pull-right">Select this Archetype</Button>
+                                id={`arch${a.rollResult}-header`} >
+                                <span className="mr-auto"><strong>{a.rollResult}:</strong>{a.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                                    e.stopPropagation(); this.props.selectedCallback(new Archetype(a))
+                                }}>Select this Archetype</Button>
                             </AccordionSummary>
                             <AccordionDetails >
                                 <ArchetypeElement rollResult={a.rollResult} diceFromPreviousStep={this.props.diceFromPreviousStep} updateState={this.props.selectedCallback}></ArchetypeElement>
                             </AccordionDetails>
                         </Accordion>
                     ))}
-                </Grid>
-                <Grid item xs={6}>
-                    {this.state.selectedArchetype ?
-                        <Grid
-                            item xs={6}>
-                            <SourceStepper steps={this.getArchetypeSteps(this.state.selectedArchetype)} stepContent={this.getArchetypeStepContents(this.state.selectedArchetype)} completeStepActions={this.confirmArchetype}></SourceStepper>
-                        </Grid> : ''}
                 </Grid>
             </Grid>
         );
@@ -143,7 +103,9 @@ export class Archetype {
 
         (this.greenAbilityOptions || []).forEach(a => { a.source = SourceStep.Archetype });
         (this.yellowAbilityOptions || []).forEach(a => { a.source = SourceStep.Archetype });
+        this.confirmRequiredDice = this.confirmRequiredDice.bind(this);
         this.confirmPowerDice = this.confirmPowerDice.bind(this);
+        this.confirmRemainingDice = this.confirmRemainingDice.bind(this);
         //this.confirmQualityDice = this.confirmQualityDice.bind(this);
         this.confirmGreenAbilities = this.confirmGreenAbilities.bind(this);
         this.confirmYellowAbilities = this.confirmYellowAbilities.bind(this);
@@ -171,10 +133,10 @@ export class Archetype {
 
     confirmRequiredDice(dice) {
         let powerDice = [];
-        powerDice.push(...dice.where(d => StatIndex[d.statName].statType === 'Power'));
+        powerDice.push(...dice.filter(d => StatIndex[d.statName].statType === 'Power'));
         this.finalPowerDice.push(...powerDice);
         let qualityDice = [];
-        qualityDice.push(...dice.where(d => StatIndex[d.statName].statType === 'Quality'));
+        qualityDice.push(...dice.filter(d => StatIndex[d.statName].statType === 'Quality'));
         this.finalQualityDice.push(...qualityDice);
         if (this.updateFunction) {
             this.updateFunction(this);
@@ -216,7 +178,7 @@ export class Archetype {
                     dice={this.diceToAssign}
                     stats={this.powers}
                     confirmDice={this.confirmPowerDice}
-                    statType='Power' />
+                    statType='Power' source={SourceStep.Archetype} />
             }, {
                 label: `Select ${this.greenAbilityCount} green Abilities`, content: <AbilitySelector
                     abilities={this.greenAbilityOptions}
@@ -239,11 +201,11 @@ export class Archetype {
         if (this.required) {
             baseSteps.unshift(
                 {
-                    label: 'Assign Required Dice', content: <Typography>TODO: ADD REQUIRED DIE SELECTOR</Typography>
+                    label: 'Assign Required Dice', content: <AssignRequiredDice dice={this.diceToAssign} stats={this.required} confirmDice={this.confirmRequiredDice} requiredExact={this.name == 'Psychic' ? 2 : 1} source={SourceStep.Archetype} />
                 });
         }
         if (this.additionalQualitiesDice) {
-            baseSteps.push({ label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmRemainingDice} /> });
+            baseSteps.push({ label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmRemainingDice} source={SourceStep.Archetype} /> });
         }
         if (!skipPrinciple) {
             baseSteps.push({ label: 'Select Principle', content: <PrinciplesList guidedCategory={this.principleCategory} selectedCallback={this.confirmPrinciple} strict={this.strict}></PrinciplesList> })

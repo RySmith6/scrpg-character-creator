@@ -41,8 +41,10 @@ export class PowerSourcesList extends Component<ReturnSelection>{
                     {PowerSources.filter(ps => this.props.strict && this.props.rolledOptions ? this.props.rolledOptions.includes(ps.rollResult) : true).map(ps => (
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}
-                                id={`bg${ps.rollResult}-header`}>
-                                <span className="mr-auto"><strong>{ps.rollResult}:</strong>{ps.name}</span> <Button variant="outlined" color="primary" onClick={() => this.props.selectedCallback(new PowerSource(ps))}>Select this Power Source</Button>
+                                id={`ps${ps.rollResult}-header`}>
+                                <span className="mr-auto"><strong>{ps.rollResult}:</strong>{ps.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                                    e.stopPropagation(); this.props.selectedCallback(new PowerSource(ps))
+                                }}>Select this Power Source</Button>
                             </AccordionSummary>
                             <AccordionDetails>
                                 <PowerSourceElement rollResult={ps.rollResult} diceFromPreviousStep={this.props.diceFromPreviousStep} updateState={this.props.selectedCallback}></PowerSourceElement>
@@ -136,7 +138,8 @@ export class PowerSource {
                     dice={this.diceToAssign}
                     stats={this.powers}
                     confirmDice={this.confirmPowerDice}
-                    statType='Power' />
+                    statType='Power'
+                    source={SourceStep.PowerSource} />
             },
             {
                 label: `Select ${this.yellowAbilityCount} Yellow Abilities`, content: <AbilitySelector
@@ -160,14 +163,21 @@ export class PowerSource {
                     strict={this.strict}
                     powers={this.finalPowerDice.concat(this.finalPowerDice)}
                     qualities={qualityDice.concat(this.finalQualityDice || [])}
-                    maxOptions={this.greenAbilityCount} />
+                    maxOptions={this.greenAbilityCount}
+                    source={SourceStep.PowerSource} />
             });
         }
         if (this.additionalQualitiesDice) {
-            baseSteps.push({ label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmQualityDice} /> });
+            baseSteps.push({
+                label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmQualityDice}
+                    source={SourceStep.PowerSource} />
+            });
         }
         if (this.additionalPowersDice) {
-            baseSteps.push({ label: `Assign additional Power Die`, content: <AssignStatDice dice={this.additionalPowersDice} stats={this.additionalPowers} confirmDice={this.confirmQualityDice} /> });
+            baseSteps.push({
+                label: `Assign additional Power Die`, content: <AssignStatDice dice={this.additionalPowersDice} stats={this.additionalPowers} confirmDice={this.confirmQualityDice}
+                    source={SourceStep.PowerSource} />
+            });
         }
         if (this.downgradeDieCount) {
             baseSteps.push({ label: `Downgrade Die`, content: <Typography>TODO:DOWNGRADE DIE COMPONENT</Typography> });
