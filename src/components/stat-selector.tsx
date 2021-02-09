@@ -1,9 +1,10 @@
 import React from 'react'
-import { List, ListSubheader, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListSubheader, ListItem, ListItemText, InputAdornment } from '@material-ui/core';
 import { ExplodedCategories } from '../character-classes/ExplodedCategories';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import diceImageSrc, { DiceOptions } from '../character-classes/DiceOptions';
 
 
 export default function StatSelector(props: StatSelectionCallback) {
@@ -20,7 +21,10 @@ export default function StatSelector(props: StatSelectionCallback) {
             style={{ width: 300 }}
             onChange={handleChange}
             defaultValue={props.stat}
-            renderInput={(params) => <TextField {...params} label={props.label ?? 'Stat'} variant="outlined" />}
+            autoComplete={true}
+            renderInput={(params) => <TextField {...params} label={props.label ?? 'Stat'} variant="outlined" InputProps={{
+                startAdornment: <InputAdornment position="start">{diceImageSrc(props.die, 25)}</InputAdornment>,
+            }} />}
         />
     );
 }
@@ -31,6 +35,7 @@ export interface StatSelectionCallback {
     id: number;
     label?: string;
     stat: string;
+    die: DiceOptions;
 }
 
 const useStyles = makeStyles((theme) => ({

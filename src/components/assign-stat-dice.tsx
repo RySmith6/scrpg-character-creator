@@ -52,14 +52,11 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
                     <CardHeader title={`Assign dice for ${this.props.source}`}></CardHeader>
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                {this.props.dice.map((d, index: number) => (
-                                    <Grid container item xs={12} spacing={3}>
-                                        <Grid item xs={4}>{diceImageSrc(d)}</Grid>
-                                        <Grid item xs={8}><StatSelector stats={this.state.unselectedStats} selectedStat={this.statSelected} id={index} label={this.props.statType} stat={this.statDice[index].statName} /></Grid>
-                                    </Grid>
-                                ))}
-                            </Grid>
+                            {this.props.dice.map((d, index: number) => (
+                                <Grid item xs={12}>
+                                    <StatSelector stats={this.state.unselectedStats} selectedStat={this.statSelected} id={index} label={this.props.statType} stat={this.statDice[index].statName} die={d} />
+                                </Grid>
+                            ))}
                         </Grid>
                     </CardContent>
                 </Card>

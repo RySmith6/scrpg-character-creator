@@ -14,14 +14,14 @@ export class CharacterSources {
     archetype?: Archetype;
     personality?: Personality;
     generateRandomSources() {
-        this.background = new Background(Backgrounds[Math.floor((Math.random() * 20) + 1)]);
-        let ps = PowerSources[Math.floor((Math.random() * 20) + 1)];
+        this.background = new Background(Backgrounds[Math.floor((Math.random() * 20))]);
+        let ps = PowerSources[Math.floor((Math.random() * 20))];
         ps['diceToAssign'] = this.background.diceForPowerSource;
         this.powerSource = new PowerSource(ps);
-        let ar = Archetypes[Math.floor((Math.random() * 18) + 1)];
+        let ar = Archetypes[Math.floor((Math.random() * 18))];
         ar['diceToAssign'] = this.powerSource.diceForArchetype;
         this.archetype = new Archetype(ar);
-        let per = Personalities[Math.floor((Math.random() * 20) + 1)];
+        let per = Personalities[Math.floor((Math.random() * 20))];
         this.personality = new Personality(per);
     }
     getNameOfSource(step: SourceStep) {

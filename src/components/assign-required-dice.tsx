@@ -88,7 +88,7 @@ export default class AssignRequiredDice extends Component<AssignRequiredDiceProp
                                                 ))}
 
                                             </Select></Grid>
-                                        <Grid item xs={8}><StatSelector stats={this.state.unselectedStats} selectedStat={this.statSelected} id={index} label={this.props.statType} stat={this.statDice[index].statName} /></Grid>
+                                        <Grid item xs={8}><StatSelector stats={this.state.unselectedStats} selectedStat={this.statSelected} id={index} label={this.props.statType} stat={this.statDice[index].statName} die={sd.die} /></Grid>
                                     </Grid>
                                 ))}
                                 {this.props.requiredMin ?
