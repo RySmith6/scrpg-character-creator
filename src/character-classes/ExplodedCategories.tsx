@@ -1,5 +1,5 @@
 import exploded from '../rulebook-data/exploded-categories.json';
-import StatIndex from '../rulebook-data/stats-index.json'
+import StatIndex from '../rulebook-data/stats-index.json';
 
 
 export class ExplodedCategories {

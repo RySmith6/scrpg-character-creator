@@ -3,7 +3,7 @@ import { Background } from './Background';
 import { Personality, PersonalityList } from './Personality';
 import { Principle } from './Principle';
 import { Ability, AbilityList, GYROZone } from './Ability';
-import diceImageSrc, { DiceOptions, diceRoll } from './DiceOptions';
+import diceImageSrc, { DiceOptions, diceRoll, maxDieValue } from './DiceOptions';
 import { Container } from 'react-bootstrap';
 import { Outlet, Routes, Route, Link } from "react-router-dom";
 import { BackgroundsList } from './Background';
@@ -21,6 +21,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { CharacterSources } from './CharacterSources';
 import AbilitySelector from '../components/ability-selector';
 import RedAbilityList from './red-abilities';
+import { ExplodedCategories } from './ExplodedCategories';
+import HealthChart from '../rulebook-data/health-chart.json'
 
 export class Character extends Component {
     state: {
@@ -64,6 +66,7 @@ export class Character extends Component {
         this.reRollBackground = this.reRollBackground.bind(this);
         this.rollForNextStep = this.rollForNextStep.bind(this);
         this.toggleSheetCollapse = this.toggleSheetCollapse.bind(this);
+        this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
     }
     generateRandomCharacter() {
         this.state.sources.generateRandomSources();
@@ -71,15 +74,15 @@ export class Character extends Component {
         //Background
         newState.sources.background.setUpdateFunction(this.selectBackground);
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Background) || []);
-        newState.qualityDice.push(...newState.sources.background.diceToAssign.map(d => new StatDie(d, SourceStep.Background)));
+        newState.qualityDice.push(...newState.sources.background.diceToAssign.map((d, index) => new StatDie(d, SourceStep.Background, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.background.qualities)[index])));
         newState.powerSourceRollResult = this.rollForNextStep(newState.sources.background.diceForPowerSource);
         //PowerSource
         newState.sources.powerSource.setUpdateFunction(this.selectPowerSource);
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.PowerSource) || []);
-        newState.powerDice.push(...newState.sources.background.diceForPowerSource.map(d => new StatDie(d, SourceStep.PowerSource)));
+        newState.powerDice.push(...newState.sources.background.diceForPowerSource.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.powers)[index])));
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.PowerSource) || []);
         if (newState.sources.powerSource.additionalQualitiesDice)
-            newState.qualityDice.push(...newState.sources.powerSource.additionalQualitiesDice.map(d => new StatDie(d, SourceStep.PowerSource)));
+            newState.qualityDice.push(...newState.sources.powerSource.additionalQualitiesDice.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.additionalQualities)[index])));
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
         newState.greenAbilities.push(...((newState.sources.powerSource.greenAbilityOptions || []).slice(0, newState.sources.powerSource.greenAbilityCount || 0) || []));
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
@@ -87,10 +90,8 @@ export class Character extends Component {
         //archetypes
         newState.sources.archetype.setUpdateFunction(this.selectArchetype);
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.Archetype) || []);
-        newState.powerDice.push(...newState.sources.background.diceForPowerSource.map(d => new StatDie(d, SourceStep.Archetype)));
+        newState.powerDice.push(...newState.sources.powerSource.diceForArchetype.map((d, index) => new StatDie(d, SourceStep.Archetype, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.archetype.powers).filter(p => !newState.powerDice.some(pd => pd.statName == p))[index])));
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Archetype) || []);
-        if (newState.sources.archetype.additionalQualitiesDice)
-            newState.qualityDice.push(...newState.sources.archetype.additionalQualitiesDice.map(d => new StatDie(d, SourceStep.Archetype)));
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.greenAbilityOptions || []).slice(0, newState.sources.archetype.greenAbilityCount || 0));
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
@@ -183,6 +184,18 @@ export class Character extends Component {
         newState.outAbility = personality.outAbility;
         this.setState(newState);
     }
+    selectHealthRoll(roll: boolean) {
+        let startValue = 8;
+        let redStatus = maxDieValue(this.state.redStatusDie);
+        let sortedAthPowOrMentQuals = this.state.powerDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryAthletic')
+            .concat(this.state.qualityDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryMental')).sort((a, b) => (a.die > b.die) ? 1 : -1);
+        let maxPowQual = sortedAthPowOrMentQuals.length > 0 ? maxDieValue(sortedAthPowOrMentQuals[sortedAthPowOrMentQuals.length - 1].die) : 4;
+        let d8orAvg = roll ? diceRoll(DiceOptions.d8) : 4;
+        let maxHealth = startValue + redStatus + maxPowQual + d8orAvg;
+        let newState = Object.assign({}, this.state);
+        newState.healthMax = maxHealth;
+        this.setState(newState);
+    }
 
     toggleSheetCollapse() {
         let newState = Object.assign({}, this.state);
@@ -256,7 +269,16 @@ export class Character extends Component {
             stepArray.push(...this.state.sources.personality.getSteps().map(s => s.content));
         }
         stepArray.push(<RedAbilityList strict={this.state.strict} totalStats={{ powers: this.state.powerDice, qualities: this.state.qualityDice }} />)
-        stepArray.push(...[<Typography>'Retcon'</Typography>, <Typography>'Health'</Typography>, <Typography>'Finishing Touches'</Typography>]);
+        stepArray.push(...[<Typography>'Retcon'</Typography>,
+        <div>
+            <Button variant="outlined" color="primary" onClick={(e) => {
+                e.stopPropagation(); this.selectHealthRoll(true)
+            }}>Roll For Health</Button>
+            <Button variant="outlined" color="primary" onClick={(e) => {
+                e.stopPropagation(); this.selectHealthRoll(false)
+            }}>Take 4 For Health</Button>
+        </div>
+            , <Typography>'Finishing Touches'</Typography>]);
         return stepArray;
     }
 
@@ -279,7 +301,7 @@ export class Character extends Component {
                                     alignItems="center"
                                     spacing={2}>
                                     <Grid item xs={4}>
-                                        <Button variant="contained" onClick={this.reRollBackground}> Re-roll backgrounds</Button>
+                                        <Button variant="contained" onClick={this.generateRandomCharacter}> Re-roll backgrounds</Button>
                                     </Grid>
                                     <Grid container item xs={12} spacing={2} justify="center">
                                         <Grid item><p><Link to={'/backgrounds'}> Background</Link>:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</p>
@@ -292,28 +314,28 @@ export class Character extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid container item xs={12} spacing={2}>
-                                        <Grid item xs={5}>
+                                        <Grid item xs={4}>
                                             <DisplayStatDice
                                                 statDice={this.state.qualityDice}
                                                 statType="Qualities" />
                                         </Grid>
-                                        <Grid item xs={5}>
+                                        <Grid item xs={4}>
                                             <DisplayStatDice
                                                 statDice={this.state.powerDice}
                                                 statType="Powers" />
                                         </Grid>
-                                        <Grid item xs={2}>
+                                        <Grid item xs={4}>
                                             <Accordion>
                                                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                                                     Status Dice
                                     </AccordionSummary>
                                                 <AccordionDetails>
                                                     <List style={{ width: '100%' }}>
-                                                        <ListItem className='gyrozone-green'>{diceImageSrc(this.state.greenStatusDie, 30)}</ListItem>
+                                                        <ListItem className='gyrozone-green'>{diceImageSrc(this.state.greenStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].green}</ListItem>
                                                         <Divider />
-                                                        <ListItem className='gyrozone-yellow'>{diceImageSrc(this.state.yellowStatusDie, 30)}</ListItem>
+                                                        <ListItem className='gyrozone-yellow'>{diceImageSrc(this.state.yellowStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].yellow}</ListItem>
                                                         <Divider />
-                                                        <ListItem className='gyrozone-red'>{diceImageSrc(this.state.redStatusDie, 30)}</ListItem>
+                                                        <ListItem className='gyrozone-red'>{diceImageSrc(this.state.redStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].red}</ListItem>
                                                     </List>
                                                 </AccordionDetails>
                                             </Accordion>

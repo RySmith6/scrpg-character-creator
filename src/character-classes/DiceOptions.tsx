@@ -37,6 +37,11 @@ export default function diceImageSrc(diceOption: string, size: number = 42) {
     )
 }
 export function diceRoll(diceOption: string): number {
+    let maxValue = maxDieValue(diceOption);
+    return Math.floor(Math.random() * (maxValue + 1));
+}
+
+export function maxDieValue(diceOption: string): number {
     let maxValue = 0;
     switch (DiceOptions[diceOption]) {
         case DiceOptions.d12:
@@ -55,7 +60,7 @@ export function diceRoll(diceOption: string): number {
             maxValue = 4;
             break;
     }
-    return Math.floor(Math.random() * (maxValue + 1));
+    return maxValue;
 }
 
 
