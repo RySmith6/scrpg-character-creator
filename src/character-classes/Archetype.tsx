@@ -30,17 +30,7 @@ export class ArchetypesList extends Component<ReturnSelection>{
     }
     constructor(props: ReturnSelection) {
         super(props);
-        this.confirmArchetype = this.confirmArchetype.bind(this);
-        this.selectArchetype = this.selectArchetype.bind(this);
         this.state = {};
-    }
-
-    confirmArchetype() {
-        this.props.selectedCallback(this.state.selectedArchetype);
-    }
-    selectArchetype(archetype: any) {
-        archetype.diceToAssign = this.props.diceFromPreviousStep;
-        this.setState({ selectedArchetype: archetype });
     }
     render() {
         return (
@@ -89,6 +79,8 @@ export class Archetype {
     guaranteedGreenAbilities: Ability[]
     freeDice: DiceOptions[];
     freeDiceRestriction: string[];
+    requiredDice: StatDie[] = [];
+    finalRemainingDice: StatDie[] = [];
     finalPowerDice: StatDie[] = [];
     finalQualityDice: StatDie[] = [];
     finalGreenAbilities: Ability[] = [];
@@ -109,6 +101,7 @@ export class Archetype {
         //this.confirmQualityDice = this.confirmQualityDice.bind(this);
         this.confirmGreenAbilities = this.confirmGreenAbilities.bind(this);
         this.confirmYellowAbilities = this.confirmYellowAbilities.bind(this);
+        this.confirmPrinciple = this.confirmPrinciple.bind(this);
     }
     setUpdateFunction(update) {
         this.updateFunction = update;
@@ -132,15 +125,8 @@ export class Archetype {
     }
 
     confirmRequiredDice(dice) {
-        let powerDice = [];
-        powerDice.push(...dice.filter(d => StatIndex[d.statName].statType === 'Power'));
-        this.finalPowerDice.push(...powerDice);
-        let qualityDice = [];
-        qualityDice.push(...dice.filter(d => StatIndex[d.statName].statType === 'Quality'));
-        this.finalQualityDice.push(...qualityDice);
-        if (this.updateFunction) {
-            this.updateFunction(this);
-        }
+        this.requiredDice = dice.slice();
+        this.updateFinalDiceArrays();
     }
 
     confirmPowerDice(dice) {
@@ -151,12 +137,13 @@ export class Archetype {
     }
 
     confirmRemainingDice(dice) {
-        let powerDice = [];
-        powerDice.push(...dice.where(d => StatIndex[d.statName].statType === 'Power'));
-        this.finalPowerDice.push(...powerDice);
-        let qualityDice = [];
-        qualityDice.push(...dice.where(d => StatIndex[d.statName].statType === 'Quality'));
-        this.finalQualityDice.push(...qualityDice);
+        this.finalRemainingDice = dice.slice();
+        this.updateFinalDiceArrays();
+    }
+    updateFinalDiceArrays() {
+        let totalDice = this.requiredDice.slice().concat(this.finalRemainingDice.slice());
+        this.finalPowerDice = totalDice.filter(d => StatIndex[d.statName].statType === 'Power').slice();
+        this.finalQualityDice = totalDice.filter(d => StatIndex[d.statName].statType === 'Quality').slice();
         if (this.updateFunction) {
             this.updateFunction(this);
         }
@@ -177,7 +164,7 @@ export class Archetype {
                 label: 'Assign Power Dice', content: <AssignStatDice
                     dice={this.diceToAssign}
                     stats={this.powers}
-                    confirmDice={this.confirmPowerDice}
+                    confirmDice={this.confirmRemainingDice}
                     statType='Power' source={SourceStep.Archetype} />
             }, {
                 label: `Select ${this.greenAbilityCount} green Abilities`, content: <AbilitySelector

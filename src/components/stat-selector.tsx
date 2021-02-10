@@ -11,7 +11,7 @@ export default function StatSelector(props: StatSelectionCallback) {
     const classes = useStyles();
     const options = ExplodedCategories.GetSortedExplodedCategories(props.stats);
     const handleChange = (event, value) => {
-        props.selectedStat(value, props.id);
+        props.selectedStat(value.stat, props.id);
     };
 
 

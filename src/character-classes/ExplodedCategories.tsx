@@ -1,4 +1,5 @@
 import exploded from '../rulebook-data/exploded-categories.json';
+import StatIndex from '../rulebook-data/stats-index.json'
 
 
 export class ExplodedCategories {
@@ -28,12 +29,10 @@ export class ExplodedCategories {
         return fullstatsArray;
     }
     static GetCategoryForStat(stat: string): string {
-        return Object.keys(exploded.powers).find(cat => exploded.powers[cat].find(s => s == stat)) ||
-            Object.keys(exploded.qualities).find(cat => exploded.qualities[cat].find(s => s == stat)) || 'unique';
+        return StatIndex[stat] ? StatIndex[stat].category : 'Hallmark';
     }
     static GetTypeofStat(stat: string) {
-        let cat = this.GetCategoryForStat(stat);
-        return exploded.powers[cat] ? 'power' : exploded.qualities[cat] ? 'quality' : 'unique';
+        return StatIndex[stat] ? StatIndex[stat].statType : 'Unique';
     }
     static GetSortedExplodedCategories(stats: string[]): { stat: string, category: string, type: string }[] {
         let explodedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(stats);
@@ -41,4 +40,5 @@ export class ExplodedCategories {
         let sorted = statsWithCategory.sort((a, b) => { return a.type != b.type ? (a.type == 'power' ? -1 : 1) : a.category != b.category ? (a.category.localeCompare(b.category)) : a.stat.localeCompare(b.stat) });
         return sorted;
     }
+    static FilterCategories
 }

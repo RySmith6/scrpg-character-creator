@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import { Select, MenuItem, Typography } from '@material-ui/core';
 import AbilityBracketSelector from './ability-bracket-selector';
+import { ExplodedCategories } from '../character-classes/ExplodedCategories';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,9 +78,9 @@ export default function AbilitySelector(props) {
                                 {ability.text.match(bracketRegEx).map(bracketedValue =>
                                     <AbilityBracketSelector
                                         bracketedString={bracketedValue}
-                                        index={index}
-                                        powers={props.powers}
-                                        qualities={props.qualities}
+                                        index={checked.indexOf(ability)}
+                                        powers={ability.requiredPower ? props.powers.filter(p => ExplodedCategories.ReturnStatsWithExplodedCategories(ability.requiredPower).indexOf(p.statName) > -1) : props.powers}
+                                        qualities={ability.requiredQuality ? props.qualities.filter(q => ExplodedCategories.ReturnStatsWithExplodedCategories(ability.requiredQuality).indexOf(q.statName) > -1) : props.qualities}
                                         bracketSelection={handleBracketSelection}>
 
                                     </AbilityBracketSelector>)}

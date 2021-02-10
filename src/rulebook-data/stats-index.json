@@ -1,233 +1,310 @@
 {
     "Agility": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryAthletic"
     },
     "Speed": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryAthletic"
     },
     "Strength": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryAthletic"
     },
     "Vitality": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryAthletic"
     },
     "Cold": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Cosmic": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Electricity": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Fire": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Infernal": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Nuclear": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Radiant": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Sonic": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Weather": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryElemental/Energy"
     },
     "Signature Vehicle": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryHallmark"
     },
     "Signature Weaponry": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryHallmark"
     },
     "Awareness": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryIntellectual"
     },
     "Deduction": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryIntellectual"
     },
     "Intuition": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryIntellectual"
     },
     "Lightning Calculator": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryIntellectual"
     },
     "Presence": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryIntellectual"
     },
     "Metal": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMaterials"
     },
     "Plants": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMaterials"
     },
     "Stone": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMaterials"
     },
     "Toxic": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMaterials"
     },
     "Transmutation": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMaterials"
     },
     "Absorption": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Density Control": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Duplication": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Elasticity": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Intangibility": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Invisibility": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Part Detachment": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Shapeshifting": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Size-Changing": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categorySelfControl"
     },
     "Animal Control": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Illusions": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Precognition": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Postcognition": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Remote Viewing": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Suggestion": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Telekinesis": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Telepathy": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryPsychic"
     },
     "Flight": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Leaping": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Momentum": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Swimming": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Swinging": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Teleportation": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Wall-Crawling": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryMobility"
     },
     "Gadgets": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryTechnological"
     },
     "Inventions": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryTechnological"
     },
     "Power Suit": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryTechnological"
     },
     "Robotics": {
-        "statType": "Power"
+        "statType": "Power",
+        "category": "categoryTechnological"
     },
     "Criminal Underworld Info": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Deep Space Knowledge": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "History": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Magical Lore": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Medicine": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Otherworldly Mythos": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Science": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Technology": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryInformation"
     },
     "Alertness": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryMental"
     },
     "Conviction": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryMental"
     },
     "Creativity": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryMental"
     },
     "Investigation": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryMental"
     },
     "Self-Discipline": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryMental"
     },
     "Acrobatics": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Close Combat": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Finesse": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Fitness": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Ranged Combat": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Stealth": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categoryPhysical"
     },
     "Banter": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categorySocial"
     },
     "Insight": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categorySocial"
     },
     "Imposing": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categorySocial"
     },
     "Leadership": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categorySocial"
     },
     "Persuasion": {
-        "statType": "Quality"
+        "statType": "Quality",
+        "category": "categorySocial"
     }
 }

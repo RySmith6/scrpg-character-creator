@@ -160,12 +160,14 @@ export class Character extends Component {
     }
     selectArchetype(archetype: Archetype) {
         let newState = Object.assign({}, this.state);
+        archetype.setStrict(this.state.strict);
+        archetype.setUpdateFunction(this.selectArchetype);
         newState.sources.archetype = archetype;
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.Archetype) || []);
-        newState.powerDice.push(...newState.sources.background.diceForPowerSource.map(d => new StatDie(d, SourceStep.Archetype)));
+        newState.powerDice.push(...newState.sources.archetype.finalPowerDice);
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Archetype) || []);
-        if (archetype.additionalQualitiesDice)
-            newState.qualityDice.push(...archetype.additionalQualitiesDice.map(d => new StatDie(d, SourceStep.Archetype)));
+        if (archetype.finalQualityDice)
+            newState.qualityDice.push(...archetype.finalQualityDice);
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.finalGreenAbilities || []));
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
@@ -253,7 +255,7 @@ export class Character extends Component {
         if (this.state.sources.personality) {
             stepArray.push(...this.state.sources.personality.getSteps().map(s => s.content));
         }
-        stepArray.push(<RedAbilityList strict={this.state.strict} totalStats={{ powers: this.state.powerDice.map(pd => pd.statName), qualities: this.state.qualityDice.map(qd => qd.statName) }} />)
+        stepArray.push(<RedAbilityList strict={this.state.strict} totalStats={{ powers: this.state.powerDice, qualities: this.state.qualityDice }} />)
         stepArray.push(...[<Typography>'Retcon'</Typography>, <Typography>'Health'</Typography>, <Typography>'Finishing Touches'</Typography>]);
         return stepArray;
     }
@@ -268,7 +270,7 @@ export class Character extends Component {
             >
                 <Grid container item xs={12} md={6}>
                     <Container fluid>
-                        <Accordion>
+                        <Accordion expanded={this.state.open}>
                             <AccordionSummary>Character Name:{this.state.name} <Button color="primary" onClick={this.toggleSheetCollapse}>Toggle Character Sheet</Button></AccordionSummary>
                             <AccordionDetails>
                                 <Grid container
