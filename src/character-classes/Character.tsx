@@ -19,6 +19,8 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { CharacterSources } from './CharacterSources';
+import AbilitySelector from '../components/ability-selector';
+import RedAbilityList from './red-abilities';
 
 export class Character extends Component {
     state: {
@@ -251,7 +253,8 @@ export class Character extends Component {
         if (this.state.sources.personality) {
             stepArray.push(...this.state.sources.personality.getSteps().map(s => s.content));
         }
-        stepArray.push(...[<Typography>Red Abilities</Typography>, <Typography>'Retcon'</Typography>, <Typography>'Health'</Typography>, <Typography>'Finishing Touches'</Typography>]);
+        stepArray.push(<RedAbilityList strict={this.state.strict} totalStats={{ powers: this.state.powerDice.map(pd => pd.statName), qualities: this.state.qualityDice.map(qd => qd.statName) }} />)
+        stepArray.push(...[<Typography>'Retcon'</Typography>, <Typography>'Health'</Typography>, <Typography>'Finishing Touches'</Typography>]);
         return stepArray;
     }
 

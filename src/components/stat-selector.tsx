@@ -9,6 +9,7 @@ import diceImageSrc, { DiceOptions } from '../character-classes/DiceOptions';
 
 export default function StatSelector(props: StatSelectionCallback) {
     const classes = useStyles();
+    const options = ExplodedCategories.GetSortedExplodedCategories(props.stats);
     const handleChange = (event, value) => {
         props.selectedStat(value, props.id);
     };
@@ -17,14 +18,21 @@ export default function StatSelector(props: StatSelectionCallback) {
     return (
         <Autocomplete
             id="combo-box-demo"
-            options={ExplodedCategories.ReturnStatsWithExplodedCategories(props.stats)}
+            options={options}
+            groupBy={(option) => ExplodedCategories.GetReadableCategoryName(option.category)}
+            getOptionLabel={(option) => option.stat}
             style={{ width: 300 }}
             onChange={handleChange}
-            defaultValue={props.stat}
-            autoComplete={true}
-            renderInput={(params) => <TextField {...params} label={props.label ?? 'Stat'} variant="outlined" InputProps={{
-                startAdornment: <InputAdornment position="start">{diceImageSrc(props.die, 25)}</InputAdornment>,
-            }} />}
+            defaultValue={//props.stat
+                { stat: props.stat, category: ExplodedCategories.GetCategoryForStat(props.stat), type: ExplodedCategories.GetTypeofStat(props.stat) }
+            }
+            //autoComplete={true}
+            renderInput={(params) => <TextField {...params} label={props.label ?? 'Stat'} variant="outlined"
+                InputProps={{
+                    ...params.InputProps,
+                    startAdornment: <InputAdornment position="start">{diceImageSrc(props.die, 25)}</InputAdornment>,
+                }}
+            />}
         />
     );
 }
