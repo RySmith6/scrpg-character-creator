@@ -4,11 +4,9 @@ import { Personality, PersonalityList } from './Personality';
 import { Principle } from './Principle';
 import { Ability, AbilityList, GYROZone } from './Ability';
 import diceImageSrc, { DiceOptions, diceRoll, maxDieValue } from './DiceOptions';
-import { Container } from 'react-bootstrap';
 import { Outlet, Routes, Route, Link } from "react-router-dom";
 import { BackgroundsList } from './Background';
 import { PowerSourcesList, PowerSource } from "./PowerSources"
-import { ListGroup } from 'react-bootstrap';
 import { ArchetypesList, Archetype } from './Archetype';
 import { StatDie } from './StatDie';
 import { SourceStep } from './SourceStep';
@@ -311,71 +309,69 @@ export class Character extends Component {
                 alignItems="flex-start"
             >
                 <Grid container item xs={12} md={6}>
-                    <Container fluid>
-                        <Accordion expanded={this.state.open}>
-                            <AccordionSummary>Character Name:{this.state.name} <Button color="primary" onClick={this.toggleSheetCollapse}>Toggle Character Sheet</Button></AccordionSummary>
-                            <AccordionDetails>
-                                <Grid container
-                                    direction="column"
-                                    justify="center"
-                                    alignItems="center"
-                                    spacing={2}>
-                                    <Grid item xs={4}>
-                                        <Button variant="contained" onClick={this.generateRandomCharacter}> Re-roll backgrounds</Button>
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <Button variant="contained" onClick={() => fillForm(this.state)}> download character sheet</Button>
-                                    </Grid>
-                                    <Grid container item xs={12} spacing={2} justify="center">
-                                        <Grid item><p><Link to={'/backgrounds'}> Background</Link>:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</p>
-                                        </Grid><Grid item>
-                                            <p><Link to={'/powersources'}> Power Source</Link>:{this.state.sources.powerSource ? this.state.sources.powerSource.name : 'No Power Source Selected'}</p>
-                                        </Grid><Grid item>
-                                            <p><Link to={'/archetypes'}> Archetype</Link>:{this.state.sources.archetype ? this.state.sources.archetype.name : 'No Archetype Selected'}</p>
-                                        </Grid><Grid item>
-                                            <p><Link to={'/personalities'}> Personality</Link>:{this.state.sources.personality ? this.state.sources.personality.name : 'No Personality Selected'}</p>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item xs={12} spacing={2}>
-                                        <Grid item xs={4}>
-                                            <DisplayStatDice
-                                                statDice={this.state.qualityDice}
-                                                statType="Qualities" />
-                                        </Grid>
-                                        <Grid item xs={4}>
-                                            <DisplayStatDice
-                                                statDice={this.state.powerDice}
-                                                statType="Powers" />
-                                        </Grid>
-                                        <Grid item xs={4}>
-                                            <Accordion>
-                                                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                                                    Status Dice
-                                    </AccordionSummary>
-                                                <AccordionDetails>
-                                                    <List style={{ width: '100%' }}>
-                                                        <ListItem className='gyrozone-green'>{diceImageSrc(this.state.greenStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].green}</ListItem>
-                                                        <Divider />
-                                                        <ListItem className='gyrozone-yellow'>{diceImageSrc(this.state.yellowStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].yellow}</ListItem>
-                                                        <Divider />
-                                                        <ListItem className='gyrozone-red'>{diceImageSrc(this.state.redStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].red}</ListItem>
-                                                    </List>
-                                                </AccordionDetails>
-                                            </Accordion>
-                                        </Grid>
-                                    </Grid>
-                                    <Grid container item xs={12} spacing={2}>
-                                        <Grid item>
-                                            <AbilityList gyroZone={GYROZone.green} preview={true} abilities={this.state.greenAbilities} characterSources={this.state.sources}></AbilityList>
-                                        </Grid>
-                                        <Grid item>
-                                            <AbilityList gyroZone={GYROZone.yellow} preview={true} abilities={this.state.yellowAbilities} characterSources={this.state.sources}></AbilityList>
-                                        </Grid>
+                    <Accordion expanded={this.state.open}>
+                        <AccordionSummary>Character Name:{this.state.name} <Button color="primary" onClick={this.toggleSheetCollapse}>Toggle Character Sheet</Button></AccordionSummary>
+                        <AccordionDetails>
+                            <Grid container
+                                direction="column"
+                                justify="center"
+                                alignItems="center"
+                                spacing={2}>
+                                <Grid item xs={4}>
+                                    <Button variant="contained" onClick={this.generateRandomCharacter}> Re-roll backgrounds</Button>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button variant="contained" onClick={() => fillForm(this.state)}> download character sheet</Button>
+                                </Grid>
+                                <Grid container item xs={12} spacing={2} justify="center">
+                                    <Grid item><Typography> Background:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</Typography>
+                                    </Grid><Grid item>
+                                        <Typography> Power Source:{this.state.sources.powerSource ? this.state.sources.powerSource.name : 'No Power Source Selected'}</Typography>
+                                    </Grid><Grid item>
+                                        <Typography>Archetype:{this.state.sources.archetype ? this.state.sources.archetype.name : 'No Archetype Selected'}</Typography>
+                                    </Grid><Grid item>
+                                        <Typography>Personality:{this.state.sources.personality ? this.state.sources.personality.name : 'No Personality Selected'}</Typography>
                                     </Grid>
                                 </Grid>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Container>
+                                <Grid container item xs={12} spacing={2}>
+                                    <Grid item xs={4}>
+                                        <DisplayStatDice
+                                            statDice={this.state.qualityDice}
+                                            statType="Qualities" />
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <DisplayStatDice
+                                            statDice={this.state.powerDice}
+                                            statType="Powers" />
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Accordion>
+                                            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                                                Status Dice
+                                    </AccordionSummary>
+                                            <AccordionDetails>
+                                                <List style={{ width: '100%' }}>
+                                                    <ListItem className='gyrozone-green'>{diceImageSrc(this.state.greenStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].green}</ListItem>
+                                                    <Divider />
+                                                    <ListItem className='gyrozone-yellow'>{diceImageSrc(this.state.yellowStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].yellow}</ListItem>
+                                                    <Divider />
+                                                    <ListItem className='gyrozone-red'>{diceImageSrc(this.state.redStatusDie, 30)} {this.state.healthMax && HealthChart[this.state.healthMax].red}</ListItem>
+                                                </List>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                </Grid>
+                                <Grid container item xs={12} spacing={2}>
+                                    <Grid item>
+                                        <AbilityList gyroZone={GYROZone.green} preview={true} abilities={this.state.greenAbilities} characterSources={this.state.sources}></AbilityList>
+                                    </Grid>
+                                    <Grid item>
+                                        <AbilityList gyroZone={GYROZone.yellow} preview={true} abilities={this.state.yellowAbilities} characterSources={this.state.sources}></AbilityList>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </AccordionDetails>
+                    </Accordion>
                 </Grid>
                 <Grid container item xs={12} md={6}>
                     <Box width='100%' style={{ maxHeight: '85vh', overflow: 'auto' }}>

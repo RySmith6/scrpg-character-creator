@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { Character } from "./character-classes/Character";
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -24,69 +23,46 @@ export default function App() {
   const characterFileString = './rulebook-data/CharacterSheet.pdf';
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <AppBar position="sticky">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography className={classes.title} variant="h6" noWrap>
-              SCRPG Character Creator
+    //<BrowserRouter>
+    <div className="App">
+      <AppBar position="sticky">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="open drawer"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography className={classes.title} variant="h6" noWrap>
+            SCRPG Character Creator
           </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-              />
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
             </div>
-          </Toolbar>
-        </AppBar>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search' }}
+            />
+          </div>
+        </Toolbar>
+      </AppBar>
+      <div className="content">
+        <Character />
 
-        {/* <ul className="header">
-            <li><NavLink to="/">Character</NavLink></li>
-            <li><NavLink to="/backgrounds">Backgrounds</NavLink></li>
-            <li><NavLink to="/powersources">Power Sources</NavLink></li>
-            <li><NavLink to="/archetypes">Archetypes</NavLink></li>
-          </ul> */}
-        {/* <Navbar bg="light" expand="lg">
-            <Navbar.Brand as={Link} to='/'>SCRPG Character Creator</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link as={NavLink} to="/backgrounds">Backgrounds</Nav.Link>
-                <Nav.Link as={NavLink} to="/powersources">Power Sources</Nav.Link>
-                <Nav.Link as={NavLink} to="/archetypes">Archetypes</Nav.Link>
-                <Nav.Link as={NavLink} to="/personalities">Personalities</Nav.Link>
-              </Nav>
-              <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-success">Search</Button>
-              </Form>
-            </Navbar.Collapse>
-          </Navbar> */}
-
-        <div className="content">
-
-          <Routes>
+        {/* <Routes>
             <Route path="//*" element={<Character />} >
             </Route>
-          </Routes>
-        </div>
+          </Routes> */}
       </div>
-    </BrowserRouter>
+    </div>
+    //</BrowserRouter>
   );
 }
 const useStyles = makeStyles((theme) => ({

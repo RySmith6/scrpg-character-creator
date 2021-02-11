@@ -1,7 +1,6 @@
 
 import { Ability, GYROZone } from './Ability';
 import { SourceStep } from "./SourceStep";
-import { Card, } from 'react-bootstrap';
 import React, { Component } from 'react'
 import Principles from '../rulebook-data/Principles.json'
 import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Typography } from '@material-ui/core';

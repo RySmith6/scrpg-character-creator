@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ReturnSelection, SelectableByRoll } from './Character';
 import Personalities from '../rulebook-data/Personalities.json'
 import diceImageSrc, { DiceOptions } from './DiceOptions';
-import { Row } from 'react-bootstrap';
 import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, List, ListItem, Divider, Card, CardContent, TextField, InputAdornment } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { Ability, GYROZone } from './Ability';

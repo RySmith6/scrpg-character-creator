@@ -4,7 +4,6 @@ import Archetypes from '../rulebook-data/Archetypes.json'
 import exploded from '../rulebook-data/exploded-categories.json';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import { Ability } from './Ability';
-import { Row } from 'react-bootstrap';
 import { stat } from 'fs';
 import { ExplodedCategories } from './ExplodedCategories';
 import { SourceStep } from './SourceStep';
