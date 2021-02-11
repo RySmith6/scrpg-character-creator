@@ -22,7 +22,12 @@ import { CharacterSources } from './CharacterSources';
 import AbilitySelector from '../components/ability-selector';
 import RedAbilityList from './red-abilities';
 import { ExplodedCategories } from './ExplodedCategories';
-import HealthChart from '../rulebook-data/health-chart.json'
+import HealthChart from '../rulebook-data/health-chart.json';
+import Backgrounds from '../rulebook-data/Backgrounds.json';
+import PowerSources from '../rulebook-data/PowerSource.json';
+import Archetypes from '../rulebook-data/Archetypes.json';
+import Personalities from '../rulebook-data/Personalities.json';
+import { fillForm } from '../components/pdf-filler'
 
 export class Character extends Component {
     state: {
@@ -37,6 +42,8 @@ export class Character extends Component {
         qualityDice: StatDie[];
         backgroundRollResult: number[];
         powerSourceRollResult: number[];
+        archetypeRollResult: number[];
+        personalityRollResult: number[];
         greenStatusDie: DiceOptions;
         yellowStatusDie: DiceOptions;
         redStatusDie: DiceOptions;
@@ -58,25 +65,26 @@ export class Character extends Component {
         this.state.sources = new CharacterSources();
         this.state.strict = true;
         this.state.open = true;
-        this.state.backgroundRollResult = this.rollForBackground();
+        this.state.backgroundRollResult = this.rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
         this.selectBackground = this.selectBackground.bind(this);
         this.selectPowerSource = this.selectPowerSource.bind(this);
         this.selectArchetype = this.selectArchetype.bind(this);
         this.selectPersonality = this.selectPersonality.bind(this);
-        this.reRollBackground = this.reRollBackground.bind(this);
         this.rollForNextStep = this.rollForNextStep.bind(this);
         this.toggleSheetCollapse = this.toggleSheetCollapse.bind(this);
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
     }
     generateRandomCharacter() {
-        this.state.sources.generateRandomSources();
         let newState = Object.assign({}, this.state);
+        //newState.backgroundRollResult = this.rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
         //Background
+        newState.sources.background = new Background(Backgrounds[newState.backgroundRollResult[0]]);
         newState.sources.background.setUpdateFunction(this.selectBackground);
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Background) || []);
         newState.qualityDice.push(...newState.sources.background.diceToAssign.map((d, index) => new StatDie(d, SourceStep.Background, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.background.qualities)[index])));
         newState.powerSourceRollResult = this.rollForNextStep(newState.sources.background.diceForPowerSource);
         //PowerSource
+        newState.sources.powerSource = new PowerSource(PowerSources[newState.powerSourceRollResult[0]])
         newState.sources.powerSource.setUpdateFunction(this.selectPowerSource);
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.PowerSource) || []);
         newState.powerDice.push(...newState.sources.background.diceForPowerSource.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.powers)[index])));
@@ -87,29 +95,30 @@ export class Character extends Component {
         newState.greenAbilities.push(...((newState.sources.powerSource.greenAbilityOptions || []).slice(0, newState.sources.powerSource.greenAbilityCount || 0) || []));
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
         newState.yellowAbilities.push(...(newState.sources.powerSource.yellowAbilityOptions || []).slice(0, newState.sources.powerSource.yellowAbilityCount || 0));
+        newState.archetypeRollResult = this.rollForNextStep(newState.sources.powerSource.diceForArchetype);
         //archetypes
+        newState.sources.archetype = new Archetype(Archetypes[newState.archetypeRollResult[0]]);
         newState.sources.archetype.setUpdateFunction(this.selectArchetype);
         newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.Archetype) || []);
         newState.powerDice.push(...newState.sources.powerSource.diceForArchetype.map((d, index) => new StatDie(d, SourceStep.Archetype, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.archetype.powers).filter(p => !newState.powerDice.some(pd => pd.statName == p))[index])));
         newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Archetype) || []);
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.greenAbilityOptions || []).slice(0, newState.sources.archetype.greenAbilityCount || 0));
+        if (newState.sources.archetype.guaranteedGreenAbilities)
+            newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.yellowAbilities.push(...(newState.sources.archetype.yellowAbilityOptions || []).slice(0, newState.sources.archetype.yellowAbilityCount || 0));
-        this.setState(newState);
-    }
-    reRollBackground() {
-        let newState = Object.assign({}, this.state);
-        newState.backgroundRollResult = this.rollForBackground();
-        this.setState(newState);
-    }
+        newState.personalityRollResult = this.rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
+        //Personality
+        newState.sources.personality = new Personality(Personalities[newState.personalityRollResult[0]]);
+        newState.greenStatusDie = newState.sources.personality.greenStatusDie;
+        newState.yellowStatusDie = newState.sources.personality.yellowStatusDie;
+        newState.redStatusDie = newState.sources.personality.redStatusDie;
+        newState.outAbility = newState.sources.personality.outAbility;
+        //health
+        newState.healthMax = this.generateHealthMax(true, newState);
 
-    rollForBackground(): number[] {
-        let rolledBackgrounds = [];
-        let firstDie = diceRoll(DiceOptions.d10);
-        let secondDie = diceRoll(DiceOptions.d10);
-        rolledBackgrounds = [firstDie, secondDie, (firstDie + secondDie)]
-        return rolledBackgrounds;
+        this.setState(newState);
     }
     rollForNextStep(dice: DiceOptions[]): number[] {
         let nextStepOptions = [];
@@ -171,6 +180,8 @@ export class Character extends Component {
             newState.qualityDice.push(...archetype.finalQualityDice);
         newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.finalGreenAbilities || []));
+        if (newState.sources.archetype.guaranteedGreenAbilities)
+            newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.yellowAbilities.push(...(newState.sources.archetype.finalYellowAbilities || []));
         this.setState(newState);
@@ -185,16 +196,19 @@ export class Character extends Component {
         this.setState(newState);
     }
     selectHealthRoll(roll: boolean) {
+        let newState = Object.assign({}, this.state);
+        newState.healthMax = this.generateHealthMax(roll, newState);
+        this.setState(newState);
+    }
+    generateHealthMax(roll, state) {
         let startValue = 8;
-        let redStatus = maxDieValue(this.state.redStatusDie);
-        let sortedAthPowOrMentQuals = this.state.powerDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryAthletic')
-            .concat(this.state.qualityDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryMental')).sort((a, b) => (a.die > b.die) ? 1 : -1);
+        let redStatus = maxDieValue(state.redStatusDie);
+        let sortedAthPowOrMentQuals = state.powerDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryAthletic')
+            .concat(state.qualityDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryMental')).sort((a, b) => (a.die > b.die) ? 1 : -1);
         let maxPowQual = sortedAthPowOrMentQuals.length > 0 ? maxDieValue(sortedAthPowOrMentQuals[sortedAthPowOrMentQuals.length - 1].die) : 4;
         let d8orAvg = roll ? diceRoll(DiceOptions.d8) : 4;
         let maxHealth = startValue + redStatus + maxPowQual + d8orAvg;
-        let newState = Object.assign({}, this.state);
-        newState.healthMax = maxHealth;
-        this.setState(newState);
+        return maxHealth;
     }
 
     toggleSheetCollapse() {
@@ -302,6 +316,9 @@ export class Character extends Component {
                                     spacing={2}>
                                     <Grid item xs={4}>
                                         <Button variant="contained" onClick={this.generateRandomCharacter}> Re-roll backgrounds</Button>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                        <Button variant="contained" onClick={() => fillForm(this.state)}> download character sheet</Button>
                                     </Grid>
                                     <Grid container item xs={12} spacing={2} justify="center">
                                         <Grid item><p><Link to={'/backgrounds'}> Background</Link>:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</p>

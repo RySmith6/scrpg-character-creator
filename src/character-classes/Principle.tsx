@@ -51,7 +51,9 @@ export function PrinciplesList(props) {
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <span className="mr-auto">{p.name}</span>
+                        <span className="mr-auto">{p.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                            e.stopPropagation(); this.props.selectedCallback(new Principle(p))
+                        }}>Select this Power Source</Button>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Principle selectedCallback={confirmCallback}>{p}</Principle>

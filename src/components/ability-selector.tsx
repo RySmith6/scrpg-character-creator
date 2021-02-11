@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function AbilitySelector(props) {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([]);
+    const [checked, setChecked] = React.useState(props.defaultAbilities || []);
     const bracketRegEx = /\[([^\]]+)\]/g
 
     const handleToggle = (ability) => () => {

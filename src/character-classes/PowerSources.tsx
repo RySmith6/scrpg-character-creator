@@ -144,6 +144,7 @@ export class PowerSource {
             {
                 label: `Select ${this.yellowAbilityCount} Yellow Abilities`, content: <AbilitySelector
                     abilities={this.yellowAbilityOptions}
+                    defaultAbilities={this.finalYellowAbilities}
                     confirmAbilities={this.confirmYellowAbilities}
                     strict={this.strict}
                     powers={this.finalPowerDice}
@@ -159,6 +160,7 @@ export class PowerSource {
             baseSteps.push({
                 label: `Select ${this.greenAbilityCount} green Abilities`, content: <AbilitySelector
                     abilities={this.greenAbilityOptions}
+                    defaultAbilities={this.finalGreenAbilities}
                     confirmAbilities={this.confirmGreenAbilities}
                     strict={this.strict}
                     powers={this.finalPowerDice.concat(this.finalPowerDice)}
