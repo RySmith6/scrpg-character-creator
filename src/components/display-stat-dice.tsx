@@ -1,6 +1,4 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid'
-import { StatDie } from '../character-classes/StatDie';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -10,11 +8,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import diceSrc, { diceAvatar } from '../character-classes/DiceOptions';
+import { diceAvatar } from '../character-classes/DiceOptions';
 
 const useStyles = makeStyles((theme) => ({
     root: {

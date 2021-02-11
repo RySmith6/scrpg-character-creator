@@ -83,13 +83,18 @@ export async function fillForm(state: any) {
 
     const outAbility = form.getTextField('Out');
 
-
+    //Fields not yet in the UI
+    playerField.setText('1P')
     heroNameField.setText('Mario')
     ageField.setText('24 years')
     heightField.setText(`5' 1"`)
     eyesField.setText('blue')
     skinField.setText('white')
     hairField.setText('brown')
+    aliasField.setText('Jennifer Garner')
+    genderField.setText('female')
+    buildField.setText('Lego Bricks')
+    costumeEquipmentField.setText('Dapper Vest')
 
     backgroundField.setText(state.sources.background.name);
     powerSourceField.setText(state.sources.powerSource.name);

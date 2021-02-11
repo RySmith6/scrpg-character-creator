@@ -6,9 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import CommentIcon from '@material-ui/icons/Comment';
-import { Select, MenuItem, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import AbilityBracketSelector from './ability-bracket-selector';
 import { ExplodedCategories } from '../character-classes/ExplodedCategories';
 

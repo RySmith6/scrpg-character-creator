@@ -1,9 +1,14 @@
 
 import { Ability, GYROZone } from './Ability';
 import { SourceStep } from "./SourceStep";
-import React, { Component } from 'react'
+import React from 'react'
 import Principles from '../rulebook-data/Principles.json'
-import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 export class Principle {
@@ -21,9 +26,6 @@ export class Principle {
 }
 
 export function PrinciplesList(props) {
-    const confirmCallback = (principle) => {
-        props.selectedCallback(principle);
-    }
     return (
         <Grid item xs={12}>
             {Principles.filter(p => (props.strict ? props.guidedCategory.includes(p.category) : true)).map(p => (

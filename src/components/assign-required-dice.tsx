@@ -4,7 +4,10 @@ import { StatDie } from '../character-classes/StatDie';
 import diceImageSrc, { DiceOptions } from '../character-classes/DiceOptions';
 import { SourceStep } from '../character-classes/SourceStep';
 import StatSelector from './stat-selector';
-import { Card, CardContent, Button, CardHeader, InputLabel } from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { ExplodedCategories } from '../character-classes/ExplodedCategories';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,8 +24,8 @@ export default class AssignRequiredDice extends Component<AssignRequiredDiceProp
         this.statDice = this.props.requiredExact ? this.props.dice.slice(0, this.props.requiredExact).map((d, index) => new StatDie(d, this.props.source, explodedStats[index])) : []//this.props.dice.map((d, index) => new StatDie(d, SourceStep.Background, explodedStats[index]));
         let sortedDice = this.props.dice.sort();
         this.state = {
-            unselectedDice: sortedDice.filter((d, index, array) => this.statDice.filter(s => s.die == d).length < (index - array.indexOf(d) + 1)),
-            unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s))
+            unselectedDice: sortedDice.filter((d, index, array) => this.statDice.filter(s => s.die === d).length < (index - array.indexOf(d) + 1)),
+            unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName === s))
         };
         //this.statDice = this.props.dice.map(d => new StatDie(d, SourceStep.Background));
 
@@ -42,7 +45,7 @@ export default class AssignRequiredDice extends Component<AssignRequiredDiceProp
     statSelected(stat: string, id: number) {
         this.statDice[id].statName = stat;
         let newState = Object.assign({}, this.state);
-        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s));
+        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName === s));
         this.returnConfirmed();
         this.setState(newState);
     }
@@ -56,9 +59,9 @@ export default class AssignRequiredDice extends Component<AssignRequiredDiceProp
             this.statDice.push(new StatDie(die, SourceStep.Archetype, availableStats[0]))
         }
         let newState = Object.assign({}, this.state);
-        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s));
+        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName === s));
         let sortedDice = this.props.dice.sort();
-        newState.unselectedDice = sortedDice.filter((d, index, array) => this.statDice.filter(s => s.die == d).length < (index - array.indexOf(d) + 1));
+        newState.unselectedDice = sortedDice.filter((d, index, array) => this.statDice.filter(s => s.die === d).length < (index - array.indexOf(d) + 1));
         this.setState(newState);
     }
     addDice() {

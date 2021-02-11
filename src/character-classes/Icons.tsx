@@ -41,6 +41,6 @@ export default function iconImageSrc(icon: string, size: number = 20) {
             break;
     }
     return (
-        <img src={src} width={size} height={size} />
+        <img src={src} width={size} height={size} alt={icon} />
     )
 }

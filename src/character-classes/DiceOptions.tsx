@@ -33,7 +33,7 @@ export default function diceImageSrc(diceOption: string, size: number = 42) {
             break;
     }
     return (
-        <img src={src} width={size} height={size} />
+        <img src={src} width={size} height={size} alt={diceOption} />
     )
 }
 export function diceRoll(diceOption: string): number {

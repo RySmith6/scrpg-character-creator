@@ -1,11 +1,4 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  NavLink,
-  Link as RouterLink
-} from "react-router-dom";
+import React from 'react';
 import { Character } from "./character-classes/Character";
 import './App.css';
 
@@ -20,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 
 export default function App() {
   const classes = useStyles();
-  const characterFileString = './rulebook-data/CharacterSheet.pdf';
 
   return (
     //<BrowserRouter>

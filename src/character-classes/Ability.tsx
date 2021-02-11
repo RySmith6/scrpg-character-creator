@@ -1,4 +1,4 @@
-import React, { Component, Props } from 'react';
+import React, { Component } from 'react';
 import iconImageSrc, { Icons } from './Icons';
 import { AbilityType } from './AbilityType';
 import { CharacterSources } from "./CharacterSources";
@@ -12,6 +12,14 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Typography from '@material-ui/core/Typography';
+
+
+export enum GYROZone {
+    green = 'Green',
+    yellow = 'Yellow',
+    red = 'Red',
+    out = 'Out'
+}
 
 export class Ability extends Component<AbilityProp> {
     icon: (Icons | string)[] = [
@@ -105,12 +113,6 @@ export interface AbilityProp {
     gyroZone: GYROZone,
     sourceStep?: SourceStep,
     children?
-}
-export enum GYROZone {
-    green = 'Green',
-    yellow = 'Yellow',
-    red = 'Red',
-    out = 'Out'
 }
 
 export class AbilityStruct {

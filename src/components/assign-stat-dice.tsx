@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid'
 import { StatDie } from '../character-classes/StatDie';
-import diceImageSrc, { DiceOptions } from '../character-classes/DiceOptions';
+import { DiceOptions } from '../character-classes/DiceOptions';
 import { SourceStep } from '../character-classes/SourceStep';
 import StatSelector from './stat-selector';
-import { Card, CardContent, Button, CardHeader } from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
 import { ExplodedCategories } from '../character-classes/ExplodedCategories';
 
 export default class AssignStatDice extends Component<AssignDiceProps>{
@@ -17,7 +19,7 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
         super(props);
         let explodedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats);
         this.statDice = this.props.dice.map((d, index) => new StatDie(d, this.props.source, explodedStats[index]));
-        this.state = { unselectedDice: this.props.dice, unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s)) };
+        this.state = { unselectedDice: this.props.dice, unselectedStats: ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName === s)) };
         //this.statDice = this.props.dice.map(d => new StatDie(d, SourceStep.Background));
 
         this.statSelected = this.statSelected.bind(this);
@@ -36,7 +38,7 @@ export default class AssignStatDice extends Component<AssignDiceProps>{
     statSelected(stat: string, id: number) {
         this.statDice[id].statName = stat;
         let newState = Object.assign({}, this.state);
-        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName == s));
+        newState.unselectedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(this.props.stats).filter(s => !this.statDice.some(d => d.statName === s));
         this.returnConfirmed();
         this.setState(newState);
     }

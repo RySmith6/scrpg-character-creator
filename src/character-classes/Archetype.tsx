@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { ReturnSelection, SelectableByRoll } from './Character';
 import Archetypes from '../rulebook-data/Archetypes.json'
-import exploded from '../rulebook-data/exploded-categories.json';
 import diceImageSrc, { DiceOptions } from './DiceOptions';
 import { Ability } from './Ability';
-import { stat } from 'fs';
-import { ExplodedCategories } from './ExplodedCategories';
 import { SourceStep } from './SourceStep';
 import Grid from '@material-ui/core/Grid';
 import Accordion from '@material-ui/core/Accordion';
@@ -14,7 +11,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import SourceStepper from '../components/source-stepper';
 import { StatDie } from './StatDie';
 import AssignStatDice from '../components/assign-stat-dice';
 import StatDisplay from '../components/stat-display';
@@ -187,7 +183,7 @@ export class Archetype {
         if (this.required) {
             baseSteps.unshift(
                 {
-                    label: 'Assign Required Dice', content: <AssignRequiredDice dice={this.diceToAssign} stats={this.required} confirmDice={this.confirmRequiredDice} requiredExact={this.name == 'Psychic' ? 2 : 1} source={SourceStep.Archetype} />
+                    label: 'Assign Required Dice', content: <AssignRequiredDice dice={this.diceToAssign} stats={this.required} confirmDice={this.confirmRequiredDice} requiredExact={this.name === 'Psychic' ? 2 : 1} source={SourceStep.Archetype} />
                 });
         }
         if (this.additionalQualitiesDice) {

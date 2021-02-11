@@ -1,14 +1,12 @@
 import React from 'react'
-import { List, ListSubheader, ListItem, ListItemText, InputAdornment } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { ExplodedCategories } from '../character-classes/ExplodedCategories';
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import diceImageSrc, { DiceOptions } from '../character-classes/DiceOptions';
 
 
 export default function StatSelector(props: StatSelectionCallback) {
-    const classes = useStyles();
     const options = ExplodedCategories.GetSortedExplodedCategories(props.stats);
     const handleChange = (event, value) => {
         props.selectedStat(value.stat, props.id);
@@ -45,20 +43,3 @@ export interface StatSelectionCallback {
     stat: string;
     die: DiceOptions;
 }
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        maxWidth: '50%',
-        backgroundColor: theme.palette.background.paper,
-        position: 'relative',
-        overflow: 'auto',
-        maxHeight: 300,
-    },
-    listSection: {
-        backgroundColor: 'inherit',
-    },
-    ul: {
-        backgroundColor: 'inherit',
-        padding: 0,
-    },
-}));

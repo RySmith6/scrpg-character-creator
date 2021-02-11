@@ -3,14 +3,16 @@ import diceImageSrc, { DiceOptions } from './DiceOptions';
 import Backgrounds from '../rulebook-data/Backgrounds.json'
 import { ReturnSelection, SelectableByRoll } from './Character';
 import { PrinciplesList, Principle } from './Principle';
-import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Card, CardContent } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Button from '@material-ui/core/Button'
 import StatDisplay from '../components/stat-display';
 import Typography from '@material-ui/core/Typography';
 import AssignStatDice from '../components/assign-stat-dice';
 import { StatDie } from './StatDie';
-import SourceStepper from '../components/source-stepper'
 import { SourceStep } from './SourceStep';
 
 export class Background {
@@ -155,20 +157,3 @@ export class BackgroundElement extends Component<SelectableByRoll>
         )
     }
 }
-
-const useStyles = makeStyles({
-    root: {
-        width: '100%',
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-});

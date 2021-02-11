@@ -1,23 +1,28 @@
-import React, { Component, ChangeEvent } from 'react'
+import React, { Component } from 'react'
 import { Background } from './Background';
 import { Personality, PersonalityList } from './Personality';
 import { Principle } from './Principle';
 import { Ability, AbilityList, GYROZone } from './Ability';
 import diceImageSrc, { DiceOptions, diceRoll, maxDieValue } from './DiceOptions';
-import { Outlet, Routes, Route, Link } from "react-router-dom";
 import { BackgroundsList } from './Background';
 import { PowerSourcesList, PowerSource } from "./PowerSources"
 import { ArchetypesList, Archetype } from './Archetype';
 import { StatDie } from './StatDie';
 import { SourceStep } from './SourceStep';
-import { Grid, Accordion, List, ListItem, Divider, Button, Typography, Box } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import CreationStepper from '../components/creation-stepper'
 import DisplayStatDice from '../components/display-stat-dice';
-import AccordionSummary from '@material-ui/core/AccordionSummary'
-import AccordionDetails from '@material-ui/core/AccordionDetails'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { CharacterSources } from './CharacterSources';
-import AbilitySelector from '../components/ability-selector';
 import RedAbilityList from './red-abilities';
 import { ExplodedCategories } from './ExplodedCategories';
 import HealthChart from '../rulebook-data/health-chart.json';
@@ -68,6 +73,7 @@ export class Character extends Component {
         this.selectPowerSource = this.selectPowerSource.bind(this);
         this.selectArchetype = this.selectArchetype.bind(this);
         this.selectPersonality = this.selectPersonality.bind(this);
+        this.selectRedAbilities = this.selectRedAbilities.bind(this);
         this.rollForNextStep = this.rollForNextStep.bind(this);
         this.toggleSheetCollapse = this.toggleSheetCollapse.bind(this);
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
@@ -78,33 +84,33 @@ export class Character extends Component {
         //Background
         newState.sources.background = new Background(Backgrounds[newState.backgroundRollResult[0]]);
         newState.sources.background.setUpdateFunction(this.selectBackground);
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Background) || []);
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.Background) || []);
         newState.qualityDice.push(...newState.sources.background.diceToAssign.map((d, index) => new StatDie(d, SourceStep.Background, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.background.qualities)[index])));
         newState.powerSourceRollResult = this.rollForNextStep(newState.sources.background.diceForPowerSource);
         //PowerSource
         newState.sources.powerSource = new PowerSource(PowerSources[newState.powerSourceRollResult[0]])
         newState.sources.powerSource.setUpdateFunction(this.selectPowerSource);
-        newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.PowerSource) || []);
+        newState.powerDice = (newState.powerDice.filter(q => q.source !== SourceStep.PowerSource) || []);
         newState.powerDice.push(...newState.sources.background.diceForPowerSource.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.powers)[index])));
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.PowerSource) || []);
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.PowerSource) || []);
         if (newState.sources.powerSource.additionalQualitiesDice)
             newState.qualityDice.push(...newState.sources.powerSource.additionalQualitiesDice.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.additionalQualities)[index])));
-        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
+        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source !== SourceStep.PowerSource) || []);
         newState.greenAbilities.push(...((newState.sources.powerSource.greenAbilityOptions || []).slice(0, newState.sources.powerSource.greenAbilityCount || 0) || []));
-        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
+        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source !== SourceStep.PowerSource) || []);
         newState.yellowAbilities.push(...(newState.sources.powerSource.yellowAbilityOptions || []).slice(0, newState.sources.powerSource.yellowAbilityCount || 0));
         newState.archetypeRollResult = this.rollForNextStep(newState.sources.powerSource.diceForArchetype);
         //archetypes
         newState.sources.archetype = new Archetype(Archetypes[newState.archetypeRollResult[0]]);
         newState.sources.archetype.setUpdateFunction(this.selectArchetype);
-        newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.Archetype) || []);
-        newState.powerDice.push(...newState.sources.powerSource.diceForArchetype.map((d, index) => new StatDie(d, SourceStep.Archetype, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.archetype.powers).filter(p => !newState.powerDice.some(pd => pd.statName == p))[index])));
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Archetype) || []);
-        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
+        newState.powerDice = (newState.powerDice.filter(q => q.source !== SourceStep.Archetype) || []);
+        newState.powerDice.push(...newState.sources.powerSource.diceForArchetype.map((d, index) => new StatDie(d, SourceStep.Archetype, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.archetype.powers).filter(p => !newState.powerDice.some(pd => pd.statName === p))[index])));
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.Archetype) || []);
+        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source !== SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.greenAbilityOptions || []).slice(0, newState.sources.archetype.greenAbilityCount || 0));
         if (newState.sources.archetype.guaranteedGreenAbilities)
             newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
-        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
+        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source !== SourceStep.Archetype) || []);
         newState.yellowAbilities.push(...(newState.sources.archetype.yellowAbilityOptions || []).slice(0, newState.sources.archetype.yellowAbilityCount || 0));
         newState.personalityRollResult = this.rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
         //Personality
@@ -137,7 +143,7 @@ export class Character extends Component {
         background.setStrict(this.state.strict);
         background.setUpdateFunction(this.selectBackground);
         newState.sources.background = background;
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Background) || []);
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.Background) || []);
         newState.qualityDice.push(...(background.finalizedStatDice || []));
         newState.powerSourceRollResult = this.rollForNextStep(background.diceForPowerSource);
         newState.greenAbilities = newState.greenAbilities.filter(a => a.source !== SourceStep.Background);
@@ -155,14 +161,14 @@ export class Character extends Component {
         powerSource.setStrict(this.state.strict);
         powerSource.setUpdateFunction(this.selectPowerSource);
         newState.sources.powerSource = powerSource;
-        newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.PowerSource) || []);
+        newState.powerDice = (newState.powerDice.filter(q => q.source !== SourceStep.PowerSource) || []);
         newState.powerDice.push(...newState.sources.powerSource.finalPowerDice);
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.PowerSource) || []);
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.PowerSource) || []);
         if (powerSource.finalQualityDice)
             newState.qualityDice.push(...powerSource.finalQualityDice);
-        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.PowerSource) || []);
+        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source !== SourceStep.PowerSource) || []);
         newState.greenAbilities.push(...(newState.sources.powerSource.finalGreenAbilities || []));
-        newState.yellowAbilities = (newState.yellowAbilities.filter(ya => ya.source != SourceStep.PowerSource) || []);
+        newState.yellowAbilities = (newState.yellowAbilities.filter(ya => ya.source !== SourceStep.PowerSource) || []);
         newState.yellowAbilities.push(...(newState.sources.powerSource.finalYellowAbilities || []));
         this.setState(newState);
     }
@@ -171,16 +177,16 @@ export class Character extends Component {
         archetype.setStrict(this.state.strict);
         archetype.setUpdateFunction(this.selectArchetype);
         newState.sources.archetype = archetype;
-        newState.powerDice = (newState.powerDice.filter(q => q.source != SourceStep.Archetype) || []);
+        newState.powerDice = (newState.powerDice.filter(q => q.source !== SourceStep.Archetype) || []);
         newState.powerDice.push(...newState.sources.archetype.finalPowerDice);
-        newState.qualityDice = (newState.qualityDice.filter(q => q.source != SourceStep.Archetype) || []);
+        newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.Archetype) || []);
         if (archetype.finalQualityDice)
             newState.qualityDice.push(...archetype.finalQualityDice);
-        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
+        newState.greenAbilities = (newState.greenAbilities.filter(ga => ga.source !== SourceStep.Archetype) || []);
         newState.greenAbilities.push(...(newState.sources.archetype.finalGreenAbilities || []));
         if (newState.sources.archetype.guaranteedGreenAbilities)
             newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
-        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
+        newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source !== SourceStep.Archetype) || []);
         newState.yellowAbilities.push(...(newState.sources.archetype.finalYellowAbilities || []));
 
         if (archetype.selectedPrinciple) {
@@ -199,6 +205,9 @@ export class Character extends Component {
         newState.outAbility = personality.outAbility;
         this.setState(newState);
     }
+    selectRedAbilities(abilities) {
+
+    }
     selectHealthRoll(roll: boolean) {
         let newState = Object.assign({}, this.state);
         newState.healthMax = this.generateHealthMax(roll, newState);
@@ -207,8 +216,8 @@ export class Character extends Component {
     generateHealthMax(roll, state) {
         let startValue = 8;
         let redStatus = maxDieValue(state.redStatusDie);
-        let sortedAthPowOrMentQuals = state.powerDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryAthletic')
-            .concat(state.qualityDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) == 'categoryMental')).sort((a, b) => (a.die > b.die) ? 1 : -1);
+        let sortedAthPowOrMentQuals = state.powerDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) === 'categoryAthletic')
+            .concat(state.qualityDice.filter(pd => ExplodedCategories.GetCategoryForStat(pd.statName) === 'categoryMental')).sort((a, b) => (a.die > b.die) ? 1 : -1);
         let maxPowQual = sortedAthPowOrMentQuals.length > 0 ? maxDieValue(sortedAthPowOrMentQuals[sortedAthPowOrMentQuals.length - 1].die) : 4;
         let d8orAvg = roll ? diceRoll(DiceOptions.d8) : 4;
         let maxHealth = startValue + redStatus + maxPowQual + d8orAvg;
@@ -286,7 +295,10 @@ export class Character extends Component {
         if (this.state.sources.personality) {
             stepArray.push(...this.state.sources.personality.getSteps().map(s => s.content));
         }
-        stepArray.push(<RedAbilityList strict={this.state.strict} totalStats={{ powers: this.state.powerDice, qualities: this.state.qualityDice }} />)
+        stepArray.push(<RedAbilityList
+            strict={this.state.strict}
+            totalStats={{ powers: this.state.powerDice, qualities: this.state.qualityDice }}
+            confirmRedAbilities={this.selectRedAbilities} />)
         stepArray.push(...[<Typography>'Retcon'</Typography>,
         <div>
             <Button variant="outlined" color="primary" onClick={(e) => {

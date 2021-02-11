@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { ReturnSelection, SelectableByRoll } from './Character';
 import Personalities from '../rulebook-data/Personalities.json'
 import diceImageSrc, { DiceOptions } from './DiceOptions';
-import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, List, ListItem, Divider, Card, CardContent, TextField, InputAdornment } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { Ability, GYROZone } from './Ability';
 import { SourceStep } from './SourceStep'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -89,9 +95,6 @@ export class PersonalityElement extends Component<SelectableByRoll> {
 }
 export class PersonalityList extends Component<ReturnSelection> {
     selectedPersonality: Personality;
-    constructor(props: ReturnSelection) {
-        super(props);
-    }
     render() {
         return (
             <Grid container spacing={3}>

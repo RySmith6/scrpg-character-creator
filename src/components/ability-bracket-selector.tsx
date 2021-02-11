@@ -16,7 +16,7 @@ export default function AbilityBracketSelector(props) {
         options.push(...props.powers.map(d => d.statName).concat(props.qualities.map(d => d.statName)))
     }
     else if (props.bracketedString === '[Element/Energy]') {
-        options.push(...props.powers.map(d => d.statName).filter(s => ExplodedCategories.GetCategoryForStat(s) == 'categoryElemental/Energy'))
+        options.push(...props.powers.map(d => d.statName).filter(s => ExplodedCategories.GetCategoryForStat(s) === 'categoryElemental/Energy'))
     }
     else {
         let strippedString = (props.bracketedString as string).slice(1, props.bracketedString.length - 1);

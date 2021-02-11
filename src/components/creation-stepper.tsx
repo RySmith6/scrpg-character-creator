@@ -28,30 +28,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function getSteps() {
-    return ['Background', 'Power Source', 'Archetype', 'Personality'];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return 'Background';
-        case 1:
-            return 'Power Source';
-        case 2:
-            return 'Archetype';
-        case 3:
-            return 'Personality';
-        // case 4:
-        //     return 'Red Abilities';
-        //     case 5:
-        //         return 'Retcon';
-        //         case 6:
-        //             return 'Health';
-        default:
-            return 'Unknown step';
-    }
-}
 
 export default function CreationStepper(props) {
     const classes = useStyles();
@@ -99,10 +75,6 @@ export default function CreationStepper(props) {
         handleNext();
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-        setCompleted({});
-    };
 
     return (
         <div className={classes.root}>
