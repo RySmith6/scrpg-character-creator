@@ -184,6 +184,12 @@ export class Character extends Component {
             newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
         newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source != SourceStep.Archetype) || []);
         newState.yellowAbilities.push(...(newState.sources.archetype.finalYellowAbilities || []));
+
+        if (archetype.selectedPrinciple) {
+            let principleAbility = archetype.selectedPrinciple.greenAbility;
+            principleAbility.source = SourceStep.Archetype;
+            newState.greenAbilities.push(principleAbility);
+        }
         this.setState(newState);
     }
     selectPersonality(personality: Personality) {

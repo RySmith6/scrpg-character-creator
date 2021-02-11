@@ -7,7 +7,7 @@ import Principles from '../rulebook-data/Principles.json'
 import { Grid, Accordion, AccordionSummary, AccordionDetails, Button, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-export class Principle extends Component<PrincipleProps> {
+export class Principle {
     source: SourceStep;
     name: string = "Destiny";
     category: string = "Esoteric";
@@ -16,25 +16,8 @@ export class Principle extends Component<PrincipleProps> {
     majorTwist: string = "What heinous prophecy just came true?";
     greenAbility: Ability;
 
-    constructor(props) {
-        super(props);
-        Object.assign(this, props.children);
-    }
-
-    render() {
-        return (
-            <div>
-                <Grid container>
-                    <Grid container item xs={8}>
-                        <Typography><strong>During Roleplaying:</strong> {this.duringRoleplaying}</Typography>
-                        <Typography><strong>Minor Twist:</strong> {this.minorTwist}</Typography>
-                        <Typography><strong>Major Twist:</strong> {this.majorTwist}</Typography>
-                    </Grid>
-                    <Grid item xs={4}><Button variant="outlined" color="primary" onClick={() => this.props.selectedCallback(this)}>Select this Principle</Button></Grid>
-                    <Ability gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{this.greenAbility}</Ability>
-                </Grid>
-            </div>
-        )
+    constructor(data) {
+        Object.assign(this, data);
     }
 }
 
@@ -52,11 +35,11 @@ export function PrinciplesList(props) {
                         id="panel1bh-header"
                     >
                         <span className="mr-auto">{p.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
-                            e.stopPropagation(); this.props.selectedCallback(new Principle(p))
+                            e.stopPropagation(); props.selectedCallback(new Principle(p))
                         }}>Select this Power Source</Button>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Principle selectedCallback={confirmCallback}>{p}</Principle>
+                        <PrincipleElement>{p}</PrincipleElement>
                     </AccordionDetails>
                 </Accordion>
             ))}
@@ -73,4 +56,15 @@ export interface SelectablePrinciple {
 export interface PrincipleProps {
     selectedCallback: (principle: any) => void;
     children?
+}
+export function PrincipleElement(props) {
+    return (
+        <Grid container>
+            <Grid container item xs={8}>
+                <Typography><strong>During Roleplaying:</strong> {props.children.duringRoleplaying}</Typography>
+                <Typography><strong>Minor Twist:</strong> {props.children.minorTwist}</Typography>
+                <Typography><strong>Major Twist:</strong> {props.children.majorTwist}</Typography>
+            </Grid>
+            <Ability gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{props.children.greenAbility}</Ability>
+        </Grid>);
 }
