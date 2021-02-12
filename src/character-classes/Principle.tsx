@@ -28,14 +28,14 @@ export class Principle {
 export function PrinciplesList(props) {
     return (
         <Grid item xs={12}>
-            {Principles.filter(p => (props.strict ? props.guidedCategory.includes(p.category) : true)).map(p => (
+            {Principles.filter(p => (props.strict ? props.guidedCategory === p.category : true)).map(p => (
                 <Accordion>
                     <AccordionSummary color={props.guidedCategory.includes(p.category) ? "text.primary" : 'text.light'}
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"
                         id="panel1bh-header"
                     >
-                        <span className="mr-auto">{p.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                        <Typography style={{ flex: 1 }}>{p.name}</Typography> <Button variant="outlined" color="primary" onClick={(e) => {
                             e.stopPropagation(); props.selectedCallback(new Principle(p))
                         }}>Select this Principle</Button>
                     </AccordionSummary>

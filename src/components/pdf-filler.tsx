@@ -85,9 +85,9 @@ export async function fillForm(state: any) {
 
     //Fields not yet in the UI
     playerField.setText('1P')
-    heroNameField.setText('Mario')
+    heroNameField.setText(state.name)
     ageField.setText('24 years')
-    heightField.setText(`5' 1"`)
+    heightField.setText(`1.5m`)
     eyesField.setText('blue')
     skinField.setText('white')
     hairField.setText('brown')

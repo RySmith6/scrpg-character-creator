@@ -6,7 +6,7 @@
         "minorTwist": "What omen of dire fortune did you just witness?",
         "majorTwist": "What heinous prophecy just came true?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Destiny",
@@ -21,7 +21,7 @@
         "minorTwist": "What other energy/element is currently causing your powers to go on the fritz?",
         "majorTwist": "What source of energy/element is currently dampening all your powers?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of [Energy/Element]",
@@ -36,7 +36,7 @@
         "minorTwist": "What is (literally or figuratively) coming back to haunt you?",
         "majorTwist": "What has been allowed to enter this world?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Exorcism",
@@ -51,7 +51,7 @@
         "minorTwist": "How did your primal nature get the better of you?",
         "majorTwist": "What is the only way the animal within can be restrained?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Fauna",
@@ -66,7 +66,7 @@
         "minorTwist": "What grows out of your control?",
         "majorTwist": "How is nature reclaiming something important?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Flora",
@@ -81,7 +81,7 @@
         "minorTwist": "What unintended ripple did your actions have?",
         "majorTwist": "What ripple effect now threatens the future as you know it?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Future",
@@ -96,7 +96,7 @@
         "minorTwist": "You take the long view of things. How does that cause you to be too slow?",
         "majorTwist": "What important attachment must you shed?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Immortality",
@@ -111,7 +111,7 @@
         "minorTwist": "What sinister act comes from tapping into your dark side?",
         "majorTwist": "What havoc does your dark side inflict as you allow it to take control?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Inner Demon",
@@ -126,7 +126,7 @@
         "minorTwist": "What weird curse is now following you around?",
         "majorTwist": "What mystical backlash has changed your life?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Magic",
@@ -141,7 +141,7 @@
         "minorTwist": "What challenge does the surface world pose for you?",
         "majorTwist": "What disaster is incoming as the sea comes calling?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Sea",
@@ -156,7 +156,7 @@
         "minorTwist": "Who can hear you scream?",
         "majorTwist": "What caused you to drift off into the unknown?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Space",
@@ -171,7 +171,7 @@
         "minorTwist": "What detail of this era did you not previously know about?",
         "majorTwist": "What effects are happening as you discorporate in time?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Time Traveler",
@@ -186,7 +186,7 @@
         "minorTwist": "How did your undead nature unnerve those around you?",
         "majorTwist": "How are you risking your connection to the living world with what happened?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Undead",
@@ -201,7 +201,7 @@
         "minorTwist": "What tool just broke?",
         "majorTwist": "What faraway location are your tools now occupying?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Clockwork",
@@ -216,7 +216,7 @@
         "minorTwist": "What mechanical device just shorted out?",
         "majorTwist": "What machine just went terribly off the rails?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Gearhead",
@@ -231,7 +231,7 @@
         "minorTwist": "How did your old-timeyness cause an issue?",
         "majorTwist": "What ancient force is now making itself known in the present?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of History",
@@ -246,7 +246,7 @@
         "minorTwist": "What goes wrong with your defenses?",
         "majorTwist": "Who gets hurt other than you as a result of you not being able to take damage?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Indestructible",
@@ -261,7 +261,7 @@
         "minorTwist": "What did you make a detour to observe and sample for later experiments?",
         "majorTwist": "Something’s gone very wrong at the lab; what was it?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Lab",
@@ -276,7 +276,7 @@
         "minorTwist": "How did your powers fail you in the moment?",
         "majorTwist": "What side effects are you suffering from your powers?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Mastery",
@@ -291,7 +291,7 @@
         "minorTwist": "Which whippersnapper just showed you up?",
         "majorTwist": "What has just proven that you’re too behind the times?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Mentor",
@@ -306,7 +306,7 @@
         "minorTwist": "What temporary injury did you just suffer?",
         "majorTwist": "What more serious injury did you just suffer?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Powerless",
@@ -321,7 +321,7 @@
         "minorTwist": "What were the surprising effects of leveraging that scientific principle in this situation?",
         "majorTwist": "Oh heck! What just blew up?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Science",
@@ -336,7 +336,7 @@
         "minorTwist": "What physical drawbacks do you suffer from going too fast?",
         "majorTwist": "What critical detail did you speed by earlier that is now coming back to haunt you?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Speed",
@@ -351,7 +351,7 @@
         "minorTwist": "What evidence of your presence did you just leave behind?",
         "majorTwist": "What just happened that identified you as an obvious threat?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Stealth",
@@ -366,7 +366,7 @@
         "minorTwist": "What just broke?",
         "majorTwist": "Who just broke?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Strength",
@@ -381,7 +381,7 @@
         "minorTwist": "What one variable did your plan not account for?",
         "majorTwist": "What major threat is revealed that invalidates all your plans?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Tactician",
@@ -396,7 +396,7 @@
         "minorTwist": "How did the voice in your head just distract you?",
         "majorTwist": "What is the voice demanding of you now?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Whispers",
@@ -411,7 +411,7 @@
         "minorTwist": "How did you fall in line in order to get something done?",
         "majorTwist": "What has caused you to become predictable and stale?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Chaos",
@@ -426,7 +426,7 @@
         "minorTwist": "What overwhelming injustice causes you extra pain?",
         "majorTwist": "How will you handle disconnecting from humanity?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Compassion",
@@ -441,7 +441,7 @@
         "minorTwist": "How do your actions put you in more danger than before?",
         "majorTwist": "What great sacrifice did you just make to succeed?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Defender",
@@ -456,7 +456,7 @@
         "minorTwist": "How did the object of your dependence get damaged or lost?",
         "majorTwist": "How is your dependence preventing you from functioning as a hero?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Dependence",
@@ -471,7 +471,7 @@
         "minorTwist": "Who is in danger that you just spotted?",
         "majorTwist": "What will you sacrifice to protect the downtrodden?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Equality",
@@ -486,7 +486,7 @@
         "minorTwist": "How do you restrain yourself from unleashing your full power?",
         "majorTwist": "What major damage do you inflict in the process of saving the day?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Great Power",
@@ -501,7 +501,7 @@
         "minorTwist": "Your immediate need to help someone else causes you to drop the ball in your personal life. What was it?",
         "majorTwist": "You’re given an ultimatum between your life as a hero and something else you value. What do you give up?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Hero",
@@ -516,7 +516,7 @@
         "minorTwist": "Your honor has been challenged. How will you answer?",
         "majorTwist": "Will you choose your honor, or your life?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Honor",
@@ -531,7 +531,7 @@
         "minorTwist": "How are you taking extra time to show yourself as a shining example of justice?",
         "majorTwist": "How do you unnerve your allies in the single-minded pursuit of justice?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Justice",
@@ -546,7 +546,7 @@
         "minorTwist": "How do you become temporarily trapped?",
         "majorTwist": "How have you become a prisoner yourself?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Liberty",
@@ -561,7 +561,7 @@
         "minorTwist": "What element of disorder causes your plan to fall apart?",
         "majorTwist": "How is your ordered existence ruined by chaos?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Order",
@@ -576,7 +576,7 @@
         "minorTwist": "Who suffers because of your hesitation?",
         "majorTwist": "Are you willing to lay down your life to save others?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Self Preservation",
@@ -591,7 +591,7 @@
         "minorTwist": "Who suffered extra because of your zealous persecution?",
         "majorTwist": "What has your faith called on you to do that no one else will understand?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Zealot",
@@ -606,7 +606,7 @@
         "minorTwist": "How is the pursuit of your goals getting in the way of being a hero in this situation?",
         "majorTwist": "What did you just pass up or miss that could have helped you achieve your biggest goal at last?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Ambition",
@@ -621,7 +621,7 @@
         "minorTwist": "You have a flash of your former life that momentarily distracted you — what was it?",
         "majorTwist": "A shocking detail of your past changes the current situation — how does it affect the scene?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Amnesia",
@@ -636,7 +636,7 @@
         "minorTwist": "Which hero or supporting character have you just alienated with your distant behavior?",
         "majorTwist": "How have you withdrawn from the current situation to cope?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Detachment",
@@ -651,7 +651,7 @@
         "minorTwist": "What new discovery causes you to reconsider what you are doing?",
         "majorTwist": "What new discovery must you keep hidden at all costs?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Discovery",
@@ -666,7 +666,7 @@
         "minorTwist": "Who did you offend by making light at the wrong time?",
         "majorTwist": "What has occurred to finally break your good spirits?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Levity",
@@ -681,7 +681,7 @@
         "minorTwist": "Now that you’re separated from your team, how will you get back?",
         "majorTwist": "How do you alienate the rest of your team with your loner tendencies?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Loner",
@@ -696,7 +696,7 @@
         "minorTwist": "What problem does your lack of attachments cause?",
         "majorTwist": "How have you been lost from your new home?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Nomad",
@@ -711,7 +711,7 @@
         "minorTwist": "What causes you to lose your calm?",
         "majorTwist": "What major issue do you create with your team when you refuse to engage in violence?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Peace",
@@ -726,7 +726,7 @@
         "minorTwist": "What did your anger just mess up?",
         "majorTwist": "Who have you thoroughly alienated with your outbursts?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Rage",
@@ -741,7 +741,7 @@
         "minorTwist": "Who did you harm with your rampage?",
         "majorTwist": "What major act of collateral damage are you responsible for?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Savagery",
@@ -756,7 +756,7 @@
         "minorTwist": "What perspective ended up being the wrong one for the situation?",
         "majorTwist": "What inner conflict has completely thrown you off?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Split",
@@ -771,7 +771,7 @@
         "minorTwist": "What slid off you previously that could have been useful right now?",
         "majorTwist": "What major thing did you forget and why did forgetting it make your situation much worse?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Spotless Mind",
@@ -786,7 +786,7 @@
         "minorTwist": "You’re always looking at the bigger picture. How does that cause friction in the moment with your team?",
         "majorTwist": "Your business interests are in danger. Where are your priorities, truly?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Business",
@@ -801,7 +801,7 @@
         "minorTwist": "What potential source of wealth looks mighty tempting right about now?",
         "majorTwist": "Who has come to collect?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Debtor",
@@ -816,7 +816,7 @@
         "minorTwist": "What important clue did you miss?",
         "majorTwist": "What major secret was just revealed that you would rather have stayed hidden?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Detective",
@@ -831,7 +831,7 @@
         "minorTwist": "What were you just forced to do that seemed strange to your current allies?",
         "majorTwist": "Will you shatter your trust with your current allies or forfeit what your other allegiance offers?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Double Agent",
@@ -846,7 +846,7 @@
         "minorTwist": "Which hero did you make look good at the expense of yourself?",
         "majorTwist": "How are you utterly and totally out of your league?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Everyman",
@@ -861,7 +861,7 @@
         "minorTwist": "Which member of your family just compromised your mission?",
         "majorTwist": "What do you have to give up in your heroic life for the sake of your family?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Family",
@@ -876,7 +876,7 @@
         "minorTwist": "What clue about your real identity did you leave behind?",
         "majorTwist": "Who from your civilian life is now in imminent danger?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Mask",
@@ -891,7 +891,7 @@
         "minorTwist": "Which hero has to rescue you from your current predicament?",
         "majorTwist": "What serious lesson that you ignored is now getting you into big trouble?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Sidekick",
@@ -906,7 +906,7 @@
         "minorTwist": "What embarrassment did you just cause as a representative of your team?",
         "majorTwist": "What major sanctions will you suffer as a result of your actions?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Team",
@@ -921,7 +921,7 @@
         "minorTwist": "What shady detail causes others to distrust you?",
         "majorTwist": "Are you guilty of what you’re being arrested for?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Underworld",
@@ -936,7 +936,7 @@
         "minorTwist": "What affected you emotionally about the current conflict?",
         "majorTwist": "How are you withdrawing from the current conflict?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of the Veteran",
@@ -951,7 +951,7 @@
         "minorTwist": "Who has been put out by your overconfidence?",
         "majorTwist": "What person that you would hate to let down is now very disappointed in you?",
         "greenAbility": {
-            "icon": [
+            "icons": [
                 "overcome"
             ],
             "name": "Principle of Youth",

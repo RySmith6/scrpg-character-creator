@@ -38,7 +38,7 @@ export default function diceImageSrc(diceOption: string, size: number = 42) {
 }
 export function diceRoll(diceOption: string): number {
     let maxValue = maxDieValue(diceOption);
-    return Math.floor(Math.random() * (maxValue + 1));
+    return Math.floor(Math.random() * (maxValue)) + 1;
 }
 
 export function maxDieValue(diceOption: string): number {
@@ -95,7 +95,7 @@ export function rollForNextStep(dice: DiceOptions[]): number[] {
         if (!nextStepOptions.includes(r))
             nextStepOptions.push(r);
         if (i <= nextStepRolls.length - 1)
-            nextStepRolls.slice(i + 1).forEach(or => {
+            nextStepRolls.slice(0, i).forEach(or => {
                 if (!nextStepOptions.includes(r + or))
                     nextStepOptions.push(r + or);
             })

@@ -23,9 +23,10 @@ export class ExplodedCategories {
         let statType = exploded.powers[category] ? ' Powers' : ' Qualities';
         return category.substring(8) + statType
     }
-    static ReturnStatsWithExplodedCategories(stats: string[]) {
+    static ReturnStatsWithExplodedCategories(stats: string[], usedStats?: string[]) {
         let fullstatsArray = [];
         ExplodedCategories.PushAndExplode(fullstatsArray, stats);
+        fullstatsArray.filter(s => (usedStats || []).findIndex(us => s === us) === -1);
         return fullstatsArray;
     }
     static GetCategoryForStat(stat: string): string {
@@ -37,8 +38,11 @@ export class ExplodedCategories {
     static GetSortedExplodedCategories(stats: string[]): { stat: string, category: string, type: string }[] {
         let explodedStats = ExplodedCategories.ReturnStatsWithExplodedCategories(stats);
         let statsWithCategory = explodedStats.map(s => { return { stat: s, category: this.GetCategoryForStat(s), type: this.GetTypeofStat(s) } });
-        let sorted = statsWithCategory.sort((a, b) => { return a.type !== b.type ? (a.type === 'power' ? -1 : 1) : a.category !== b.category ? (a.category.localeCompare(b.category)) : a.stat.localeCompare(b.stat) });
+        let sorted = statsWithCategory.sort((a, b) => { return a.type !== b.type ? (a.type === 'Power' ? -1 : 1) : a.category !== b.category ? (a.category.localeCompare(b.category)) : a.stat.localeCompare(b.stat) });
         return sorted;
     }
-    static FilterCategories
+    static GetTypes(stats: string[]): string {
+        let exploded = this.ReturnStatsWithExplodedCategories(stats);
+        return exploded.some(s => StatIndex[s].statType === 'Power') ? (exploded.some(s => StatIndex[s].statType === 'Quality') ? 'Powers and Qualities' : 'Powers') : 'Qualities';
+    }
 }

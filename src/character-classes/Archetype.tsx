@@ -18,6 +18,7 @@ import AbilitySelector from '../components/ability-selector';
 import { Principle, PrinciplesList } from './Principle';
 import StatIndex from '../rulebook-data/stats-index.json';
 import AssignRequiredDice from '../components/assign-required-dice';
+import { ExplodedCategories } from './ExplodedCategories';
 
 export class ArchetypesList extends Component<ReturnSelection>{
     state: {
@@ -67,7 +68,7 @@ export class Archetype {
     yellowAbilityCount: number
     yellowAbilityRestriction: string = "differentPowers"
     yellowAbilityOptions: Ability[]
-    diceToAssign: DiceOptions[]
+    diceToAssign: DiceOptions[] = []
     additionalQualitiesDice?: DiceOptions[]
     additionalQualities?: string[]
     principleCategory: string
@@ -82,6 +83,7 @@ export class Archetype {
     finalYellowAbilities: Ability[] = [];
     selectedPrinciple: Principle;
     remainingDice: DiceOptions[];
+    powerDice: StatDie[] = [];
     strict: boolean = false;
     updateFunction?
     usedStats?: string[]
@@ -94,7 +96,6 @@ export class Archetype {
         this.confirmRequiredDice = this.confirmRequiredDice.bind(this);
         this.confirmPowerDice = this.confirmPowerDice.bind(this);
         this.confirmRemainingDice = this.confirmRemainingDice.bind(this);
-        //this.confirmQualityDice = this.confirmQualityDice.bind(this);
         this.confirmGreenAbilities = this.confirmGreenAbilities.bind(this);
         this.confirmYellowAbilities = this.confirmYellowAbilities.bind(this);
         this.confirmPrinciple = this.confirmPrinciple.bind(this);
@@ -129,10 +130,8 @@ export class Archetype {
     }
 
     confirmPowerDice(dice) {
-        this.finalPowerDice.push(dice);
-        if (this.updateFunction) {
-            this.updateFunction(this);
-        }
+        this.powerDice = dice.slice();
+        this.updateFinalDiceArrays();
     }
 
     confirmRemainingDice(dice) {
@@ -140,7 +139,7 @@ export class Archetype {
         this.updateFinalDiceArrays();
     }
     updateFinalDiceArrays() {
-        let totalDice = this.requiredDice.slice().concat(this.finalRemainingDice.slice());
+        let totalDice = this.requiredDice.slice().concat(this.powerDice.slice()).concat(this.finalRemainingDice.slice());
         this.finalPowerDice = totalDice.filter(d => StatIndex[d.statName].statType === 'Power').slice();
         this.finalQualityDice = totalDice.filter(d => StatIndex[d.statName].statType === 'Quality').slice();
         if (this.updateFunction) {
@@ -160,11 +159,22 @@ export class Archetype {
     getSteps(powerDice, qualityDice, skipAbilities: boolean = false, skipPrinciple = false) {
         let baseSteps = [
             {
-                label: 'Assign Power Dice', content: <AssignStatDice
-                    dice={this.diceToAssign}
-                    stats={this.powers.filter(p => (this.usedStats || []).findIndex(s => s === p) === -1)}
+                label: 'Assign ' + (this.min ? (this.min + ' or more') : ('exactly ' + this.exact)) + ' Power Dice', content: <AssignRequiredDice
+                    dice={this.diceToAssign.filter((d, index, array) => this.requiredDice.filter(s => s.die === d).length < (index - array.indexOf(d) + 1))}
+                    stats={this.powers}
+                    confirmDice={this.confirmPowerDice}
+                    statType='Power' source={SourceStep.Archetype}
+                    requiredMin={this.min}
+                    requiredExact={this.exact}
+                    usedStats={this.usedStats.concat(this.requiredDice.map(rd => rd.statName))}
+                    existingStatDice={this.powerDice} />
+            }, {
+                label: 'Assign Remaining Dice', content: <AssignStatDice
+                    dice={this.diceToAssign.filter((d, index, array) => this.requiredDice.concat(this.powerDice).filter(s => s.die === d).length < (index - array.indexOf(d) + 1))}
+                    stats={this.remaining.filter(p => (this.usedStats || []).findIndex(s => s === p) === -1)}
                     confirmDice={this.confirmRemainingDice}
-                    statType='Power' source={SourceStep.Archetype} />
+                    statType={ExplodedCategories.GetTypes(this.remaining)} source={SourceStep.Archetype}
+                    usedStats={this.usedStats.concat(this.requiredDice.map(d => d.statName)).concat(this.powerDice.map(pd => pd.statName))} />
             }, {
                 label: `Select ${this.greenAbilityCount} green Abilities`, content: <AbilitySelector
                     abilities={this.greenAbilityOptions}
@@ -187,11 +197,15 @@ export class Archetype {
         if (this.required) {
             baseSteps.unshift(
                 {
-                    label: 'Assign Required Dice', content: <AssignRequiredDice dice={this.diceToAssign} stats={this.required} confirmDice={this.confirmRequiredDice} requiredExact={this.name === 'Psychic' ? 2 : 1} source={SourceStep.Archetype} />
+                    label: 'Assign Required Dice', content: <AssignRequiredDice dice={this.diceToAssign} stats={this.required} confirmDice={this.confirmRequiredDice} requiredExact={this.name === 'Psychic' ? 2 : 1} source={SourceStep.Archetype}
+                        usedStats={this.usedStats} existingStatDice={this.requiredDice} />
                 });
         }
         if (this.additionalQualitiesDice) {
-            baseSteps.push({ label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmRemainingDice} source={SourceStep.Archetype} /> });
+            baseSteps.push({
+                label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmRemainingDice} source={SourceStep.Archetype}
+                    usedStats={this.usedStats} />
+            });
         }
         if (!skipPrinciple) {
             baseSteps.push({ label: 'Select Principle', content: <PrinciplesList guidedCategory={this.principleCategory} selectedCallback={this.confirmPrinciple} strict={this.strict}></PrinciplesList> })

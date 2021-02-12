@@ -64,7 +64,7 @@ export class PowerSourcesList extends Component<ReturnSelection>{
 export class PowerSource {
     name: string = 'DEFAULT BACKGROUND';
     rollResult: number = 0;
-    powers: string[]
+    powers: string[] = [];
     diceForArchetype: DiceOptions[]
     greenAbilityCount: number
     greenAbilityOptions: Ability[]
@@ -147,7 +147,8 @@ export class PowerSource {
                     stats={this.powers}
                     confirmDice={this.confirmPowerDice}
                     statType='Power'
-                    source={SourceStep.PowerSource} />
+                    source={SourceStep.PowerSource}
+                    usedStats={this.usedStats} />
             },
             {
                 label: `Select ${this.yellowAbilityCount} Yellow Abilities`, content: <AbilitySelector
@@ -180,13 +181,15 @@ export class PowerSource {
         if (this.additionalQualitiesDice) {
             baseSteps.push({
                 label: `Assign additional Quality Die`, content: <AssignStatDice dice={this.additionalQualitiesDice} stats={this.additionalQualities} confirmDice={this.confirmQualityDice}
-                    source={SourceStep.PowerSource} />
+                    source={SourceStep.PowerSource}
+                    usedStats={this.usedStats} />
             });
         }
         if (this.additionalPowersDice) {
             baseSteps.push({
                 label: `Assign additional Power Die`, content: <AssignStatDice dice={this.additionalPowersDice} stats={this.additionalPowers} confirmDice={this.confirmQualityDice}
-                    source={SourceStep.PowerSource} />
+                    source={SourceStep.PowerSource}
+                    usedStats={this.usedStats} />
             });
         }
         if (this.downgradeDieCount) {
