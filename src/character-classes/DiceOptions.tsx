@@ -87,3 +87,18 @@ export function diceAvatar(diceOption: string, size: number = 42) {
         <Avatar variant="square" src={src} />
     )
 }
+
+export function rollForNextStep(dice: DiceOptions[]): number[] {
+    let nextStepOptions = [];
+    let nextStepRolls = dice.map(d => diceRoll(d));
+    nextStepRolls.forEach((r, i) => {
+        if (!nextStepOptions.includes(r))
+            nextStepOptions.push(r);
+        if (i <= nextStepRolls.length - 1)
+            nextStepRolls.slice(i + 1).forEach(or => {
+                if (!nextStepOptions.includes(r + or))
+                    nextStepOptions.push(r + or);
+            })
+    });
+    return nextStepOptions;
+}

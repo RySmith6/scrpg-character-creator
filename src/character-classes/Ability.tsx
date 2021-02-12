@@ -21,7 +21,7 @@ export enum GYROZone {
     out = 'Out'
 }
 
-export class Ability extends Component<AbilityProp> {
+export class Ability {
     icon: (Icons | string)[] = [
         Icons.overcome
     ];
@@ -31,33 +31,8 @@ export class Ability extends Component<AbilityProp> {
     gyroZone: GYROZone = GYROZone.green;
     source: SourceStep = SourceStep.Archetype;
     finalText?: string;
-    constructor(prop: AbilityProp) {
-        super(prop);
-        Object.assign(this, prop.children);
-    }
-
-    render() {
-        return (
-            <Card style={{ width: '100%' }}>
-                <Grid
-                    container
-                    spacing={1}
-                    className={backgroundColor(this.props.gyroZone)}
-                    justify="space-between"
-                    alignItems="center">
-                    <Grid item xs={1}>
-                        {this.icon.map(i => {
-                            return (
-                                iconImageSrc(i.toString())
-                            )
-                        })}
-                    </Grid>
-                    <Grid item xs={2}><Typography><strong>{this.name}</strong></Typography> </Grid>
-                    <Grid item xs={2}><Typography align={'center'}>{this.type.toString()}</Typography></Grid>
-                    <Grid item xs={7}><Typography>{this.props.children.finalText || this.text}</Typography></Grid>
-                </Grid>
-            </Card>
-        )
+    constructor(data) {
+        Object.assign(this, data);
     }
 }
 
@@ -80,7 +55,7 @@ export class AbilityList extends Component<AbilitiesProps> {
                     <List>
                         {this.props.abilities.map(a =>
                             <ListItem >
-                                <Ability gyroZone={this.props.gyroZone}>{a}</Ability>
+                                <AbilityElement gyroZone={this.props.gyroZone}>{a}</AbilityElement>
                             </ListItem>
                         )}
                     </List>
@@ -88,8 +63,30 @@ export class AbilityList extends Component<AbilitiesProps> {
             </Accordion>
         )
     }
+}
 
-
+export function AbilityElement(props) {
+    return (
+        <Card style={{ width: '100%' }}>
+            <Grid
+                container
+                spacing={1}
+                className={backgroundColor(props.gyroZone)}
+                justify="space-between"
+                alignItems="center">
+                <Grid item xs={1}>
+                    {(props.children.icons || []).map(i => {
+                        return (
+                            iconImageSrc(i.toString())
+                        )
+                    })}
+                </Grid>
+                <Grid item xs={2}><Typography><strong>{props.children.name}</strong></Typography> </Grid>
+                <Grid item xs={2}><Typography align={'center'}>{props.children.type.toString()}</Typography></Grid>
+                <Grid item xs={7}><Typography>{props.children.finalText || props.children.text}</Typography></Grid>
+            </Grid>
+        </Card>
+    )
 }
 
 export default function backgroundColor(gyroZone: GYROZone): string {

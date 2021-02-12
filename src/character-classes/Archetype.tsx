@@ -37,7 +37,7 @@ export class ArchetypesList extends Component<ReturnSelection>{
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
                                 id={`arch${a.rollResult}-header`} >
-                                <span className="mr-auto"><strong>{a.rollResult}:</strong>{a.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                                <Typography style={{ flex: 1 }}><strong>{a.rollResult}:</strong>{a.name}</Typography> <Button variant="outlined" color="primary" onClick={(e) => {
                                     e.stopPropagation(); this.props.selectedCallback(new Archetype(a))
                                 }}>Select this Archetype</Button>
                             </AccordionSummary>
@@ -84,6 +84,7 @@ export class Archetype {
     remainingDice: DiceOptions[];
     strict: boolean = false;
     updateFunction?
+    usedStats?: string[]
     constructor(data) {
         Object.assign(this, data);
 
@@ -103,6 +104,9 @@ export class Archetype {
     }
     setStrict(strict) {
         this.strict = strict;
+    }
+    setUsedStats(stats) {
+        this.usedStats = stats.slice();
     }
 
     confirmYellowAbilities(abilities) {
@@ -158,7 +162,7 @@ export class Archetype {
             {
                 label: 'Assign Power Dice', content: <AssignStatDice
                     dice={this.diceToAssign}
-                    stats={this.powers}
+                    stats={this.powers.filter(p => (this.usedStats || []).findIndex(s => s === p) === -1)}
                     confirmDice={this.confirmRemainingDice}
                     statType='Power' source={SourceStep.Archetype} />
             }, {

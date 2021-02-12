@@ -10,9 +10,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { Ability, GYROZone } from './Ability';
+import { AbilityElement, GYROZone } from './Ability';
 import { SourceStep } from './SourceStep'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { AbilityType } from './AbilityType';
 
 
 
@@ -25,13 +26,21 @@ export class Personality {
     redStatusDie: DiceOptions = DiceOptions.d8;
     backstoryQuality: DiceOptions = DiceOptions.d8;
     backstoryQualityStat: string = '';
+    updateFunction;
 
     constructor(data: any) {
         Object.assign(this, data);
+        this.confirmBackstoryQuality = this.confirmBackstoryQuality.bind(this);
+    }
+    setUpdateFunction(update) {
+        this.updateFunction = update;
     }
 
-    confirmBackstoryQuality() {
-
+    confirmBackstoryQuality(value) {
+        this.backstoryQualityStat = value;
+        if (this.updateFunction) {
+            this.updateFunction(this);
+        }
     }
 
 
@@ -47,6 +56,7 @@ export class Personality {
                                 startAdornment: <InputAdornment position="start">{diceImageSrc(this.backstoryQuality, 25)}</InputAdornment>,
                             }}
                             variant="filled"
+                            onChange={(event) => this.confirmBackstoryQuality(event.target.value)}
                         />
                     </div>
             }]
@@ -86,7 +96,7 @@ export class PersonalityElement extends Component<SelectableByRoll> {
                         {diceImageSrc(this.state.personality.redStatusDie, 30)}
                     </Grid>
                     <Grid item xs={12}>
-                        <Ability gyroZone={GYROZone.out} sourceStep={SourceStep.Personality}>{{ name: 'Out Ability', text: this.state.personality.outAbility }}</Ability>
+                        <AbilityElement gyroZone={GYROZone.out} sourceStep={SourceStep.Personality}>{{ name: 'Out Ability', text: this.state.personality.outAbility, type: AbilityType.action }}</AbilityElement>
                     </Grid>
                 </Grid>
             </div>
@@ -105,10 +115,10 @@ export class PersonalityList extends Component<ReturnSelection> {
                             <AccordionSummary color={this.props.rolledOptions.includes(per.rollResult) ? "text.primary" : 'text.light'}
                                 expandIcon={<ExpandMoreIcon />}
                                 id={`per${per.rollResult}-header`}
-                            ><span className="mr-auto"><strong>{per.rollResult}:</strong> {per.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                            ><Typography style={{ flex: 1 }}><strong>{per.rollResult}:</strong> {per.name}</Typography> <Button variant="outlined" color="primary" onClick={(e) => {
                                 e.stopPropagation();
                                 this.props.selectedCallback(new Personality(per))
-                            }} >Select this Background</Button></AccordionSummary>
+                            }} >Select this Personality</Button></AccordionSummary>
                             <AccordionDetails><PersonalityElement rollResult={per.rollResult} updateState={this.props.selectedCallback}></PersonalityElement>
                             </AccordionDetails>
                         </Accordion>

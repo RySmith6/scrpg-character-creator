@@ -49,7 +49,6 @@ export default function AbilitySelector(props) {
         const ability = newChecked[index];
 
         ability['finalText'] = ability['text'].replace(bracketString, value);
-        //newChecked.splice(index, 1,ability);
         setChecked(newChecked);
         confirmAbilities(newChecked);
     };
@@ -82,11 +81,6 @@ export default function AbilitySelector(props) {
                                         bracketSelection={handleBracketSelection}>
 
                                     </AbilityBracketSelector>)}
-                                {/* <Select id={`${ability.name}-power-select`} onChange={handleChange} value={ability.power}>
-                                    {props.powers.map(p => (
-                                        <MenuItem value={p}>{p.statName}</MenuItem>
-                                    ))}
-                                </Select> */}
                             </ListItemSecondaryAction>
                             : ''}
 

@@ -1,5 +1,5 @@
 
-import { Ability, GYROZone } from './Ability';
+import { Ability, GYROZone, AbilityElement } from './Ability';
 import { SourceStep } from "./SourceStep";
 import React from 'react'
 import Principles from '../rulebook-data/Principles.json'
@@ -37,7 +37,7 @@ export function PrinciplesList(props) {
                     >
                         <span className="mr-auto">{p.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
                             e.stopPropagation(); props.selectedCallback(new Principle(p))
-                        }}>Select this Power Source</Button>
+                        }}>Select this Principle</Button>
                     </AccordionSummary>
                     <AccordionDetails>
                         <PrincipleElement>{p}</PrincipleElement>
@@ -66,6 +66,6 @@ export function PrincipleElement(props) {
                 <Typography><strong>Minor Twist:</strong> {props.children.minorTwist}</Typography>
                 <Typography><strong>Major Twist:</strong> {props.children.majorTwist}</Typography>
             </Grid>
-            <Ability gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{props.children.greenAbility}</Ability>
+            <AbilityElement gyroZone={GYROZone.green} sourceStep={SourceStep.Background}>{props.children.greenAbility}</AbilityElement>
         </Grid>);
 }

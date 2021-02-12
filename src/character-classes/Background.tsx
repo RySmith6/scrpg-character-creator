@@ -29,6 +29,7 @@ export class Background {
     steps: any[];
     updateFunction;
     strict: boolean = false;
+    usedStats?: string[]
     constructor(data) {
         Object.assign(this, data);
         this.confirmDice = this.confirmDice.bind(this);
@@ -39,6 +40,9 @@ export class Background {
     }
     setStrict(strict) {
         this.strict = strict;
+    }
+    setUsedStats(stats) {
+        this.usedStats = stats.slice();
     }
 
     confirmPrinciple(principle: Principle) {
@@ -105,7 +109,7 @@ export class BackgroundsList extends Component<ReturnSelection> {
                             <AccordionSummary color={this.props.rolledOptions.includes(bg.rollResult) ? "text.primary" : 'text.light'}
                                 expandIcon={<ExpandMoreIcon />}
                                 id={`bg${bg.rollResult}-header`}
-                            ><span className="mr-auto"><strong>{bg.rollResult}:</strong> {bg.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                            ><Typography style={{ flex: 1 }}><strong>{bg.rollResult}:</strong> {bg.name}</Typography> <Button variant="outlined" color="primary" onClick={(e) => {
                                 e.stopPropagation();
                                 this.props.selectedCallback(new Background(bg))
                             }} >Select this Background</Button></AccordionSummary>

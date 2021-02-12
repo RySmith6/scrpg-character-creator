@@ -46,7 +46,7 @@ export class PowerSourcesList extends Component<ReturnSelection>{
                         <Accordion>
                             <AccordionSummary expandIcon={<ExpandMoreIcon />}
                                 id={`ps${ps.rollResult}-header`}>
-                                <span className="mr-auto"><strong>{ps.rollResult}:</strong>{ps.name}</span> <Button variant="outlined" color="primary" onClick={(e) => {
+                                <Typography style={{ flex: 1 }}><strong>{ps.rollResult}:</strong>{ps.name}</Typography> <Button variant="outlined" color="primary" onClick={(e) => {
                                     e.stopPropagation(); this.props.selectedCallback(new PowerSource(ps))
                                 }}>Select this Power Source</Button>
                             </AccordionSummary>
@@ -87,6 +87,7 @@ export class PowerSource {
     finalQualityDice: StatDie[] = [];
     updateFunction;
     strict: boolean = false;
+    usedStats?: string[]
     constructor(data) {
         Object.assign(this, data);
 
@@ -102,6 +103,9 @@ export class PowerSource {
     }
     setStrict(strict) {
         this.strict = strict;
+    }
+    setUsedStats(stats) {
+        this.usedStats = stats.slice();
     }
 
     confirmYellowAbilities(abilities) {
