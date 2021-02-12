@@ -166,7 +166,7 @@ export class Archetype {
                     statType='Power' source={SourceStep.Archetype}
                     requiredMin={this.min}
                     requiredExact={this.exact}
-                    usedStats={this.usedStats.concat(this.requiredDice.map(rd => rd.statName))}
+                    usedStats={this.requiredDice.map(rd => rd.statName).concat(this.usedStats)}
                     existingStatDice={this.powerDice} />
             }, {
                 label: 'Assign Remaining Dice', content: <AssignStatDice
@@ -174,7 +174,7 @@ export class Archetype {
                     stats={this.remaining.filter(p => (this.usedStats || []).findIndex(s => s === p) === -1)}
                     confirmDice={this.confirmRemainingDice}
                     statType={ExplodedCategories.GetTypes(this.remaining)} source={SourceStep.Archetype}
-                    usedStats={this.usedStats.concat(this.requiredDice.map(d => d.statName)).concat(this.powerDice.map(pd => pd.statName))} />
+                    usedStats={this.requiredDice.map(d => d.statName).concat(this.powerDice.map(pd => pd.statName)).concat(this.usedStats)} />
             }, {
                 label: `Select ${this.greenAbilityCount} green Abilities`, content: <AbilitySelector
                     abilities={this.greenAbilityOptions}
