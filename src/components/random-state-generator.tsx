@@ -24,11 +24,12 @@ export default function GenerateRandomCharacterState(beginningState, selectBackg
     newState.sources.background.setUpdateFunction(selectBackground);
     newState.qualityDice = (newState.qualityDice.filter(q => q.source !== SourceStep.Background) || []);
     newState.qualityDice.push(...newState.sources.background.diceToAssign.map((d, index) => new StatDie(d, SourceStep.Background, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.background.qualities)[index])));
-    newState.sources.background.selectedPrinciple = { ...new Principle(Principles.find(p => p.category === newState.sources.background.principleCategory)), source: SourceStep.Background };
+    newState.principleAbilities = [];// newState.principleAbilities.filter(pa => pa.name !== newState.sources.background.selectedPrinciple.name);
+    newState.sources.background.selectedPrinciple = new Principle({ ...Principles.find(p => p.category === newState.sources.background.principleCategory), source: SourceStep.Background });
     newState.principleAbilities.push(newState.sources.background.selectedPrinciple.greenAbility);
     newState.powerSourceRollResult = rollForNextStep(newState.sources.background.diceForPowerSource);
     //PowerSource
-    newState.sources.powerSource = new PowerSource(PowerSources[newState.powerSourceRollResult[0] - 1])
+    newState.sources.powerSource = new PowerSource({ ...PowerSources[newState.powerSourceRollResult[0] - 1], diceToAssign: newState.sources.background.diceForPowerSource });
     newState.sources.powerSource.setUpdateFunction(selectPowerSource);
     newState.powerDice = (newState.powerDice.filter(q => q.source !== SourceStep.PowerSource) || []);
     newState.powerDice.push(...newState.sources.background.diceForPowerSource.map((d, index) => new StatDie(d, SourceStep.PowerSource, ExplodedCategories.ReturnStatsWithExplodedCategories(newState.sources.powerSource.powers)[index])));
@@ -52,7 +53,8 @@ export default function GenerateRandomCharacterState(beginningState, selectBackg
         newState.greenAbilities.push(...newState.sources.archetype.guaranteedGreenAbilities);
     newState.yellowAbilities = (newState.yellowAbilities.filter(ga => ga.source !== SourceStep.Archetype) || []);
     newState.yellowAbilities.push(...(newState.sources.archetype.yellowAbilityOptions || []).slice(0, newState.sources.archetype.yellowAbilityCount || 0));
-    newState.sources.archetype.selectedPrinciple = { ...new Principle(Principles.find(p => (p.category === newState.sources.archetype.principleCategory && p.name !== newState.sources.background.selectedPrinciple.name))), source: SourceStep.Archetype };
+    //    newState.principleAbilities = newState.principleAbilities.filter(pa => pa.name !== newState.sources.archetype.selectedPrinciple.name);
+    newState.sources.archetype.selectedPrinciple = new Principle({ ...Principles.find(p => (p.category === newState.sources.archetype.principleCategory && p.name !== newState.sources.background.selectedPrinciple.name)), source: SourceStep.Archetype });
     newState.principleAbilities.push(newState.sources.archetype.selectedPrinciple.greenAbility);
     newState.personalityRollResult = rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
     //Personality

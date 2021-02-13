@@ -121,14 +121,6 @@ export class BackgroundsList extends Component<ReturnSelection> {
                         </Accordion>
                     ))}
                 </Grid>
-                {/* {this.state.selectedBackground ?
-                    <Grid
-                        item xs={6}
-                    >
-                        <SourceStepper steps={['Assign Dice', 'Select Principle']} stepContent={[<AssignStatDice dice={this.state.selectedBackground.diceToAssign} stats={this.state.selectedBackground.qualities} confirmDice={this.confirmDice} statType='Quality' source={SourceStep.Background}></AssignStatDice>, <PrinciplesList guidedCategory={this.state.selectedBackground.principleCategory} selectedCallback={this.selectedPrinciple} strict={this.props.strict}></PrinciplesList>]} completeStepActions={this.confirmBackground}></SourceStepper>
-
-
-                    </Grid> : ''} */}
             </Grid>
         );
     }
@@ -156,8 +148,9 @@ export class BackgroundElement extends Component<SelectableByRoll>
         return (
             <div>
                 <Typography>Assign {this.state.background.diceToAssign.map((d, index: number) => diceImageSrc(d, 25))} to any of the following
-                    Qualities: <StatDisplay stats={this.state.background.qualities}></StatDisplay>
+                    Qualities:
                 </Typography>
+                <StatDisplay stats={this.state.background.qualities} />
                 <Typography>Choose a {this.state.background.principleCategory} principle</Typography>
                 <Typography>Roll {this.state.background.diceForPowerSource.map(d => diceImageSrc(d, 25))} for power source selection.</Typography>
             </div>

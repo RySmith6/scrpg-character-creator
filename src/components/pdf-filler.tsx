@@ -3,6 +3,9 @@ import download from 'downloadjs'
 import HealthChart from '../rulebook-data/health-chart.json';
 
 export async function fillForm(state: any) {
+    const abilityFontSize = (text: string) => {
+        return text.length > 130 ? 7 : text.length > 70 ? 10 : 12
+    }
     const formUrl = 'Form_Fillable_Hero_Sheet.pdf'
     const formPdfBytes = await fetch(formUrl).then(res => res.arrayBuffer())
 
@@ -107,6 +110,7 @@ export async function fillForm(state: any) {
         minorTwistField.setText(principle.minorTwist);
         majorTwistField.setText(principle.majorTwist);
         principleAbility.name.setText(principle.name);
+        principleAbility.text.setFontSize(abilityFontSize(principle.greenAbility.finalText || principle.greenAbility.text));
         principleAbility.text.setText(principle.greenAbility.text);
     }
     if (state.sources.archetype.selectedPrinciple) {
@@ -116,6 +120,7 @@ export async function fillForm(state: any) {
         minorTwist2Field.setText(principle.minorTwist);
         majorTwist2Field.setText(principle.majorTwist);
         principleAbility2.name.setText(principle.name);
+        principleAbility2.text.setFontSize(abilityFontSize(principle.greenAbility.finalText || principle.greenAbility.text));
         principleAbility2.text.setText(principle.greenAbility.text);
     }
     state.powerDice.forEach((sd, index) => {
@@ -138,16 +143,19 @@ export async function fillForm(state: any) {
 
     state.greenAbilities.forEach((a, index) => {
         greenAbilityFields[index].name.setText(a.name);
+        greenAbilityFields[index].text.setFontSize(abilityFontSize(a.finalText || a.text));
         greenAbilityFields[index].text.setText(a.finalText || a.text);
         greenAbilityFields[index].type.select(a.type.charAt(0).toUpperCase());
     })
     state.yellowAbilities.forEach((a, index) => {
         yellowAbilityFields[index].name.setText(a.name);
+        yellowAbilityFields[index].text.setFontSize(abilityFontSize(a.finalText || a.text));
         yellowAbilityFields[index].text.setText(a.finalText || a.text);
         yellowAbilityFields[index].type.select(a.type.charAt(0).toUpperCase());
     })
     state.redAbilities.forEach((a, index) => {
         redAbilityFields[index].name.setText(a.name);
+        redAbilityFields[index].text.setFontSize(abilityFontSize(a.finalText || a.text));
         redAbilityFields[index].text.setText(a.finalText || a.text);
         redAbilityFields[index].type.select(a.type.charAt(0).toUpperCase());
     })

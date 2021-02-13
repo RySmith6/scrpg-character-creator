@@ -33,7 +33,11 @@ import Fab from '@material-ui/core/Fab';
 
 import CasinoOutlinedIcon from '@material-ui/icons/CasinoOutlined';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import GenerateRandomCharacterState from '../components/random-state-generator';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
 
 export class Character extends Component {
     state: {
@@ -56,7 +60,6 @@ export class Character extends Component {
         redStatusDie: DiceOptions;
         outAbility: string;
         strict: boolean;
-        open: boolean;
     }
     open: boolean = true;
     constructor(data: any) {
@@ -72,7 +75,6 @@ export class Character extends Component {
         this.state.redAbilities = [];
         this.state.sources = new CharacterSources();
         this.state.strict = true;
-        this.state.open = true;
         this.state.backgroundRollResult = rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
         this.selectBackground = this.selectBackground.bind(this);
         this.selectPowerSource = this.selectPowerSource.bind(this);
@@ -82,9 +84,31 @@ export class Character extends Component {
         this.generateRandomCharacter = this.generateRandomCharacter.bind(this);
         this.generateHealthMax = this.generateHealthMax.bind(this);
         this.setCharacterName = this.setCharacterName.bind(this);
+        this.clearCharacterData = this.clearCharacterData.bind(this);
+        this.changeStrict = this.changeStrict.bind(this);
+    }
+    changeStrict(value) {
+        this.setState({ strict: value });
     }
     generateRandomCharacter() {
         let newState = GenerateRandomCharacterState(this.state, this.selectBackground, this.selectPowerSource, this.selectArchetype, this.selectPersonality, this.generateHealthMax);
+        this.setState(newState);
+    }
+    clearCharacterData() {
+        let newState = Object.assign({}, this.state);
+        newState.powerDice = [];
+        newState.qualityDice = [];
+        newState.greenAbilities = [];
+        newState.principleAbilities = [];
+        newState.yellowAbilities = [];
+        newState.redAbilities = [];
+        newState.greenStatusDie = DiceOptions.d4;
+        newState.yellowStatusDie = DiceOptions.d4;
+        newState.redStatusDie = DiceOptions.d4;
+        newState.outAbility = '';
+        newState.sources = new CharacterSources();
+        newState.backgroundRollResult = rollForNextStep([DiceOptions.d10, DiceOptions.d10]);
+        newState.healthMax = 0;
         this.setState(newState);
     }
     selectBackground(background: Background) {
@@ -198,7 +222,7 @@ export class Character extends Component {
     }
 
     componentDidMount() {
-        this.generateRandomCharacter();
+        //this.generateRandomCharacter();
     }
 
     getStepLabels() {
@@ -218,7 +242,7 @@ export class Character extends Component {
         if (this.state.sources.personality) {
             stepArray.push(...this.state.sources.personality.getSteps().map(s => s.label));
         }
-        stepArray.push(...['Select 2 Red Abilities', 'Retcon', 'Determine Health', 'Finishing Touches']);
+        stepArray.push(...['Select 2 Red Abilities', 'Retcon', 'Determine Health', 'Finishing Touches', 'Download Sheet']);
         return stepArray;
     }
 
@@ -275,7 +299,11 @@ export class Character extends Component {
                 e.stopPropagation(); this.selectHealthRoll(false)
             }}>Take 4 For Health</Button>
         </div>
-            , <Typography>'Finishing Touches'</Typography>]);
+            , <Typography>'Finishing Touches'</Typography>,
+        <Button variant="outlined" color="primary" onClick={(e) => {
+            e.stopPropagation(); fillForm(this.state);
+        }}>Download filled Character Sheet</Button>
+        ]);
         return stepArray;
     }
 
@@ -294,18 +322,52 @@ export class Character extends Component {
                         alignItems="center"
                         spacing={2}>
                         <Grid container item xs={12}>
-                            <TextField style={{ flex: 1 }} required id="standard-required" label="Character Name" defaultValue={this.state.name} onChange={(event) => this.setCharacterName(event.target.value)}></TextField>
+                            {/* <Switch
+                                checked={this.state.strict}
+                                onChange={(event) =>
+                                    this.changeStrict(event.target.checked)}
+                                name="strict"
+                                color="primary"
+                                size="small"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                            /> */}
+                            <Grid container item xs={11}>
+                                <TextField style={{ flex: 1 }} required id="standard-required" label="Character Name" defaultValue={this.state.name} onChange={(event) => this.setCharacterName(event.target.value)}></TextField>
 
-                            <Tooltip title="Randomize Character">
-                                <Fab aria-label="Roll" color={'secondary'} size={'small'} variant={'extended'} onClick={this.generateRandomCharacter}>
-                                    <CasinoOutlinedIcon /> Randomize
+                                <Tooltip title="Randomize Character">
+                                    <Fab aria-label="Roll" color={'secondary'} size={'small'} variant={'extended'} onClick={this.generateRandomCharacter}>
+                                        <CasinoOutlinedIcon /> Randomize
                                     </Fab>
-                            </Tooltip>
-                            <Tooltip title="Download Character Sheet">
-                                <Fab aria-label="download" color={'primary'} size={'small'} variant={'extended'} onClick={() => fillForm(this.state)}>
-                                    <CloudDownloadIcon />  Download
+                                </Tooltip>
+                                <Tooltip title="Download Character Sheet">
+                                    <Fab aria-label="download" color={'primary'} size={'small'} variant={'extended'} onClick={() => fillForm(this.state)}>
+                                        <CloudDownloadIcon />  Download
                                     </Fab>
-                            </Tooltip>
+                                </Tooltip>
+                                <Tooltip title="Clear Character data">
+                                    <Fab aria-label="clear" color={'default'} size={'small'} variant={'extended'} onClick={() => this.clearCharacterData}>
+                                        <DeleteForeverOutlinedIcon />  Clear Data
+                                    </Fab>
+                                </Tooltip>
+                            </Grid>
+                            <Grid xs={1}>
+                                <FormGroup>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={this.state.strict}
+                                                onChange={(event) =>
+                                                    this.changeStrict(event.target.checked)}
+                                                name="strict"
+                                                color="primary"
+                                                size="small"
+                                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                            />}
+                                        labelPlacement={'top'}
+                                        label="Guided"
+                                    />
+                                </FormGroup>
+                            </Grid>
                         </Grid>
                         <Grid container item xs={12} spacing={2} justify="center">
                             <Grid item><Typography> Background:{this.state.sources.background ? this.state.sources.background.name : 'No Background Selected'}</Typography>
@@ -320,13 +382,13 @@ export class Character extends Component {
                         <Grid container item xs={12} spacing={2}>
                             <Grid item xs={4}>
                                 <DisplayStatDice
-                                    statDice={this.state.qualityDice}
-                                    statType="Qualities" />
+                                    statDice={this.state.powerDice}
+                                    statType="Powers" />
                             </Grid>
                             <Grid item xs={4}>
                                 <DisplayStatDice
-                                    statDice={this.state.powerDice}
-                                    statType="Powers" />
+                                    statDice={this.state.qualityDice}
+                                    statType="Qualities" />
                             </Grid>
                             <Grid item xs={4}>
                                 <Accordion>
