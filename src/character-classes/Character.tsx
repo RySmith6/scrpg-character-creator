@@ -216,9 +216,12 @@ export class Character extends Component {
     }
     updateSourcesWithUsedStats(state) {
         let usedStats = state.powerDice.slice().concat(state.qualityDice.slice());
-        state.sources.background.setUsedStats(usedStats.filter(s => s.source !== SourceStep.Background).map(sd => sd.statName));
-        state.sources.powerSource.setUsedStats(usedStats.filter(s => s.source !== SourceStep.PowerSource).map(sd => sd.statName));
-        state.sources.archetype.setUsedStats(usedStats.filter(s => s.source !== SourceStep.Archetype).map(sd => sd.statName));
+        if (state.sources.background)
+            state.sources.background.setUsedStats(usedStats.filter(s => s.source !== SourceStep.Background).map(sd => sd.statName));
+        if (state.sources.powerSource)
+            state.sources.powerSource.setUsedStats(usedStats.filter(s => s.source !== SourceStep.PowerSource).map(sd => sd.statName));
+        if (state.sources.arechetype)
+            state.sources.archetype.setUsedStats(usedStats.filter(s => s.source !== SourceStep.Archetype).map(sd => sd.statName));
     }
 
     componentDidMount() {
@@ -345,7 +348,7 @@ export class Character extends Component {
                                     </Fab>
                                 </Tooltip>
                                 <Tooltip title="Clear Character data">
-                                    <Fab aria-label="clear" color={'default'} size={'small'} variant={'extended'} onClick={() => this.clearCharacterData}>
+                                    <Fab aria-label="clear" color={'default'} size={'small'} variant={'extended'} onClick={this.clearCharacterData}>
                                         <DeleteForeverOutlinedIcon />  Clear Data
                                     </Fab>
                                 </Tooltip>
